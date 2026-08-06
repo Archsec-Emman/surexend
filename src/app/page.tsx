@@ -242,37 +242,7 @@ export default function LandingPage() {
       {/* ── Full-screen loading animation ─────────────────────────────── */}
       <AnimatePresence>
         {showLoader && (
-          <motion.div
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0A0F1E]"
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `radial-gradient(ellipse 70% 70% at 50% 50%, rgba(${accentRgb}, 0.07), transparent)`,
-              }}
-            />
-            <div className="flex flex-col items-center gap-6">
-              <SurexendLoader size={200} />
-              <motion.div
-                className="flex gap-1.5"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                {[0, 1, 2].map(i => (
-                  <motion.div
-                    key={i}
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ backgroundColor: accentHex }}
-                    animate={{ scale: [1, 1.5, 1], opacity: [0.4, 1, 0.4] }}
-                    transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
-                  />
-                ))}
-              </motion.div>
-            </div>
-          </motion.div>
+          <SurexendLoader size={240} fullScreen />
         )}
       </AnimatePresence>
 

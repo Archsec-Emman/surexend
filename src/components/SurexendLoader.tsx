@@ -315,20 +315,20 @@ export default function SurexendLoader({
         height: size,
         borderRadius: '24%',
         background: themeColors.gradientBg,
-        boxShadow: `0 0 65px rgba(${themeColors.glowRgb}, 0.55), 0 0 130px rgba(${themeColors.glowRgb}, 0.25), inset 0 1.5px 0 rgba(255,255,255,0.25)`,
+        boxShadow: `0 20px 60px rgba(${themeColors.glowRgb}, 0.45), 0 0 100px rgba(${themeColors.glowRgb}, 0.25), inset 0 1.5px 0 rgba(255,255,255,0.3)`,
         overflow: 'hidden',
       }}
-      initial={{ opacity: 0, scale: 0.85 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      {/* Ambient Pulsing Glow */}
+      {/* Ambient Pulsing Inner Overlay */}
       <motion.div
         className="absolute inset-0 rounded-[24%] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.3) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.25) 100%)',
         }}
-        animate={{ opacity: [0.5, 1, 0.5] }}
+        animate={{ opacity: [0.5, 0.9, 0.5] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
       />
 
@@ -343,11 +343,11 @@ export default function SurexendLoader({
         <motion.div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(105deg, transparent 40%, ${themeColors.shimmer} 50%, transparent 60%)`,
+            background: `linear-gradient(105deg, transparent 35%, ${themeColors.shimmer} 50%, transparent 65%)`,
             backgroundSize: '200% 100%',
           }}
           animate={{ backgroundPosition: ['-200% center', '300% center'] }}
-          transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1, ease: 'linear' }}
+          transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1.2, ease: 'linear' }}
         />
       </motion.div>
 
@@ -357,9 +357,9 @@ export default function SurexendLoader({
       {/* Micro Icons along Orbit */}
       {phase === 3 && (
         <>
-          <MicroIcon icon="✓" delay={0.4} x={cx + 60} y={cy - 65} color={themeColors.glow} />
-          <MicroIcon icon="⚡" delay={1.1} x={cx - 75} y={cy - 60} color={themeColors.glow} />
-          <MicroIcon icon="✈" delay={1.8} x={cx + 25} y={cy - 95} color={themeColors.glow} />
+          <MicroIcon icon="✓" delay={0.4} x={cx + 50} y={cy - 55} color={themeColors.glow} />
+          <MicroIcon icon="⚡" delay={1.1} x={cx - 65} y={cy - 50} color={themeColors.glow} />
+          <MicroIcon icon="✈" delay={1.8} x={cx + 20} y={cy - 80} color={themeColors.glow} />
         </>
       )}
 
@@ -369,7 +369,7 @@ export default function SurexendLoader({
         style={{ marginTop: -size * 0.05 }}
         animate={
           phase === 5
-            ? { filter: [`drop-shadow(0 0 6px ${themeColors.glow})`, `drop-shadow(0 0 18px ${themeColors.glow})`, `drop-shadow(0 0 6px ${themeColors.glow})`] }
+            ? { filter: [`drop-shadow(0 0 6px ${themeColors.glow})`, `drop-shadow(0 0 20px ${themeColors.glow})`, `drop-shadow(0 0 6px ${themeColors.glow})`] }
             : {}
         }
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
@@ -465,8 +465,7 @@ export default function SurexendLoader({
   if (fullScreen) {
     return (
       <motion.div
-        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
-        style={{ backgroundColor: '#0A0F1E' }}
+        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0A0F1E]"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
@@ -474,13 +473,6 @@ export default function SurexendLoader({
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: `radial-gradient(ellipse 65% 65% at 50% 50%, rgba(${themeColors.glowRgb}, 0.12), transparent)`,
-          }}
-        />
-        {loaderCard}
-        <motion.p
-          className="mt-6 text-xs tracking-[0.35em] uppercase font-semibold"
-          style={{ color: `rgba(${themeColors.glowRgb}, 0.8)` }}
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0] }}
           transition={{ duration: 2, delay: 0.4, repeat: Infinity, ease: 'easeInOut' }}

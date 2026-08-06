@@ -70,16 +70,20 @@ const ThemeContext = createContext<ThemeContextValue>({
 })
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Read from env var for deployment, localStorage for dev preview
-  const defaultVariant = (process.env.NEXT_PUBLIC_BRAND_VARIANT as ThemeVariant) || 'gold'
-  const [variant, setVariantState] = useState<ThemeVariant>(defaultVariant)
+  const envVariant = process.env.NEXT_PUBLIC_BRAND_VARIANT as ThemeVariant | undefined
+  const [variant, setVariantState] = useState<ThemeVariant>(envVariant || 'gold')
 
   useEffect(() => {
-    const stored = localStorage.getItem('surexend_variant') as ThemeVariant
-    if (stored && (stored === 'gold' || stored === 'lemon')) {
-      setVariantState(stored)
+    // Only use localStorage if process.env.NEXT_PUBLIC_BRAND_VARIANT is not set
+    if (!envVariant) {
+      const stored = localStorage.getItem('surexend_variant') as ThemeVariant
+      if (stored && (stored === 'gold' || stored === 'lemon')) {
+        setVariantState(stored)
+      }
+    } else {
+      setVariantState(envVariant)
     }
-  }, [])
+  }, [envVariant])
 
   const setVariant = (v: ThemeVariant) => {
     setVariantState(v)
