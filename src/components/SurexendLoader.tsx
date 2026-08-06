@@ -1,37 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence, Variants } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 
 interface SurexendLoaderProps {
   variant?: 'gold' | 'lemon'
-  duration?: number // time in ms before fade-out (default 5000)
+  duration?: number
   onLoadingComplete?: () => void
-  isLoading?: boolean // set to false to trigger fade-out early
+  isLoading?: boolean
   size?: number
   fullScreen?: boolean
-}
-
-const themeColors = {
-  gold: {
-    bgFrom: '#E5B31B',
-    bgTo: '#C99512',
-    highlight: '#FFD700',
-    textGlow: '#FFD700',
-    accent: '#FFD700',
-    paperOutline: 'rgba(255,215,0,0.6)',
-    trail: '#FFD700',
-  },
-  lemon: {
-    bgFrom: '#B5E23D',
-    bgTo: '#9BCB2A',
-    highlight: '#D4FF4A',
-    textGlow: '#D4FF4A',
-    accent: '#D4FF4A',
-    paperOutline: 'rgba(212,255,74,0.6)',
-    trail: '#D4FF4A',
-  },
 }
 
 export default function SurexendLoader({
@@ -39,13 +18,34 @@ export default function SurexendLoader({
   duration = 5000,
   onLoadingComplete,
   isLoading = true,
-  size,
+  size = 360,
   fullScreen = true,
 }: SurexendLoaderProps) {
   const { variant: contextVariant } = useTheme()
-  const activeVariant = propVariant || contextVariant || 'gold'
+  const activeVariant = propVariant || contextVariant || 'lemon'
+  const isGold = activeVariant === 'gold'
   const [visible, setVisible] = useState(true)
-  const colors = themeColors[activeVariant]
+
+  // Color profiles
+  const theme = isGold
+    ? {
+        bgColor: '#D4A017',
+        bgGradient: 'radial-gradient(circle at center, #F0C430 0%, #D4A017 50%, #9E7408 100%)',
+        screenBg: 'radial-gradient(circle at center, #2A2005 0%, #0A0F1E 100%)',
+        glowColor: '#FFD700',
+        glowRgb: '212, 160, 23',
+        logoImg: '/logo-gold.png',
+        shimmer: 'rgba(255, 230, 100, 0.4)',
+      }
+    : {
+        bgColor: '#B5E23D',
+        bgGradient: 'radial-gradient(circle at center, #D0F060 0%, #B5E23D 50%, #7A9E18 100%)',
+        screenBg: 'radial-gradient(circle at center, #1B2908 0%, #0A0F1E 100%)',
+        glowColor: '#D4FF4A',
+        glowRgb: '181, 226, 61',
+        logoImg: '/logo-lemon.png',
+        shimmer: 'rgba(212, 255, 74, 0.4)',
+      }
 
   useEffect(() => {
     if (!isLoading) {
@@ -60,194 +60,110 @@ export default function SurexendLoader({
     return () => clearTimeout(timer)
   }, [isLoading, duration, onLoadingComplete])
 
-  // ---- Animation variants ----
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } },
-    exit: { opacity: 0, transition: { duration: 0.8, ease: 'easeIn' } },
-  }
-
-  const content = (
-    <div
-      className="relative aspect-square w-[300px] sm:w-[380px] md:w-[440px] rounded-3xl overflow-hidden select-none"
-      style={{
-        background: `linear-gradient(135deg, ${colors.bgFrom}, ${colors.bgTo})`,
-        boxShadow: `0 0 90px ${colors.highlight}66, inset 0 2px 0 rgba(255,255,255,0.4)`,
-      }}
+  const loaderElement = (
+    <motion.div
+      className="relative flex flex-col items-center justify-center select-none"
+      initial={{ scale: 0.85, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.9, opacity: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Background effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Pulsing glow */}
-        <div
-          className="absolute inset-0 rounded-3xl animate-pulse-glow"
-          style={{ background: `radial-gradient(circle at center, ${colors.highlight}55, transparent 70%)` }}
+      {/* Outer Theme Glow Halo */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          width: size * 1.3,
+          height: size * 1.3,
+          background: `radial-gradient(circle, rgba(${theme.glowRgb}, 0.5) 0%, transparent 70%)`,
+          filter: 'blur(30px)',
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.6, 0.9, 0.6],
+        }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Official High-Res Logo Image */}
+      <motion.div
+        className="relative z-10 rounded-3xl overflow-hidden shadow-2xl"
+        style={{
+          width: size,
+          height: size,
+          boxShadow: `0 20px 60px rgba(0,0,0,0.6), 0 0 80px rgba(${theme.glowRgb}, 0.4)`,
+        }}
+        animate={{
+          scale: [1, 1.02, 1],
+        }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <img
+          src={theme.logoImg}
+          alt="SureXend Logo"
+          className="w-full h-full object-cover"
         />
-        {/* Metallic shine sweep */}
-        <div className="absolute inset-0 rounded-3xl animate-shine-sweep" />
-        {/* Radial vignette */}
-        <div className="absolute inset-0 rounded-3xl bg-radial-vignette" />
-      </div>
 
-      {/* Logo container */}
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-6 z-10">
-        {/* Paper plane and X base */}
+        {/* Diagonal Shimmer Sweep Overlay */}
         <motion.div
-          className="relative w-2/3 max-w-[220px] aspect-square flex items-center justify-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{
-            scale: [0.8, 1, 1, 1, 1, 1, 0.95, 1],
-            opacity: [0, 1, 1, 1, 1, 1, 1, 1],
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(115deg, transparent 30%, ${theme.shimmer} 50%, transparent 70%)`,
+            backgroundSize: '200% 100%',
           }}
-          transition={{
-            duration: 5,
-            times: [0, 0.1, 0.16, 0.28, 0.7, 0.84, 0.9, 1],
-            ease: 'easeInOut',
-            repeat: Infinity,
-          }}
+          animate={{ backgroundPosition: ['-200% center', '300% center'] }}
+          transition={{ duration: 2.8, repeat: Infinity, repeatDelay: 1, ease: 'linear' }}
+        />
+      </motion.div>
+
+      {/* Animated Loading Dots */}
+      <motion.div
+        className="flex items-center gap-2 mt-8 z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+      >
+        <span
+          className="text-xs font-extrabold tracking-[0.3em] uppercase"
+          style={{ color: theme.glowColor, textShadow: `0 0 10px ${theme.glowColor}` }}
         >
-          {/* X base */}
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center"
-            animate={{
-              scale: [0.8, 1, 1, 1, 1.1, 1, 1, 1],
-              opacity: [0, 1, 1, 1, 1, 1, 1, 1],
-            }}
-            transition={{
-              duration: 5,
-              times: [0, 0.1, 0.16, 0.28, 0.7, 0.84, 0.9, 1],
-              ease: 'easeInOut',
-              repeat: Infinity,
-            }}
-          >
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <path
-                d="M22 22 L78 78 M78 22 L22 78"
-                stroke="black"
-                strokeWidth="10"
-                strokeLinecap="round"
-                fill="none"
-                className="drop-shadow-[0_0_10px_rgba(0,0,0,0.4)]"
-              />
-            </svg>
-          </motion.div>
-
-          {/* Paper plane (detaches and orbits) */}
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center"
-            animate={{
-              rotate: [0, 0, -15, 15, -10, 0, 0, 0],
-              x: [0, 0, 0, 45, -45, 0, 0, 0],
-              y: [0, 0, -20, -50, -20, 0, 0, 0],
-              scale: [0.7, 1, 1, 1.25, 1, 0.95, 1, 1],
-              opacity: [0, 1, 1, 1, 1, 1, 1, 1],
-            }}
-            transition={{
-              duration: 5,
-              times: [0, 0.1, 0.16, 0.4, 0.7, 0.84, 0.9, 1],
-              ease: 'easeInOut',
-              repeat: Infinity,
-            }}
-          >
-            <svg viewBox="0 0 100 100" className="w-4/5 h-4/5">
-              <path
-                d="M50 8 L92 88 L50 68 L8 88 L50 8 Z"
-                fill="black"
-                stroke={colors.paperOutline}
-                strokeWidth="2.5"
-                className="drop-shadow-[0_0_14px_rgba(0,0,0,0.6)]"
-              />
-            </svg>
-          </motion.div>
-
-          {/* Orbit Trail Micro-Icons (✓ Checkmark & ⚡ Lightning) */}
-          <motion.div
-            className="absolute -top-4 right-2 text-xl font-bold pointer-events-none select-none"
-            animate={{
-              opacity: [0, 0, 1, 0, 0],
-              scale: [0.5, 1, 1.3, 1, 0.5],
-            }}
-            transition={{ duration: 5, times: [0, 0.35, 0.45, 0.6, 1], repeat: Infinity }}
-            style={{ color: colors.highlight, filter: `drop-shadow(0 0 8px ${colors.highlight})` }}
-          >
-            ✓
-          </motion.div>
-
-          <motion.div
-            className="absolute -top-6 left-2 text-xl font-bold pointer-events-none select-none"
-            animate={{
-              opacity: [0, 0, 0, 1, 0],
-              scale: [0.5, 0.5, 1, 1.3, 0.5],
-            }}
-            transition={{ duration: 5, times: [0, 0.5, 0.6, 0.72, 1], repeat: Infinity }}
-            style={{ color: colors.highlight, filter: `drop-shadow(0 0 8px ${colors.highlight})` }}
-          >
-            ⚡
-          </motion.div>
-        </motion.div>
-
-        {/* SUREXEND text */}
-        <motion.div
-          className="mt-6 text-center"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{
-            opacity: [0, 1, 1, 1, 1, 1, 1, 1],
-            y: [10, 0, 0, 0, 0, 0, 0, 0],
-          }}
-          transition={{
-            duration: 5,
-            times: [0, 0.1, 0.16, 0.28, 0.7, 0.84, 0.9, 1],
-            ease: 'easeInOut',
-            repeat: Infinity,
-          }}
-        >
-          <h1
-            className="text-4xl sm:text-5xl font-extrabold tracking-wider"
-            style={{ fontFamily: "'Inter', sans-serif", color: 'black' }}
-          >
-            {'SUREXEND'.split('').map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  delay: index * 0.04,
-                  duration: 0.2,
-                  ease: 'easeOut',
-                }}
-                style={
-                  char === 'X'
-                    ? {
-                        color: colors.accent,
-                        filter: `drop-shadow(0 0 14px ${colors.accent})`,
-                      }
-                    : {}
-                }
-              >
-                {char}
-              </motion.span>
-            ))}
-          </h1>
-        </motion.div>
-      </div>
-    </div>
+          Loading
+        </span>
+        <div className="flex gap-1.5 ml-1">
+          {[0, 1, 2].map(i => (
+            <motion.div
+              key={i}
+              className="w-2 h-2 rounded-full"
+              style={{ backgroundColor: theme.glowColor }}
+              animate={{ scale: [1, 1.5, 1], opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 0.9, delay: i * 0.2, repeat: Infinity }}
+            />
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
   )
 
-  if (!fullScreen) {
-    return content
-  }
+  if (!fullScreen) return loaderElement
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          style={{ background: `radial-gradient(circle at center, ${colors.highlight}25, #0A0F1E 80%)` }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
+          style={{ background: theme.screenBg }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          {content}
+          {/* Ambient Background Aura */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `radial-gradient(ellipse 80% 80% at 50% 50%, rgba(${theme.glowRgb}, 0.25), transparent 75%)`,
+            }}
+          />
+          {loaderElement}
         </motion.div>
       )}
     </AnimatePresence>
