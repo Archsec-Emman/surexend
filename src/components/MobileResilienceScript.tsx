@@ -105,7 +105,8 @@ export default function MobileResilienceScript() {
       if (appShell) {
         appShell.style.overflow = 'auto'
         appShell.style.height = '100%'
-        appShell.style.webkitOverflowScrolling = 'touch'
+        const appShellStyle = appShell.style as CSSStyleDeclaration & { webkitOverflowScrolling: string }
+        appShellStyle.webkitOverflowScrolling = 'touch'
       }
     }
 

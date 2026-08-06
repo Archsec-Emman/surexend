@@ -81,6 +81,37 @@ body {
   background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.3) 100%);
 }
 
+/* ── SureXend loader — orbiting plane ──────────────────────────────────── */
+@keyframes loader-orbit {
+  0%   { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+.loader-plane {
+  animation: loader-orbit 7s linear infinite;
+  will-change: transform;
+}
+
+@keyframes loader-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-5px) rotate(-5deg); }
+}
+.loader-plane-bob {
+  animation: loader-bob 1.5s ease-in-out infinite;
+}
+
+@keyframes loader-dashflow {
+  to { stroke-dashoffset: -136; }
+}
+.loader-trail {
+  animation: loader-dashflow 2.8s linear infinite;
+}
+
+/* Graceful fallback: hide the orbiting plane where motion paths unsupported */
+@supports not (offset-path: path('M 0 0')) {
+  .loader-plane { display: none; }
+  .loader-trail { display: none; }
+}
+
 /* ── Focus styles ──────────────────────────────────────────────────────── */
 *:focus-visible {
   outline: 2px solid rgba(0, 212, 255, 0.5);
