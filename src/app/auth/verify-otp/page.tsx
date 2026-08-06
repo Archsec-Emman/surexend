@@ -1,13 +1,13 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { authAPI } from '@/lib/api'
 import toast from 'react-hot-toast'
 import { useTheme } from '@/context/ThemeContext'
 
-export default function VerifyOTPPage() {
+function VerifyOTPForm() {
   const { variant, colors } = useTheme()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -28,7 +28,6 @@ export default function VerifyOTPPage() {
 
   const handleChange = (index: number, value: string) => {
     if (value.length > 1) {
-      // Handle paste
       const pasted = value.replace(/\D/g, '').slice(0, 6)
       const newOtp = [...otp]
       for (let i = 0; i < pasted.length; i++) {
@@ -158,3 +157,16 @@ export default function VerifyOTPPage() {
     </div>
   )
 }
+
+export default function VerifyOTPPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center p-4 bg-[#0A0F1E] text-white">
+        <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+      </div>
+    }>
+      <VerifyOTPForm />
+    </Suspense>
+  )
+}
+
