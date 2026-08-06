@@ -20,6 +20,7 @@
     "zod": "^3.23.8",
     "@hookform/resolvers": "^3.9.0",
     "canvas-confetti": "^1.9.3",
+    "react-confetti": "^6.1.0",
     "jspdf": "^2.5.1",
     "html2canvas": "^1.4.1",
     "recharts": "^2.12.7",
