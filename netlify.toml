@@ -3,14 +3,8 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
   NPM_FLAGS = "--legacy-peer-deps"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-# Redirect all routes to Next.js handler (SPA fallback)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
