@@ -68,15 +68,14 @@ export default function LoginPage() {
         className={`w-full max-w-md p-8 glass-card-${variant} relative z-10`}
       >
         <div className="text-center mb-8">
-          <motion.div 
+          <motion.img 
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', bounce: 0.5 }}
-            className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4"
-            style={{ background: `linear-gradient(135deg, ${colors.primary}, ${colors.dark})` }}
-          >
-            <span className="text-2xl font-bold text-[#0D0D0D]">S</span>
-          </motion.div>
+            src={variant === 'gold' ? '/logo-gold.png' : '/logo-lemon.png'}
+            alt="SureXend"
+            className="w-16 h-16 mx-auto rounded-2xl object-contain drop-shadow-xl mb-4"
+          />
           <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
           <p className="text-[#94A3B8]">Sign in to access your SureXend wallet</p>
         </div>

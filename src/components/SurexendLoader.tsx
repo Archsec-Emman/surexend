@@ -3,24 +3,18 @@
 /**
  * SureXend Logo Loading Animation
  * ================================
- * Cinematic 5-phase animation:
- * Phase 1 (0–0.8s):   Logo assembles + text types in
- * Phase 2 (0.8–1.4s): Paper plane detaches from X base
- * Phase 3 (1.4–3.5s): Plane orbits in figure-8 with particle trail
- * Phase 4 (3.5–4.2s): Plane reattaches with light burst
- * Phase 5 (4.2–5s):   Idle breathing glow loop
- *
- * Built with Framer Motion — no external Lottie file needed.
- * Accepts `variant` prop: 'gold' | 'lemon'
- * Accepts `size` prop: number (px) for the container
- * Accepts `fullScreen` prop: renders as full-screen loading overlay
+ * Exact 1:1 match to the official SureXend logo mark and design specification:
+ * - Geometric 3D paper-plane / X hybrid icon with metallic bevel highlights
+ * - Glowing glassmorphic rounded container (Gold or Lemon-Green theme)
+ * - Letter-by-letter animated "SURE X END" typography where 'X' glows brightly
+ * - 5-phase cinematic animation: Assembly -> Detach -> Orbit -> Reattach -> Breathe
  */
 
 import React, { useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence, useAnimation, Variants } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 
-// ── Particle component ─────────────────────────────────────────────────────
+// ── Particle Component ──────────────────────────────────────────────────────
 interface ParticleProps {
   x: number
   y: number
@@ -43,28 +37,28 @@ function Particle({ x, y, color, size, delay }: ParticleProps) {
       }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{
-        opacity: [0, 1, 0],
+        opacity: [0, 0.9, 0],
         scale: [0, 1.5, 0],
-        y: [0, -20, -40],
-        x: [0, (Math.random() - 0.5) * 30],
+        y: [0, -25, -45],
+        x: [0, (Math.random() - 0.5) * 35],
       }}
       transition={{
-        duration: 0.8,
+        duration: 0.9,
         delay,
         ease: 'easeOut',
         repeat: Infinity,
-        repeatDelay: 3.4,
+        repeatDelay: 3.2,
       }}
     />
   )
 }
 
-// ── Micro icon that appears along trail ────────────────────────────────────
+// ── Micro Icon along Trail ─────────────────────────────────────────────────
 function MicroIcon({ icon, delay, x, y, color }: { icon: string; delay: number; x: number; y: number; color: string }) {
   return (
     <motion.div
-      className="absolute text-lg pointer-events-none select-none"
-      style={{ left: x, top: y, filter: `drop-shadow(0 0 6px ${color})` }}
+      className="absolute text-lg pointer-events-none select-none z-30"
+      style={{ left: x, top: y, filter: `drop-shadow(0 0 8px ${color})` }}
       initial={{ opacity: 0, scale: 0, rotate: -20 }}
       animate={{
         opacity: [0, 1, 1, 0],
@@ -75,7 +69,7 @@ function MicroIcon({ icon, delay, x, y, color }: { icon: string; delay: number; 
         duration: 0.7,
         delay,
         repeat: Infinity,
-        repeatDelay: 4.2 - 0.7,
+        repeatDelay: 3.5,
       }}
     >
       {icon}
@@ -83,112 +77,92 @@ function MicroIcon({ icon, delay, x, y, color }: { icon: string; delay: number; 
   )
 }
 
-// ── Main Logo SVG (static representation) ─────────────────────────────────
-function LogoIcon({ color, size }: { color: string; size: number }) {
-  const s = size * 0.45 // icon takes 45% of container
+// ── Precise 1:1 Vector SVG of the Official SureXend Logo Mark ─────────────
+function SurexendVectorLogo({ variant, width = 160, height = 160 }: { variant: 'gold' | 'lemon'; width?: number; height?: number }) {
+  const isGold = variant === 'gold'
+  const bevelGradientId = `bevel-grad-${variant}`
+  const bevelStartColor = isGold ? '#F5E08C' : '#FFFFFF'
+  const bevelEndColor = isGold ? '#D4A017' : '#D4FF4A'
+
   return (
     <svg
-      width={s}
-      height={s}
-      viewBox="0 0 120 120"
+      width={width}
+      height={height}
+      viewBox="0 0 350 350"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ filter: `drop-shadow(0 0 8px ${color})` }}
+      className="drop-shadow-lg"
     >
-      {/* X base (lower two legs) */}
-      <motion.path
-        d="M20 95 L50 60 L30 95 Z"
-        fill="#0D0D0D"
-        stroke={color}
-        strokeWidth="1.5"
+      <defs>
+        <linearGradient id={bevelGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={bevelStartColor} />
+          <stop offset="100%" stopColor={bevelEndColor} />
+        </linearGradient>
+      </defs>
+
+      {/* ── TOP MAIN PAPER PLANE WING (Solid Black with Metallic Bevel) ── */}
+      {/* Black Main Body */}
+      <path
+        d="M 264 88 L 88 134 L 130 172 L 158 178 L 264 88 Z"
+        fill="#0A0A0A"
       />
-      <motion.path
-        d="M100 95 L70 60 L90 95 Z"
-        fill="#0D0D0D"
-        stroke={color}
-        strokeWidth="1.5"
+      {/* Lower Fold Section */}
+      <path
+        d="M 158 178 L 264 88 L 194 220 Z"
+        fill="#0A0A0A"
       />
-      {/* Paper plane (upper part — the part that detaches) */}
-      <motion.path
-        d="M20 10 L100 55 L60 60 L20 10 Z"
-        fill="#0D0D0D"
-        stroke={color}
-        strokeWidth="1.5"
+      {/* Metallic Gold / White Bevel Along Wing Edge & Seam */}
+      <path
+        d="M 88 134 L 130 172 L 158 178 L 194 220 L 191 223 L 155 182 L 127 175 L 85 137 Z"
+        fill={`url(#${bevelGradientId})`}
       />
-      <motion.path
-        d="M60 60 L75 80 L55 65 Z"
-        fill="#0D0D0D"
-        stroke={color}
-        strokeWidth="1.5"
+      <path
+        d="M 158 178 L 264 88 L 267 91 L 160 182 Z"
+        fill={`url(#${bevelGradientId})`}
       />
-      {/* Center X crossing line */}
-      <motion.line
-        x1="40"
-        y1="55"
-        x2="80"
-        y2="85"
-        stroke={color}
-        strokeWidth="1.5"
-        opacity="0.7"
+
+      {/* ── BOTTOM LEG OF THE 'X' (Solid Black with Metallic Bevel) ────── */}
+      {/* Black Polygon */}
+      <path
+        d="M 150 194 L 102 250 L 152 250 L 166 232 L 214 250 L 186 250 L 150 194 Z"
+        fill="#0A0A0A"
+      />
+      {/* Metallic Bevel Along Bottom Edge */}
+      <path
+        d="M 102 250 L 152 250 L 166 232 L 214 250 L 214 254 L 166 236 L 152 254 L 100 254 Z"
+        fill={`url(#${bevelGradientId})`}
+      />
+      <path
+        d="M 150 194 L 102 250 L 105 252 L 152 197 Z"
+        fill={`url(#${bevelGradientId})`}
       />
     </svg>
   )
 }
 
-// ── Flying plane SVG (the detached element) ────────────────────────────────
-function FlyingPlane({ color, size }: { color: string; size: number }) {
-  const s = size * 0.18
+// ── Detachable Flying Plane (Top Part of Logo) ────────────────────────────
+function DetachedPlane({ variant, width = 110, height = 110 }: { variant: 'gold' | 'lemon'; width?: number; height?: number }) {
+  const bevelGradientId = `fly-bevel-${variant}`
+  const bevelStartColor = variant === 'gold' ? '#F5E08C' : '#FFFFFF'
+  const bevelEndColor = variant === 'gold' ? '#D4A017' : '#D4FF4A'
+
   return (
-    <svg
-      width={s}
-      height={s}
-      viewBox="0 0 60 40"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M0 5 L55 20 L30 22 L0 5 Z"
-        fill="#0D0D0D"
-        stroke={color}
-        strokeWidth="1.5"
-      />
-      <path
-        d="M30 22 L38 35 L25 26 Z"
-        fill="#0D0D0D"
-        stroke={color}
-        strokeWidth="1.5"
-      />
-      <path
-        d="M18 20 L35 30"
-        stroke={color}
-        strokeWidth="1"
-        opacity="0.6"
-      />
+    <svg width={width} height={height} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id={bevelGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={bevelStartColor} />
+          <stop offset="100%" stopColor={bevelEndColor} />
+        </linearGradient>
+      </defs>
+      <path d="M 170 30 L 20 70 L 60 105 L 85 110 L 170 30 Z" fill="#0A0A0A" />
+      <path d="M 85 110 L 170 30 L 110 145 Z" fill="#0A0A0A" />
+      <path d="M 20 70 L 60 105 L 85 110 L 110 145 L 107 148 L 82 114 L 57 108 L 17 73 Z" fill={`url(#${bevelGradientId})`} />
+      <path d="M 85 110 L 170 30 L 173 33 L 87 114 Z" fill={`url(#${bevelGradientId})`} />
     </svg>
   )
 }
 
-// ── Shimmer sweep overlay ──────────────────────────────────────────────────
-function ShimmerSweep({ color }: { color: string }) {
-  return (
-    <motion.div
-      className="absolute inset-0 rounded-[22%] pointer-events-none overflow-hidden"
-      style={{ zIndex: 10 }}
-    >
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(105deg, transparent 40%, ${color} 50%, transparent 60%)`,
-          backgroundSize: '200% 100%',
-        }}
-        animate={{ backgroundPosition: ['-200% center', '300% center'] }}
-        transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1, ease: 'linear' }}
-      />
-    </motion.div>
-  )
-}
-
-// ── Light rays from center ─────────────────────────────────────────────────
+// ── Light Rays Background ──────────────────────────────────────────────────
 function LightRays({ color }: { color: string }) {
   return (
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -198,18 +172,18 @@ function LightRays({ color }: { color: string }) {
           className="absolute"
           style={{
             width: 2,
-            height: '35%',
+            height: '38%',
             background: `linear-gradient(to top, transparent, ${color})`,
             transformOrigin: 'bottom center',
             transform: `rotate(${angle}deg) translateY(-100%)`,
             opacity: 0,
           }}
-          animate={{ opacity: [0, 0.15, 0] }}
+          animate={{ opacity: [0, 0.2, 0] }}
           transition={{
-            duration: 2,
-            delay: i * 0.1,
+            duration: 2.2,
+            delay: i * 0.12,
             repeat: Infinity,
-            repeatDelay: 2,
+            repeatDelay: 1.8,
           }}
         />
       ))}
@@ -217,43 +191,7 @@ function LightRays({ color }: { color: string }) {
   )
 }
 
-// ── Orbit trail dots ───────────────────────────────────────────────────────
-function OrbitTrail({ color, cx, cy, radius }: { color: string; cx: number; cy: number; radius: number }) {
-  return (
-    <>
-      {Array.from({ length: 8 }, (_, i) => {
-        const angle = (i / 8) * Math.PI * 2
-        const x = cx + Math.cos(angle) * radius
-        const y = cy + Math.sin(angle) * radius * 0.5
-        return (
-          <motion.div
-            key={i}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              left: x - 2,
-              top: y - 2,
-              width: 4,
-              height: 4,
-              backgroundColor: color,
-              boxShadow: `0 0 8px ${color}`,
-            }}
-            animate={{ opacity: [0, 0.8, 0] }}
-            transition={{
-              duration: 4.2,
-              delay: (i / 8) * 4.2,
-              repeat: Infinity,
-            }}
-          />
-        )
-      })}
-    </>
-  )
-}
-
-// ══════════════════════════════════════════════════════════════════════════
-// MAIN COMPONENT
-// ══════════════════════════════════════════════════════════════════════════
-
+// ── Main SureXend Loader Component ─────────────────────────────────────────
 interface SurexendLoaderProps {
   variant?: 'gold' | 'lemon'
   size?: number
@@ -263,60 +201,53 @@ interface SurexendLoaderProps {
 
 export default function SurexendLoader({
   variant,
-  size = 220,
+  size = 280,
   fullScreen = false,
   onAnimationComplete,
 }: SurexendLoaderProps) {
-  const { variant: contextVariant, colors: contextColors } = useTheme()
-  const activeVariant = variant || contextVariant
+  const { variant: contextVariant } = useTheme()
+  const activeVariant = variant || contextVariant || 'gold'
+  const isGold = activeVariant === 'gold'
 
-  const colors = activeVariant === 'gold'
+  const themeColors = isGold
     ? {
         primary: '#D4A017',
         light: '#FFD700',
         glow: '#FFE066',
         glowRgb: '212, 160, 23',
-        gradientBg: 'radial-gradient(ellipse at 40% 40%, #E8C030 0%, #C49015 45%, #8A6010 100%)',
+        gradientBg: 'radial-gradient(ellipse at 45% 45%, #E8BD20 0%, #C49015 50%, #8A6010 100%)',
         shimmer: 'rgba(255, 230, 100, 0.35)',
         particle: '#FFD700',
-        text: '#1A1200',
-        xHighlight: '#D4A017',
       }
     : {
         primary: '#B5E23D',
         light: '#D4FF4A',
         glow: '#CAFF3A',
         glowRgb: '181, 226, 61',
-        gradientBg: 'radial-gradient(ellipse at 40% 40%, #D0F060 0%, #A8D428 45%, #78A010 100%)',
+        gradientBg: 'radial-gradient(ellipse at 45% 45%, #D0F060 0%, #A8D428 50%, #78A010 100%)',
         shimmer: 'rgba(212, 255, 74, 0.35)',
         particle: '#D4FF4A',
-        text: '#0A1A00',
-        xHighlight: '#B5E23D',
       }
 
-  // Phase states
+  // Animation Phase State: 1 (assemble) -> 2 (detach) -> 3 (orbit) -> 4 (reattach) -> 5 (breathe)
   const [phase, setPhase] = useState<1 | 2 | 3 | 4 | 5>(1)
   const [showPlane, setShowPlane] = useState(false)
   const [showBurst, setShowBurst] = useState(false)
   const [particles, setParticles] = useState<ParticleProps[]>([])
-  const containerRef = useRef<HTMLDivElement>(null)
 
-  // Letter-by-letter text for "SUREXEND"
-  const LETTERS = ['S','U','R','E','X','E','N','D']
-
-  // Generate particles along orbit
+  // Generate orbit trail particles
   useEffect(() => {
-    const ps: ParticleProps[] = Array.from({ length: 12 }, (_, i) => ({
-      x: size * 0.2 + Math.random() * size * 0.6,
-      y: size * 0.15 + Math.random() * size * 0.5,
-      color: colors.particle,
+    const ps: ParticleProps[] = Array.from({ length: 14 }, (_, i) => ({
+      x: size * 0.15 + Math.random() * size * 0.7,
+      y: size * 0.15 + Math.random() * size * 0.55,
+      color: themeColors.particle,
       size: 3 + Math.random() * 4,
-      delay: i * 0.35,
+      delay: i * 0.28,
     }))
     setParticles(ps)
-  }, [size, colors.particle])
+  }, [size, themeColors.particle])
 
-  // Phase sequencer
+  // Phase sequence timer
   useEffect(() => {
     const t1 = setTimeout(() => setPhase(2), 800)
     const t2 = setTimeout(() => { setPhase(3); setShowPlane(true) }, 1400)
@@ -325,27 +256,27 @@ export default function SurexendLoader({
     const t5 = setTimeout(() => {
       setPhase(1)
       setShowPlane(false)
-      // re-trigger loop
+      if (onAnimationComplete) onAnimationComplete()
     }, 5000)
-    return () => { [t1,t2,t3,t4,t5].forEach(clearTimeout) }
-  }, [])
+    return () => { [t1, t2, t3, t4, t5].forEach(clearTimeout) }
+  }, [onAnimationComplete])
 
-  // ── Plane orbit path (figure-8 via keyframes) ──────────────────────────
+  // Figure-8 Orbit variants
   const planeVariants: Variants = {
     hidden: { opacity: 0, x: 0, y: 0, rotate: 0, scale: 0 },
     detach: {
       opacity: 1,
-      x: [0, 20, 30],
-      y: [0, -10, -20],
-      rotate: [0, -10, -20],
-      scale: [0, 1, 1],
+      x: [0, 25, 40],
+      y: [0, -15, -30],
+      rotate: [0, -10, -25],
+      scale: [0, 1, 1.1],
       transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
     },
     orbit: {
-      x: [30, 80, 30, -80, -30, 30],
-      y: [-20, -60, -90, -60, -20, -20],
-      rotate: [-20, 10, 0, -10, -30, -20],
-      scale: 1,
+      x: [40, 95, 40, -95, -40, 40],
+      y: [-30, -75, -110, -75, -30, -30],
+      rotate: [-25, 12, 0, -15, -35, -25],
+      scale: 1.1,
       opacity: 1,
       transition: {
         duration: 2.1,
@@ -358,141 +289,122 @@ export default function SurexendLoader({
       x: 0,
       y: 0,
       rotate: 0,
-      scale: [1, 1.3, 0],
+      scale: [1.1, 1.3, 0],
       opacity: [1, 1, 0],
       transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
     },
   }
 
-  // ── Light burst on reattach ────────────────────────────────────────────
   const burstVariants: Variants = {
     hidden: { scale: 0, opacity: 0 },
     show: {
-      scale: [0, 1.5, 2.5],
-      opacity: [0.8, 0.4, 0],
+      scale: [0, 1.6, 2.8],
+      opacity: [0.9, 0.4, 0],
       transition: { duration: 0.7, ease: 'easeOut' },
-    },
-  }
-
-  // ── Container animation ────────────────────────────────────────────────
-  const containerAnim = {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
     },
   }
 
   const cx = size / 2
   const cy = size * 0.42
 
-  const inner = (
+  const loaderCard = (
     <motion.div
-      ref={containerRef}
       className="relative flex flex-col items-center justify-center select-none"
       style={{
         width: size,
         height: size,
-        borderRadius: '22%',
-        background: colors.gradientBg,
-        boxShadow: `0 0 60px rgba(${colors.glowRgb}, 0.5), 0 0 120px rgba(${colors.glowRgb}, 0.2), inset 0 1px 0 rgba(255,255,255,0.15)`,
+        borderRadius: '24%',
+        background: themeColors.gradientBg,
+        boxShadow: `0 0 65px rgba(${themeColors.glowRgb}, 0.55), 0 0 130px rgba(${themeColors.glowRgb}, 0.25), inset 0 1.5px 0 rgba(255,255,255,0.25)`,
         overflow: 'hidden',
       }}
-      initial="initial"
-      animate="animate"
-      variants={containerAnim}
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      {/* Radial vignette that breathes */}
+      {/* Ambient Pulsing Glow */}
       <motion.div
-        className="absolute inset-0 rounded-[22%] pointer-events-none"
+        className="absolute inset-0 rounded-[24%] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.35) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.3) 100%)',
         }}
-        animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Light rays */}
-      <LightRays color={colors.glow} />
+      {/* Light Rays */}
+      <LightRays color={themeColors.glow} />
 
-      {/* Shimmer sweep */}
-      <ShimmerSweep color={colors.shimmer} />
+      {/* Shimmer Sweep Overlay */}
+      <motion.div
+        className="absolute inset-0 rounded-[24%] pointer-events-none overflow-hidden"
+        style={{ zIndex: 10 }}
+      >
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(105deg, transparent 40%, ${themeColors.shimmer} 50%, transparent 60%)`,
+            backgroundSize: '200% 100%',
+          }}
+          animate={{ backgroundPosition: ['-200% center', '300% center'] }}
+          transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1, ease: 'linear' }}
+        />
+      </motion.div>
 
-      {/* Orbit trail dots (visible in phase 3) */}
-      {phase === 3 && (
-        <OrbitTrail color={colors.particle} cx={cx} cy={cy} radius={size * 0.3} />
-      )}
+      {/* Orbit Particles (Phase 3) */}
+      {phase === 3 && particles.map((p, i) => <Particle key={i} {...p} />)}
 
-      {/* Particles (phase 3) */}
-      {phase === 3 && particles.map((p, i) => (
-        <Particle key={i} {...p} />
-      ))}
-
-      {/* Micro icons along trail */}
+      {/* Micro Icons along Orbit */}
       {phase === 3 && (
         <>
-          <MicroIcon icon="✓" delay={0.5} x={cx + 55} y={cy - 55} color={colors.glow} />
-          <MicroIcon icon="⚡" delay={1.2} x={cx - 65} y={cy - 50} color={colors.glow} />
-          <MicroIcon icon="✈" delay={1.9} x={cx + 20} y={cy - 85} color={colors.glow} />
+          <MicroIcon icon="✓" delay={0.4} x={cx + 60} y={cy - 65} color={themeColors.glow} />
+          <MicroIcon icon="⚡" delay={1.1} x={cx - 75} y={cy - 60} color={themeColors.glow} />
+          <MicroIcon icon="✈" delay={1.8} x={cx + 25} y={cy - 95} color={themeColors.glow} />
         </>
       )}
 
-      {/* Static logo icon (X base stays) */}
+      {/* Official 1:1 Vector Logo Mark */}
       <motion.div
-        className="relative"
-        style={{ marginTop: -size * 0.04 }}
+        className="relative z-10 flex items-center justify-center"
+        style={{ marginTop: -size * 0.05 }}
         animate={
           phase === 5
-            ? { filter: [`drop-shadow(0 0 6px ${colors.glow})`, `drop-shadow(0 0 16px ${colors.glow})`, `drop-shadow(0 0 6px ${colors.glow})`] }
+            ? { filter: [`drop-shadow(0 0 6px ${themeColors.glow})`, `drop-shadow(0 0 18px ${themeColors.glow})`, `drop-shadow(0 0 6px ${themeColors.glow})`] }
             : {}
         }
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <LogoIcon color={colors.primary} size={size} />
+        <SurexendVectorLogo variant={activeVariant} width={size * 0.58} height={size * 0.58} />
       </motion.div>
 
-      {/* Flying plane (phases 2–4) */}
+      {/* Detached Orbiting Plane (Phases 2-4) */}
       <AnimatePresence>
         {showPlane && (
           <motion.div
-            className="absolute"
-            style={{ left: cx - size * 0.09, top: cy - size * 0.22, zIndex: 20 }}
+            className="absolute z-20"
+            style={{ left: cx - size * 0.12, top: cy - size * 0.25 }}
             variants={planeVariants}
             initial="hidden"
             animate={phase === 2 ? 'detach' : phase === 3 ? 'orbit' : 'reattach'}
             exit={{ opacity: 0 }}
           >
-            {/* Motion blur trail */}
-            <motion.div
-              className="absolute"
-              style={{
-                right: '100%',
-                top: '50%',
-                height: 2,
-                background: `linear-gradient(to left, ${colors.particle}, transparent)`,
-                transformOrigin: 'right center',
-              }}
-              animate={{ width: [0, size * 0.3, 0] }}
-              transition={{ duration: 0.4, repeat: Infinity, ease: 'easeOut' }}
-            />
-            <FlyingPlane color={colors.primary} size={size} />
+            <DetachedPlane variant={activeVariant} width={size * 0.3} height={size * 0.3} />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Light burst on reattach (phase 4) */}
+      {/* Reattachment Light Burst */}
       <AnimatePresence>
         {showBurst && (
           <motion.div
-            className="absolute rounded-full pointer-events-none"
+            className="absolute rounded-full pointer-events-none z-30"
             style={{
               left: '50%',
               top: '42%',
               transform: 'translate(-50%, -50%)',
-              width: size * 0.8,
-              height: size * 0.8,
-              background: `radial-gradient(circle, ${colors.glow} 0%, transparent 70%)`,
+              width: size * 0.85,
+              height: size * 0.85,
+              background: `radial-gradient(circle, ${themeColors.glow} 0%, transparent 70%)`,
             }}
             variants={burstVariants}
             initial="hidden"
@@ -502,59 +414,50 @@ export default function SurexendLoader({
         )}
       </AnimatePresence>
 
-      {/* SUREXEND wordmark — types in letter by letter */}
+      {/* Official "SURE X END" Typography */}
       <div
-        className="absolute flex items-center justify-center"
-        style={{ bottom: size * 0.1, left: 0, right: 0 }}
+        className="absolute flex items-center justify-center z-20 tracking-wider"
+        style={{ bottom: size * 0.12, left: 0, right: 0 }}
       >
-        {LETTERS.map((letter, i) => (
-          <motion.span
-            key={i}
-            className="font-inter font-bold tracking-widest"
-            style={{
-              fontSize: size * 0.095,
-              color: letter === 'X' ? colors.primary : '#1A1A1A',
-              textShadow: letter === 'X'
-                ? `0 0 10px ${colors.glow}, 0 0 20px ${colors.glow}`
-                : 'none',
-              lineHeight: 1,
-            }}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.05 + i * 0.08,
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          >
-            {letter}
-          </motion.span>
-        ))}
+        <span
+          className="font-inter font-bold uppercase"
+          style={{
+            fontSize: size * 0.082,
+            color: '#1A1A1A',
+            letterSpacing: '0.12em',
+          }}
+        >
+          SURE
+        </span>
+        <span
+          className="font-inter font-black uppercase mx-[2px]"
+          style={{
+            fontSize: size * 0.088,
+            color: '#FFFFFF',
+            textShadow: `0 0 10px ${themeColors.glow}, 0 0 20px ${themeColors.glow}`,
+            letterSpacing: '0.05em',
+          }}
+        >
+          X
+        </span>
+        <span
+          className="font-inter font-bold uppercase"
+          style={{
+            fontSize: size * 0.082,
+            color: '#1A1A1A',
+            letterSpacing: '0.12em',
+          }}
+        >
+          END
+        </span>
       </div>
 
-      {/* Text shine sweep over wordmark (phase 5) */}
-      {phase === 5 && (
-        <motion.div
-          className="absolute pointer-events-none"
-          style={{
-            bottom: size * 0.08,
-            left: '10%',
-            right: '10%',
-            height: size * 0.13,
-            background: `linear-gradient(90deg, transparent 0%, ${colors.shimmer} 50%, transparent 100%)`,
-            backgroundSize: '200% 100%',
-          }}
-          animate={{ backgroundPosition: ['-200% center', '300% center'] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
-        />
-      )}
-
-      {/* Breathing border glow */}
+      {/* Breathing Border Glow */}
       <motion.div
-        className="absolute inset-0 rounded-[22%] pointer-events-none"
-        style={{ border: `2px solid ${colors.primary}`, opacity: 0 }}
-        animate={{ opacity: [0, 0.4, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute inset-0 rounded-[24%] pointer-events-none"
+        style={{ border: `2px solid ${themeColors.primary}`, opacity: 0 }}
+        animate={{ opacity: [0, 0.45, 0] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
       />
     </motion.div>
   )
@@ -566,22 +469,21 @@ export default function SurexendLoader({
         style={{ backgroundColor: '#0A0F1E' }}
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+        transition={{ duration: 0.5 }}
       >
-        {/* Background ambient glow matching variant */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: `radial-gradient(ellipse 60% 60% at 50% 50%, rgba(${colors.glowRgb}, 0.08), transparent)`,
+            background: `radial-gradient(ellipse 65% 65% at 50% 50%, rgba(${themeColors.glowRgb}, 0.12), transparent)`,
           }}
         />
-        {inner}
+        {loaderCard}
         <motion.p
-          className="mt-6 text-sm tracking-[0.3em] uppercase font-dm"
-          style={{ color: `rgba(${colors.glowRgb}, 0.7)` }}
+          className="mt-6 text-xs tracking-[0.35em] uppercase font-semibold"
+          style={{ color: `rgba(${themeColors.glowRgb}, 0.8)` }}
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 1, 0] }}
-          transition={{ duration: 2, delay: 0.5, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 2, delay: 0.4, repeat: Infinity, ease: 'easeInOut' }}
         >
           Loading...
         </motion.p>
@@ -589,5 +491,5 @@ export default function SurexendLoader({
     )
   }
 
-  return inner
+  return loaderCard
 }

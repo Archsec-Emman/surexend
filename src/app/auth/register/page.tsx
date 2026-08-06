@@ -97,6 +97,14 @@ export default function RegisterPage() {
         className={`w-full max-w-xl p-8 glass-card-${variant} relative z-10`}
       >
         <div className="text-center mb-8">
+          <motion.img 
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', bounce: 0.5 }}
+            src={variant === 'gold' ? '/logo-gold.png' : '/logo-lemon.png'}
+            alt="SureXend"
+            className="w-16 h-16 mx-auto rounded-2xl object-contain drop-shadow-xl mb-4"
+          />
           <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
           <p className="text-[#94A3B8]">Join SureXend and manage your crypto seamlessly</p>
         </div>

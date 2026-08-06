@@ -56,10 +56,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Desktop Sidebar */}
         <aside className={`hidden md:flex flex-col w-64 border-r border-[rgba(255,255,255,0.06)] bg-[#0F1629] p-4`}>
           <div className="flex items-center gap-3 mb-10 px-4 pt-4">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${colors.primary}, ${colors.dark})` }}>
-              <span className="font-bold text-[#0D0D0D]">S</span>
-            </div>
-            <span className="text-xl font-bold text-white tracking-wide">SureXend</span>
+            <img
+              src={variant === 'gold' ? '/logo-gold.png' : '/logo-lemon.png'}
+              alt="SureXend"
+              className="w-9 h-9 object-contain rounded-xl drop-shadow-md"
+            />
+            <span className="font-bold text-lg text-white tracking-wider">
+              SURE<span style={{ color: colors.primary }}>X</span>END
+            </span>
           </div>
 
           <nav className="flex-1 space-y-2">
