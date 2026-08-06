@@ -1,0 +1,321 @@
+'use client'
+
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useTheme } from '@/context/ThemeContext'
+import { useQuery } from '@tanstack/react-query'
+import { userAPI } from '@/lib/api'
+import { useRouter } from 'next/navigation'
+import {
+  User, Shield, Bell, CreditCard, HelpCircle, LogOut,
+  ChevronRight, Camera, Edit3, Copy, CheckCircle,
+  Fingerprint, Eye, EyeOff, Smartphone, Lock,
+  Globe, Moon, Star, Award, Crown, ExternalLink,
+  AlertTriangle
+} from 'lucide-react'
+import { getInitials } from '@/lib/utils'
+import toast from 'react-hot-toast'
+
+// ── Menu section ───────────────────────────────────────────────────────────
+function MenuSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="mb-4">
+      <p className="text-[#64748B] text-xs uppercase tracking-wider px-1 mb-2">{title}</p>
+      <div className="bg-[#0F1629] rounded-2xl border border-white/5 overflow-hidden">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function MenuItem({
+  icon: Icon, label, value, onClick, danger = false, accentHex, accentRgb, badge
+}: {
+  icon: any; label: string; value?: string; onClick?: () => void;
+  danger?: boolean; accentHex: string; accentRgb: string; badge?: string
+}) {
+  return (
+    <motion.button
+      className="w-full flex items-center gap-4 px-5 py-4 border-b border-white/5 last:border-0 hover:bg-white/3 transition-colors text-left"
+      whileTap={{ scale: 0.98 }}
+      onClick={onClick}
+    >
+      <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+        style={danger
+          ? { background: 'rgba(239,68,68,0.1)' }
+          : { background: `rgba(${accentRgb}, 0.1)` }
+        }>
+        <Icon size={17} style={{ color: danger ? '#EF4444' : accentHex }} />
+      </div>
+      <div className="flex-1">
+        <p className={`text-sm font-medium ${danger ? 'text-[#EF4444]' : 'text-white'}`}>{label}</p>
+        {value && <p className="text-[#64748B] text-xs mt-0.5">{value}</p>}
+      </div>
+      {badge && (
+        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#10B981]/15 text-[#10B981]">
+          {badge}
+        </span>
+      )}
+      <ChevronRight size={15} className={danger ? 'text-[#EF4444]/40' : 'text-[#64748B]'} />
+    </motion.button>
+  )
+}
+
+// ── KYC tier badge ─────────────────────────────────────────────────────────
+function KYCBadge({ tier }: { tier: number }) {
+  const config = [
+    { label: 'Unverified', color: '#EF4444', bg: 'rgba(239,68,68,0.1)' },
+    { label: 'Tier 1', color: '#F59E0B', bg: 'rgba(245,158,11,0.1)' },
+    { label: 'Tier 2', color: '#6366F1', bg: 'rgba(99,102,241,0.1)' },
+    { label: 'Tier 3 ✓', color: '#10B981', bg: 'rgba(16,185,129,0.1)' },
+  ]
+  const cfg = config[tier] || config[0]
+  return (
+    <span className="px-2.5 py-1 rounded-full text-xs font-semibold"
+      style={{ background: cfg.bg, color: cfg.color }}>
+      {cfg.label}
+    </span>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// PROFILE PAGE
+// ══════════════════════════════════════════════════════════════════════════
+
+export default function ProfilePage() {
+  const { variant, colors } = useTheme()
+  const router = useRouter()
+  const isGold = variant === 'gold'
+  const accentRgb = isGold ? '212, 160, 23' : '181, 226, 61'
+  const accentHex = isGold ? '#D4A017' : '#B5E23D'
+
+  const [copiedId, setCopiedId] = useState(false)
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
+
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ['profile'],
+    queryFn: userAPI.getProfile,
+  })
+
+  const { data: kycData } = useQuery({
+    queryKey: ['kyc'],
+    queryFn: userAPI.getKYCStatus,
+  })
+
+  const copyUserId = () => {
+    if (profile?.id) {
+      navigator.clipboard.writeText(profile.id)
+      setCopiedId(true)
+      toast.success('User ID copied')
+      setTimeout(() => setCopiedId(false), 2000)
+    }
+  }
+
+  const handleLogout = () => {
+    localStorage.clear()
+    router.push('/auth/login')
+  }
+
+  const kycTier = kycData?.tier || 0
+  const fullName = `${profile?.firstName || ''} ${profile?.lastName || ''}`.trim()
+  const initials = getInitials(fullName || profile?.email || 'U')
+
+  return (
+    <div className="min-h-screen bg-[#0A0F1E] pb-32">
+      {/* Profile header */}
+      <motion.div
+        className="px-4 pt-8 pb-6 max-w-2xl mx-auto"
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+      >
+        {isLoading ? (
+          <div className="flex items-center gap-4">
+            <div className="skeleton w-20 h-20 rounded-full" />
+            <div className="space-y-2">
+              <div className="skeleton h-5 w-32 rounded" />
+              <div className="skeleton h-3 w-48 rounded" />
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <div
+                className="w-20 h-20 rounded-2xl flex items-center justify-center font-inter font-black text-2xl"
+                style={{ background: colors.gradientBg, color: '#0D0D0D' }}
+              >
+                {initials}
+              </div>
+              <motion.button
+                className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#1E2940] border border-white/10 rounded-lg flex items-center justify-center"
+                whileTap={{ scale: 0.9 }}
+              >
+                <Camera size={11} style={{ color: accentHex }} />
+              </motion.button>
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-white font-inter font-bold text-xl">
+                  {fullName || 'Loading...'}
+                </h2>
+                <KYCBadge tier={kycTier} />
+              </div>
+              <p className="text-[#64748B] text-sm">{profile?.email}</p>
+              <button
+                className="flex items-center gap-1.5 mt-2"
+                onClick={copyUserId}
+              >
+                <span className="text-[#64748B] text-xs font-mono">
+                  ID: {profile?.id?.slice(0, 8)}...
+                </span>
+                {copiedId
+                  ? <CheckCircle size={12} className="text-[#10B981]" />
+                  : <Copy size={12} className="text-[#64748B]" />
+                }
+              </button>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* KYC completion banner (if not fully verified) */}
+      {kycTier < 3 && (
+        <motion.div
+          className="max-w-2xl mx-auto px-4 mb-4"
+          initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+        >
+          <div
+            className="rounded-2xl p-4 flex items-center gap-4 border"
+            style={{ background: 'rgba(245,158,11,0.06)', borderColor: 'rgba(245,158,11,0.2)' }}
+          >
+            <div className="w-10 h-10 rounded-xl bg-[#F59E0B]/15 flex items-center justify-center flex-shrink-0">
+              <Shield size={18} className="text-[#F59E0B]" />
+            </div>
+            <div className="flex-1">
+              <p className="text-white text-sm font-semibold">Complete Identity Verification</p>
+              <p className="text-[#94A3B8] text-xs mt-0.5">
+                You are on Tier {kycTier}. Upgrade to unlock higher limits.
+              </p>
+            </div>
+            <button
+              className="px-3 py-2 rounded-xl text-xs font-bold text-[#F59E0B]"
+              style={{ background: 'rgba(245,158,11,0.12)' }}
+              onClick={() => router.push('/app/kyc')}
+            >
+              Verify
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      <div className="max-w-2xl mx-auto px-4">
+
+        <MenuSection title="Account">
+          <MenuItem icon={Edit3} label="Edit Profile" value="Update your name & photo"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => router.push('/app/profile/edit')} />
+          <MenuItem icon={Shield} label="Identity Verification (KYC)"
+            value={`Currently Tier ${kycTier}`}
+            badge={kycTier >= 3 ? 'Verified' : `Tier ${kycTier}`}
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => router.push('/app/kyc')} />
+          <MenuItem icon={CreditCard} label="Bank Accounts" value="Manage withdrawal banks"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => router.push('/app/bank-accounts')} />
+        </MenuSection>
+
+        <MenuSection title="Security">
+          <MenuItem icon={Lock} label="Change Transaction PIN"
+            value="Update your 6-digit PIN"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => router.push('/app/settings/change-pin')} />
+          <MenuItem icon={Fingerprint} label="Two-Factor Authentication (2FA)"
+            value={profile?.twoFactorEnabled ? 'Enabled via Authenticator' : 'Not enabled — recommended'}
+            badge={profile?.twoFactorEnabled ? 'ON' : undefined}
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => router.push('/app/settings/2fa')} />
+          <MenuItem icon={Smartphone} label="Active Sessions"
+            value="View & manage device logins"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => toast('Coming soon')} />
+        </MenuSection>
+
+        <MenuSection title="Preferences">
+          <MenuItem icon={Bell} label="Notifications" value="Push, email, SMS"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => router.push('/app/settings/notifications')} />
+          <MenuItem icon={Globe} label="Currency Display" value="USD"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => toast('Coming soon')} />
+        </MenuSection>
+
+        <MenuSection title="About SureXend">
+          <MenuItem icon={HelpCircle} label="Help & Support"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => router.push('/app/support')} />
+          <MenuItem icon={Star} label="Rate the App"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => toast('Thank you! ⭐')} />
+          <MenuItem icon={ExternalLink} label="Privacy Policy"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => window.open('https://surexend.com/privacy', '_blank')} />
+          <MenuItem icon={ExternalLink} label="Terms of Service"
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => window.open('https://surexend.com/terms', '_blank')} />
+        </MenuSection>
+
+        {/* App version */}
+        <p className="text-center text-[#334155] text-xs mb-6">
+          SureXend v1.0.0 · Built with ❤️ for Africa
+        </p>
+
+        <MenuSection title="">
+          <MenuItem icon={LogOut} label="Sign Out" danger
+            accentHex={accentHex} accentRgb={accentRgb}
+            onClick={() => setShowLogoutConfirm(true)} />
+        </MenuSection>
+
+        <div className="h-8" />
+      </div>
+
+      {/* Logout confirmation */}
+      <AnimatePresence>
+        {showLogoutConfirm && (
+          <>
+            <motion.div className="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setShowLogoutConfirm(false)} />
+            <motion.div
+              className="fixed inset-x-4 bottom-8 z-50 sm:inset-auto sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[380px]"
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 50, scale: 0.95 }}
+            >
+              <div className="bg-[#0F1629] rounded-3xl p-6 border border-white/8">
+                <div className="w-14 h-14 rounded-2xl bg-[#EF4444]/10 flex items-center justify-center mx-auto mb-4">
+                  <AlertTriangle size={26} className="text-[#EF4444]" />
+                </div>
+                <h3 className="text-white font-bold text-lg text-center mb-2">Sign Out?</h3>
+                <p className="text-[#94A3B8] text-sm text-center mb-6">
+                  You will need to log back in to access your wallet and transactions.
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    className="py-3.5 rounded-xl text-sm font-medium text-[#94A3B8] border border-white/08"
+                    onClick={() => setShowLogoutConfirm(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="py-3.5 rounded-xl text-sm font-bold text-white bg-[#EF4444]/80"
+                    onClick={handleLogout}
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
