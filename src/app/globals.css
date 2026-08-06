@@ -60,6 +60,27 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* ── Loader Animations ─────────────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes shine-sweep {
+  0% { background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.4) 50%, transparent 80%); transform: translateX(-100%) skewX(-20deg); }
+  100% { background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.4) 50%, transparent 80%); transform: translateX(100%) skewX(-20deg); }
+}
+.animate-shine-sweep {
+  animation: shine-sweep 4s ease-in-out infinite;
+}
+
+.bg-radial-vignette {
+  background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.3) 100%);
+}
+
 /* ── Focus styles ──────────────────────────────────────────────────────── */
 *:focus-visible {
   outline: 2px solid rgba(0, 212, 255, 0.5);
