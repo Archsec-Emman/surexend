@@ -1,8 +1,6 @@
 # SureXend — How to Run This Project
 
-> Complete setup guide for your development team
 
----
 
 ## Prerequisites
 
@@ -144,10 +142,3 @@ npm run start
 4. Click Deploy — done!
 
 ---
-
-## What the Backend Developer Needs to Do
-
-See the `BACKEND_GUIDE.md` file for full NestJS backend setup instructions.
-
-The frontend connects to the backend via `/src/lib/api.ts`.
-Every API endpoint is already defined — your backend just needs to implement them.
