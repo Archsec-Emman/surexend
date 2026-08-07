@@ -84,15 +84,11 @@ export default function ForgotPasswordPage() {
         ) : (
           <>
             <div className="text-center mb-8">
-              <div className="relative w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <div 
-                  className="absolute inset-0 rounded-full blur-xl opacity-40 pointer-events-none"
-                  style={{ background: colors.glow }}
-                />
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <img 
                   src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
                   alt="SureXend"
-                  className={`w-14 h-14 object-contain relative z-10 ${variant === 'gold' ? 'gold-logo-glow' : 'lemon-logo-glow'}`}
+                  className={`w-14 h-14 object-contain ${variant === 'gold' ? 'gold-logo-glow' : 'lemon-logo-glow'}`}
                 />
               </div>
               <h1 className="text-3xl font-bold text-white mb-2">Forgot Password</h1>

@@ -71,13 +71,13 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-4 md:p-8 max-w-5xl mx-auto space-y-6 pb-32">
+    <div className="p-3.5 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
       {/* Live rates ticker */}
-      <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-lg py-2 flex items-center">
+      <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-lg py-1.5 flex items-center">
         <motion.div 
           animate={{ x: [0, -1000] }} 
           transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
-          className="flex whitespace-nowrap gap-8 px-4 text-xs font-medium"
+          className="flex whitespace-nowrap gap-6 sm:gap-8 px-3 text-[11px] sm:text-xs font-medium"
         >
           <span className="text-white">USDT/NGN: <span style={{ color: colors.primary }}>₦1,500</span></span>
           <span className="text-white">BTC/USD: <span style={{ color: colors.primary }}>$65,420</span></span>
@@ -92,24 +92,24 @@ export default function DashboardPage() {
 
       {/* Balance Card */}
       <motion.div 
-        className={`glass-card-${variant} p-6 relative overflow-hidden`}
+        className={`glass-card-${variant} p-4 sm:p-6 relative overflow-hidden`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/5 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
         
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex justify-between items-start mb-5 sm:mb-6">
           <div>
-            <p className="text-[#94A3B8] text-sm font-medium mb-1 flex items-center gap-2">
+            <p className="text-[#94A3B8] text-xs sm:text-sm font-medium mb-1 flex items-center gap-2">
               Total Balance
               <button onClick={() => setShowBalance(!showBalance)} className="text-[#64748B] hover:text-white transition-colors">
-                {showBalance ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showBalance ? <EyeOff className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               </button>
             </p>
-            <div className="text-4xl font-bold text-white tracking-tight">
+            <div className="text-2.5xl sm:text-4xl font-bold text-white tracking-tight">
               {isLoadingBalance ? (
-                <div className="h-10 w-48 skeleton rounded-lg"></div>
+                <div className="h-8 sm:h-10 w-36 sm:w-48 skeleton rounded-lg"></div>
               ) : showBalance ? (
                 currency === 'USDT' 
                   ? <CountUp value={balanceData?.usdt || 0} prefix="$" /> 
@@ -122,7 +122,7 @@ export default function DashboardPage() {
           
           <button 
             onClick={() => setCurrency(currency === 'USDT' ? 'NGN' : 'USDT')}
-            className="px-3 py-1.5 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-xs font-medium hover:bg-[rgba(255,255,255,0.1)] transition-colors flex items-center gap-1.5"
+            className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-[11px] sm:text-xs font-medium hover:bg-[rgba(255,255,255,0.1)] transition-colors flex items-center gap-1.5"
           >
             <Repeat className="w-3 h-3" />
             {currency === 'USDT' ? 'Show NGN' : 'Show USDT'}
@@ -130,18 +130,18 @@ export default function DashboardPage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-2 sm:gap-3">
           {[
             { icon: Send, label: 'Send', href: '/app/send', color: '#10B981' },
             { icon: Download, label: 'Receive', href: '/app/receive', color: '#3B82F6' },
             { icon: Repeat, label: 'Convert', href: '/app/convert', color: '#F59E0B' },
             { icon: Smartphone, label: 'Bills', href: '/app/bills', color: '#8B5CF6' }
           ].map((action, idx) => (
-            <Link key={idx} href={action.href} className="group flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] flex items-center justify-center group-hover:scale-105 transition-all group-hover:bg-[rgba(255,255,255,0.08)]">
-                <action.icon className="w-5 h-5" style={{ color: action.color }} />
+            <Link key={idx} href={action.href} className="group flex flex-col items-center gap-1.5 sm:gap-2">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] flex items-center justify-center group-hover:scale-105 transition-all group-hover:bg-[rgba(255,255,255,0.08)]">
+                <action.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: action.color }} />
               </div>
-              <span className="text-xs font-medium text-[#94A3B8] group-hover:text-white transition-colors">{action.label}</span>
+              <span className="text-[11px] sm:text-xs font-medium text-[#94A3B8] group-hover:text-white transition-colors">{action.label}</span>
             </Link>
           ))}
         </div>
