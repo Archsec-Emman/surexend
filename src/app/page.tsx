@@ -437,7 +437,7 @@ export default function LandingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 3.3, duration: 0.5 }}
             >
-              <Link href="/auth/register">
+              <Link href="/auth/login">
                 <button
                   className={`${btnClass} flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base w-full xs:w-auto`}
                 >

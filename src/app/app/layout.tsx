@@ -26,12 +26,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true)
-    let token = localStorage.getItem('surexend_access_token')
+    const token = localStorage.getItem('surexend_access_token')
     if (!token) {
-      // Auto-issue demo session for seamless previewing in Demo Mode
-      token = 'demo_access_token_auto_' + Date.now()
-      localStorage.setItem('surexend_access_token', token)
-      document.cookie = `surexend_access_token=${token}; path=/; max-age=86400;`
+      router.push('/auth/login')
     }
   }, [router])
 
