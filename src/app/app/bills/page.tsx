@@ -15,30 +15,16 @@ import {
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
-// ── Bill categories (matching Images 2 & 3) ────────────────────────────────
+// ── Essential Crypto Fintech Bill Categories ────────────────────────────────
 const CATEGORIES = [
-  { type: 'airtime', label: 'Airtime', icon: Smartphone, badge: null },
+  { type: 'airtime', label: 'Airtime', icon: Smartphone, badge: 'Popular' },
   { type: 'data', label: 'Data', icon: Wifi, badge: null },
-  { type: 'betting', label: 'Betting', icon: Trophy, badge: null },
-  { type: 'tv', label: 'TV', icon: Tv, badge: null },
-  { type: 'safebox', label: 'SafeBox', icon: Lock, badge: null },
-  { type: 'loan', label: 'Loan', icon: Coins, badge: 'Hot' },
-  { type: 'gamecenter', label: 'GameCenter', icon: Gamepad2, badge: 'New' },
-  { type: 'more', label: 'More', icon: Grid, badge: null },
   { type: 'electricity', label: 'Electricity', icon: Zap, badge: null },
-  { type: 'solar', label: 'Solar', icon: Sun, badge: null },
-  { type: 'school', label: 'School & Exam', icon: GraduationCap, badge: null },
+  { type: 'tv', label: 'Cable TV', icon: Tv, badge: null },
   { type: 'internet', label: 'Internet Services', icon: Globe, badge: null },
-  { type: 'financial', label: 'Financial Services', icon: CreditCard, badge: null },
+  { type: 'school', label: 'School & Exam', icon: GraduationCap, badge: null },
   { type: 'invoice', label: 'Invoice Payments', icon: FileText, badge: null },
-  { type: 'donation', label: 'Aid & Grants', icon: Heart, badge: null },
-  { type: 'government', label: 'Government', icon: Landmark, badge: null },
-  { type: 'shopping', label: 'Shopping', icon: ShoppingBag, badge: null },
-  { type: 'online_shop', label: 'Online Shopping', icon: ShoppingCart, badge: null },
-  { type: 'merchant', label: 'Merchant Payments', icon: Store, badge: null },
-  { type: 'transport', label: 'Transport & Toll', icon: Fuel, badge: null },
-  { type: 'travel', label: 'Travel & Hotel', icon: Plane, badge: null },
-  { type: 'others', label: 'Others', icon: MoreHorizontal, badge: null },
+  { type: 'giftcards', label: 'Gift Cards', icon: CreditCard, badge: 'New' },
 ]
 
 // ── Amount presets for airtime ─────────────────────────────────────────────
@@ -247,13 +233,15 @@ export default function BillsPage() {
                 </div>
               </div>
 
-              {/* Recent bills */}
-              <div className="bg-[#121827] rounded-3xl p-5 border border-white/5">
-                <p className="text-[#64748B] text-xs uppercase tracking-wider mb-4">Quick Recharge</p>
-                <div className="text-center py-6">
-                  <p className="text-4xl mb-2">⚡</p>
-                  <p className="text-[#64748B] text-sm">Your recent bills will appear here for one-tap repeat</p>
+              {/* Quick Recharge Empty State */}
+              <div className="bg-[#121827] rounded-3xl p-6 border border-white/5 text-center">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3">
+                  <Zap className="w-6 h-6" />
                 </div>
+                <h4 className="font-semibold text-white text-sm mb-1">Quick Recharge & Pay</h4>
+                <p className="text-[#64748B] text-xs max-w-xs mx-auto leading-relaxed">
+                  Your frequent bill payments and mobile top-ups will automatically appear here for one-tap repeat.
+                </p>
               </div>
             </motion.div>
           )}

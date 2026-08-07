@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import { useTheme } from '@/context/ThemeContext'
-import { Home, Send, Repeat, FileText, User, Bell } from 'lucide-react'
+import { Home, Send, Repeat, FileText, User, Bell, ArrowUpRight, Smartphone, Building2 } from 'lucide-react'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,7 +43,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { label: 'Home', icon: Home, href: '/app/dashboard' },
     { label: 'Send', icon: Send, href: '/app/send' },
     { label: 'Convert', icon: Repeat, href: '/app/convert' },
-    { label: 'Receive', icon: FileText, href: '/app/receive' }, // Usually bills or receive, using receive here
+    { label: 'Withdraw', icon: Building2, href: '/app/withdraw' },
+    { label: 'Receive', icon: FileText, href: '/app/receive' },
     { label: 'Profile', icon: User, href: '/app/profile' },
   ]
 
@@ -52,9 +53,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster position="top-center" toastOptions={{ style: { background: '#0F1629', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' } }} />
-      <div className="flex min-h-screen bg-[var(--app-bg)] relative overflow-x-hidden">
-        {/* Desktop Sidebar */}
-        <aside className="hidden md:flex flex-col w-64 h-screen sticky top-0 border-r border-[rgba(255,255,255,0.06)] bg-[#0F1629] p-4 flex-shrink-0 z-20">
+      <div className="flex h-screen overflow-hidden bg-[var(--app-bg)] relative">
+        {/* Desktop Sidebar (Spans 100% height to the bottom) */}
+        <aside className="hidden md:flex flex-col w-64 h-full border-r border-[rgba(255,255,255,0.06)] bg-[#0F1629] p-4 flex-shrink-0 z-20 overflow-y-auto">
           <div className="flex items-center gap-3 mb-10 px-4 pt-4">
             <img
               src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
@@ -102,8 +103,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 flex flex-col relative min-h-screen w-full max-w-full overflow-x-hidden bg-[var(--app-bg)]">
+        {/* Main Content (Scrolls internally so sidebar remains 100% full height) */}
+        <main className="flex-1 flex flex-col h-screen overflow-y-auto w-full max-w-full relative bg-[var(--app-bg)]">
           {/* Mobile/Desktop Header */}
           <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b border-white/5 bg-[#0A0F1E] sticky top-0 z-30">
             <div className="md:hidden flex items-center gap-2.5">

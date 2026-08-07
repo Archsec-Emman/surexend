@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity } from 'lucide-react'
+import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity, Building2 } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { walletAPI, transactionAPI } from '@/lib/api'
 import { useTheme } from '@/context/ThemeContext'
@@ -175,18 +175,19 @@ export default function DashboardPage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-4 gap-2 sm:gap-3 pt-2">
+        <div className="grid grid-cols-5 gap-1.5 sm:gap-3 pt-2">
           {[
             { icon: Send, label: 'Send', href: '/app/send', color: '#10B981' },
             { icon: Download, label: 'Receive', href: '/app/receive', color: '#3B82F6' },
             { icon: Repeat, label: 'Convert', href: '/app/convert', color: '#F59E0B' },
+            { icon: Building2, label: 'Withdraw', href: '/app/withdraw', color: '#EC4899' },
             { icon: Smartphone, label: 'Bills', href: '/app/bills', color: '#8B5CF6' }
           ].map((action, idx) => (
             <Link key={idx} href={action.href} className="group flex flex-col items-center gap-1.5 sm:gap-2">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] flex items-center justify-center group-hover:scale-105 transition-all group-hover:bg-[rgba(255,255,255,0.08)]">
                 <action.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: action.color }} />
               </div>
-              <span className="text-[11px] sm:text-xs font-medium text-[#94A3B8] group-hover:text-white transition-colors">{action.label}</span>
+              <span className="text-[10px] sm:text-xs font-medium text-[#94A3B8] group-hover:text-white transition-colors text-center">{action.label}</span>
             </Link>
           ))}
         </div>
