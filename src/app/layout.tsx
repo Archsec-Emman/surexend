@@ -54,8 +54,8 @@ export const viewport: Viewport = {
   themeColor: BRAND_VARIANT === 'lemon' ? '#B5E23D' : '#D4A017',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

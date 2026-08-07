@@ -71,7 +71,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-3.5 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
+    <div className="w-full max-w-full overflow-x-hidden p-3.5 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
       {/* Live rates ticker */}
       <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-lg py-1.5 flex items-center">
         <motion.div 
@@ -210,7 +210,7 @@ export default function DashboardPage() {
           <Link href="/app/history" className="text-sm text-[#94A3B8] hover:text-white transition-colors">See All</Link>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {isLoadingTx ? (
             Array(3).fill(0).map((_, i) => (
               <div key={i} className="flex items-center gap-3">
@@ -221,29 +221,37 @@ export default function DashboardPage() {
                 </div>
               </div>
             ))
-          ) : txData?.transactions?.length > 0 ? (
-            txData.transactions.map((tx: any) => (
-              <div key={tx.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-[rgba(255,255,255,0.02)] transition-colors -mx-3">
+          ) : (() => {
+            const list = Array.isArray(txData) ? txData : (txData?.transactions || [])
+            if (!list || list.length === 0) {
+              return (
+                <div className="text-center py-6 text-[#64748B]">
+                  <p className="text-sm">No recent transactions</p>
+                </div>
+              )
+            }
+            return list.map((tx: any) => (
+              <div key={tx.id} className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                     tx.type === 'send' ? 'bg-[rgba(239,68,68,0.1)] text-[#EF4444]' :
                     tx.type === 'receive' ? 'bg-[rgba(16,185,129,0.1)] text-[#10B981]' :
                     'bg-[rgba(245,158,11,0.1)] text-[#F59E0B]'
                   }`}>
-                    {tx.type === 'send' ? <ArrowUpRight className="w-5 h-5" /> :
-                     tx.type === 'receive' ? <ArrowDownLeft className="w-5 h-5" /> :
-                     <Repeat className="w-5 h-5" />}
+                    {tx.type === 'send' ? <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" /> :
+                     tx.type === 'receive' ? <ArrowDownLeft className="w-4 h-4 sm:w-5 sm:h-5" /> :
+                     <Repeat className="w-4 h-4 sm:w-5 sm:h-5" />}
                   </div>
                   <div>
-                    <p className="font-medium text-white capitalize">{tx.type}</p>
-                    <p className="text-xs text-[#64748B] flex items-center gap-1">
+                    <p className="font-medium text-white text-xs sm:text-sm capitalize">{tx.type.replace('_', ' ')}</p>
+                    <p className="text-[11px] text-[#64748B] flex items-center gap-1 mt-0.5">
                       <Clock className="w-3 h-3" />
                       {new Date(tx.date).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className={`font-semibold ${tx.type === 'send' ? 'text-white' : 'text-[#10B981]'}`}>
+                  <p className={`font-semibold text-xs sm:text-sm ${tx.type === 'send' ? 'text-white' : 'text-[#10B981]'}`}>
                     {tx.type === 'send' ? '-' : '+'}{tx.amount} {tx.currency}
                   </p>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full uppercase font-medium badge-${tx.status}`}>
@@ -252,11 +260,7 @@ export default function DashboardPage() {
                 </div>
               </div>
             ))
-          ) : (
-            <div className="text-center py-8 text-[#64748B]">
-              <p>No recent transactions</p>
-            </div>
-          )}
+          })()}
         </div>
       </motion.div>
     </div>
