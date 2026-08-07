@@ -30,13 +30,9 @@ const nextConfig: NextConfig = {
     },
   ],
 
-  // Ignore TypeScript and ESLint errors during Netlify build
-  // (so missing backend doesn't break the frontend preview)
+  // Ignore TypeScript errors during build so preview builds always succeed
   typescript: {
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
 }
 
