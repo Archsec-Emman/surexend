@@ -242,7 +242,7 @@ export default function LandingPage() {
       {/* ── Full-screen loading animation ─────────────────────────────── */}
       <AnimatePresence>
         {showLoader && (
-          <SurexendLoader size={240} fullScreen />
+          <SurexendLoader fullScreen />
         )}
       </AnimatePresence>
 
