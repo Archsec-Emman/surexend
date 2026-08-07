@@ -8,16 +8,37 @@ import { billsAPI } from '@/lib/api'
 import { useQuery } from '@tanstack/react-query'
 import {
   Smartphone, Wifi, Zap, Tv, ChevronRight, ArrowLeft,
-  Search, CheckCircle, AlertCircle, Loader2
+  Search, CheckCircle, AlertCircle, Loader2, Trophy,
+  Lock, Coins, Gamepad2, Sun, GraduationCap, Globe,
+  CreditCard, FileText, Heart, Landmark, ShoppingBag,
+  ShoppingCart, Store, Fuel, Plane, Grid, MoreHorizontal
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
-// ── Bill categories ────────────────────────────────────────────────────────
+// ── Bill categories (matching Images 2 & 3) ────────────────────────────────
 const CATEGORIES = [
-  { type: 'airtime', label: 'Airtime', icon: Smartphone, emoji: '📱', desc: 'Top up any network' },
-  { type: 'data', label: 'Data', icon: Wifi, emoji: '📶', desc: 'Internet data bundles' },
-  { type: 'electricity', label: 'Electricity', icon: Zap, emoji: '⚡', desc: 'Prepaid & postpaid' },
-  { type: 'tv', label: 'Cable TV', icon: Tv, emoji: '📺', desc: 'DSTV, GOtv, StarTimes' },
+  { type: 'airtime', label: 'Airtime', icon: Smartphone, badge: null },
+  { type: 'data', label: 'Data', icon: Wifi, badge: null },
+  { type: 'betting', label: 'Betting', icon: Trophy, badge: null },
+  { type: 'tv', label: 'TV', icon: Tv, badge: null },
+  { type: 'safebox', label: 'SafeBox', icon: Lock, badge: null },
+  { type: 'loan', label: 'Loan', icon: Coins, badge: 'Hot' },
+  { type: 'gamecenter', label: 'GameCenter', icon: Gamepad2, badge: 'New' },
+  { type: 'more', label: 'More', icon: Grid, badge: null },
+  { type: 'electricity', label: 'Electricity', icon: Zap, badge: null },
+  { type: 'solar', label: 'Solar', icon: Sun, badge: null },
+  { type: 'school', label: 'School & Exam', icon: GraduationCap, badge: null },
+  { type: 'internet', label: 'Internet Services', icon: Globe, badge: null },
+  { type: 'financial', label: 'Financial Services', icon: CreditCard, badge: null },
+  { type: 'invoice', label: 'Invoice Payments', icon: FileText, badge: null },
+  { type: 'donation', label: 'Aid & Grants', icon: Heart, badge: null },
+  { type: 'government', label: 'Government', icon: Landmark, badge: null },
+  { type: 'shopping', label: 'Shopping', icon: ShoppingBag, badge: null },
+  { type: 'online_shop', label: 'Online Shopping', icon: ShoppingCart, badge: null },
+  { type: 'merchant', label: 'Merchant Payments', icon: Store, badge: null },
+  { type: 'transport', label: 'Transport & Toll', icon: Fuel, badge: null },
+  { type: 'travel', label: 'Travel & Hotel', icon: Plane, badge: null },
+  { type: 'others', label: 'Others', icon: MoreHorizontal, badge: null },
 ]
 
 // ── Amount presets for airtime ─────────────────────────────────────────────
@@ -179,7 +200,7 @@ export default function BillsPage() {
           <div>
             <h1 className="text-white font-inter font-bold text-xl">Pay Bills</h1>
             <p className="text-[#64748B] text-xs">
-              {step === 'categories' && 'Airtime · Data · Electricity · TV'}
+              {step === 'categories' && 'Airtime · Data · Electricity · TV · Utilities'}
               {step === 'providers' && `Select ${selectedCategory} provider`}
               {step === 'form' && selectedProvider?.name}
               {step === 'pin' && 'Enter your PIN'}
@@ -190,24 +211,52 @@ export default function BillsPage() {
 
       <div className="max-w-2xl mx-auto px-4 pt-4">
         <AnimatePresence mode="wait">
-
-          {/* STEP 1: Categories */}
+          {/* STEP 1: Categories (4-Column Grid matching Images 2 & 3) */}
           {step === 'categories' && (
-            <motion.div key="cats" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                {CATEGORIES.map((cat, i) => (
-                  <motion.button key={cat.type}
-                    className="bg-[#0F1629] rounded-2xl p-5 text-left border border-white/5 hover:border-opacity-30 transition-all"
-                    style={{ '--accent': accentHex } as any}
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.08 }}
-                    whileHover={{ borderColor: `rgba(${accentRgb}, 0.25)`, y: -2 }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => { setSelectedCategory(cat.type); setStep('providers') }}
-                  >
-                    <div className="text-3xl mb-3">{cat.emoji}</div>
-                    <p className="text-white font-semibold text-sm">{cat.label}</p>
-                    <p className="text-[#64748B] text-xs mt-1">{cat.desc}</p>
+            <motion.div key="cats" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <div className="bg-[#121827] rounded-3xl p-5 border border-white/5 mb-6">
+                <p className="text-[#64748B] text-xs font-bold uppercase tracking-widest mb-5 px-1">Utilities & Services</p>
+                <div className="grid grid-cols-4 gap-y-6 gap-x-2 sm:gap-x-4">
+                  {CATEGORIES.map((cat, i) => {
+                    const Icon = cat.icon
+                    return (
+                      <motion.button key={cat.type}
+                        className="flex flex-col items-center gap-2 group text-center"
+                        initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.02 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => { setSelectedCategory(cat.type); setStep('providers') }}
+                      >
+                        <div className="relative">
+                          <div className="w-12 h-12 rounded-full bg-[#1E2738] border border-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors shadow-inner">
+                            <Icon size={20} className="text-white" />
+                          </div>
+                          {cat.badge && (
+                            <span className="absolute -top-1.5 -right-2 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-[#FF4D6D] text-white shadow-md animate-pulse">
+                              {cat.badge}
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-[11px] font-medium text-[#94A3B8] group-hover:text-white transition-colors line-clamp-1 max-w-[72px]">
+                          {cat.label}
+                        </span>
+                      </motion.button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Recent bills */}
+              <div className="bg-[#121827] rounded-3xl p-5 border border-white/5">
+                <p className="text-[#64748B] text-xs uppercase tracking-wider mb-4">Quick Recharge</p>
+                <div className="text-center py-6">
+                  <p className="text-4xl mb-2">⚡</p>
+                  <p className="text-[#64748B] text-sm">Your recent bills will appear here for one-tap repeat</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
                   </motion.button>
                 ))}
               </div>

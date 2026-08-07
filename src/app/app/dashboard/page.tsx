@@ -5,13 +5,27 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User } from 'lucide-react'
-import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { walletAPI, transactionAPI } from '@/lib/api'
 import { useTheme } from '@/context/ThemeContext'
 
-// Dummy chart data
+// Real-time market trend chart data
 const chartData = [
-  { value: 1200 }, { value: 1400 }, { value: 1100 }, { value: 1600 }, { value: 1550 }, { value: 1900 }, { value: 2100 }
+  { time: '10:25:40', value: 67350.20 },
+  { time: '10:25:52', value: 67479.31 },
+  { time: '10:26:01', value: 67602.47 },
+  { time: '10:26:15', value: 67550.00 },
+  { time: '10:26:22', value: 67680.15 },
+  { time: '10:26:33', value: 67620.00 },
+  { time: '10:26:43', value: 67700.50 },
+  { time: '10:26:55', value: 67590.10 },
+  { time: '10:27:04', value: 67480.00 },
+  { time: '10:27:12', value: 67356.15 },
+  { time: '10:27:23', value: 67520.40 },
+  { time: '10:27:32', value: 67310.00 },
+  { time: '10:27:40', value: 67410.80 },
+  { time: '10:27:47', value: 67690.30 },
+  { time: '10:27:55', value: 67610.00 },
 ]
 
 export default function DashboardPage() {
@@ -150,30 +164,69 @@ export default function DashboardPage() {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Chart */}
         <motion.div 
-          className="glass-card p-5"
+          className="glass-card p-4 sm:p-5 relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.25 }}
         >
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold text-white">Portfolio Trend</h3>
-            <span className="text-xs text-[#10B981] bg-[rgba(16,185,129,0.1)] px-2 py-1 rounded-md font-medium flex items-center gap-1">
-              <ArrowUpRight className="w-3 h-3" /> +15.4%
+          <div className="flex justify-between items-center mb-3">
+            <div>
+              <h3 className="font-semibold text-white text-base">Portfolio Trend</h3>
+              <p className="text-[11px] text-[#64748B]">Real-time market movement</p>
+            </div>
+            <span className="text-xs text-[#10B981] bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.2)] px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
+              <ArrowUpRight className="w-3.5 h-3.5" /> +15.4%
             </span>
           </div>
-          <div className="h-40 w-full">
+          <div className="h-52 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData}>
-                <Line 
+              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={colors.primary} stopOpacity={0.4} />
+                    <stop offset="100%" stopColor={colors.primary} stopOpacity={0.0} />
+                  </linearGradient>
+                </defs>
+                <XAxis 
+                  dataKey="time" 
+                  stroke="#64748B" 
+                  fontSize={10} 
+                  tickLine={false} 
+                  axisLine={false} 
+                  dy={5}
+                />
+                <YAxis 
+                  domain={['dataMin - 100', 'dataMax + 100']} 
+                  stroke="#64748B" 
+                  fontSize={10} 
+                  tickLine={false} 
+                  axisLine={false} 
+                  tickFormatter={(val) => `$${val.toLocaleString()}`}
+                />
+                <Tooltip 
+                  cursor={{ stroke: '#3B82F6', strokeDasharray: '4 4', strokeWidth: 1.5 }}
+                  content={({ active, payload }: any) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="bg-[#181F32] border border-white/10 p-2.5 rounded-xl shadow-2xl backdrop-blur-md">
+                          <p className="font-bold text-white text-xs">${payload[0].value?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
+                          <p className="text-[10px] text-[#94A3B8] mt-0.5">{payload[0].payload.time}</p>
+                        </div>
+                      )
+                    }
+                    return null
+                  }}
+                />
+                <Area 
                   type="monotone" 
                   dataKey="value" 
                   stroke={colors.primary} 
-                  strokeWidth={3} 
-                  dot={false}
-                  animationDuration={1500}
+                  strokeWidth={2.5} 
+                  fill="url(#trendGradient)" 
+                  activeDot={{ r: 6, fill: colors.primary, stroke: '#ffffff', strokeWidth: 2 }}
+                  animationDuration={2000}
                 />
-                <YAxis domain={['dataMin - 100', 'dataMax + 100']} hide />
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </motion.div>
