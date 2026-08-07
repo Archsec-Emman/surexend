@@ -108,9 +108,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col relative overflow-hidden">
+        <main className="flex-1 flex flex-col relative min-h-screen bg-[var(--app-bg)]">
           {/* Mobile/Desktop Header */}
-          <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b border-[rgba(255,255,255,0.06)] bg-[#0F1629] md:bg-transparent z-10 backdrop-blur-md">
+          <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b border-white/5 bg-[#0A0F1E] z-10">
             <div className="md:hidden flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${colors.primary}, ${colors.dark})` }}>
                 <span className="font-bold text-[#0D0D0D]">S</span>
@@ -127,15 +127,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </header>
 
-          <div className="flex-1 overflow-y-auto pb-24 md:pb-0 relative scroll-smooth contain-layout">
+          <div className="flex-1 pb-24 md:pb-8 relative">
             <AnimatePresence mode="wait">
               <motion.div
                 key={pathname}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="h-full"
+                transition={{ duration: 0.2 }}
+                className="w-full"
               >
                 {children}
               </motion.div>
@@ -144,7 +144,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </main>
 
         {/* Mobile Bottom Nav */}
-        <nav className="md:hidden fixed bottom-0 w-full bg-[#0F1629] border-t border-[rgba(255,255,255,0.06)] px-2 py-2 safe-bottom z-50">
+        <nav className="md:hidden fixed bottom-0 w-full bg-[#0D1322] border-t border-white/5 px-2 py-2 safe-bottom z-50">
           <div className="flex justify-around items-center">
             {navItems.map((item) => {
               const isActive = pathname === item.href

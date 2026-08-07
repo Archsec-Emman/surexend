@@ -149,15 +149,19 @@ body {
 
 /* Mobile GPU Tearing & Composite Blur Fix */
 @media (max-width: 768px) {
-  .glass-card, .glass-card-gold, .glass-card-lemon {
+  *, *::before, *::after {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+  }
+  .glass-card, .glass-card-gold, .glass-card-lemon, [class*="glass-card"] {
     background: #0F1629 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
   header {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
     background: #0A0F1E !important;
+  }
+  nav {
+    background: #0D1322 !important;
   }
 }
 
