@@ -106,10 +106,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 flex flex-col relative min-h-screen bg-[var(--app-bg)]">
           {/* Mobile/Desktop Header */}
           <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b border-white/5 bg-[#0A0F1E] z-10">
-            <div className="md:hidden flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${colors.primary}, ${colors.dark})` }}>
-                <span className="font-bold text-[#0D0D0D]">S</span>
-              </div>
+            <div className="md:hidden flex items-center gap-2.5">
+              <img
+                src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
+                alt="SureXend"
+                className={`w-8 h-8 object-contain ${variant === 'gold' ? 'gold-logo-glow' : 'lemon-logo-glow'}`}
+              />
+              <span className="font-bold text-base text-white tracking-wider">
+                SURE<span style={{ color: colors.primary }}>X</span>END
+              </span>
             </div>
             <div className="hidden md:block">
               <h2 className="text-xl font-bold text-white capitalize">{pathname.split('/').pop()}</h2>
@@ -122,7 +127,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </header>
 
-          <div className="flex-1 pb-24 md:pb-8 relative">
+          <div className="flex-1 pb-36 md:pb-8 relative">
             <AnimatePresence mode="wait">
               <motion.div
                 key={pathname}

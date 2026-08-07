@@ -71,7 +71,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden p-3.5 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
+    <div className="w-full max-w-full overflow-x-hidden px-4 py-4 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-4 sm:space-y-6 pb-36 sm:pb-32">
       {/* Live rates ticker */}
       <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-lg py-1.5 flex items-center">
         <motion.div 
@@ -107,7 +107,7 @@ export default function DashboardPage() {
                 {showBalance ? <EyeOff className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               </button>
             </p>
-            <div className="text-2.5xl sm:text-4xl font-bold text-white tracking-tight">
+            <div className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
               {isLoadingBalance ? (
                 <div className="h-8 sm:h-10 w-36 sm:w-48 skeleton rounded-lg"></div>
               ) : showBalance ? (
