@@ -257,20 +257,6 @@ export default function BillsPage() {
               </div>
             </motion.div>
           )}
-                  </motion.button>
-                ))}
-              </div>
-
-              {/* Recent bills */}
-              <div className="bg-[#0F1629] rounded-2xl p-5 border border-white/5">
-                <p className="text-[#64748B] text-xs uppercase tracking-wider mb-4">Quick Recharge</p>
-                <div className="text-center py-8">
-                  <p className="text-5xl mb-3">⚡</p>
-                  <p className="text-[#64748B] text-sm">Your recent bills will appear here for one-tap repeat</p>
-                </div>
-              </div>
-            </motion.div>
-          )}
 
           {/* STEP 2: Providers */}
           {step === 'providers' && (
