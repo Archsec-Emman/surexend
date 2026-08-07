@@ -92,12 +92,7 @@ export default function ForgotPasswordPage() {
                 <img 
                   src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
                   alt="SureXend"
-                  className={`w-14 h-14 object-contain relative z-10 ${variant === 'gold' ? 'gold-logo-glow' : ''}`}
-                  style={{
-                    filter: variant === 'gold'
-                      ? 'brightness(1.25) drop-shadow(0 0 16px rgba(252, 211, 77, 0.9)) drop-shadow(0 0 35px rgba(212, 160, 23, 0.7))'
-                      : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1) drop-shadow(0 0 12px rgba(181, 226, 61, 0.5))'
-                  }}
+                  className={`w-14 h-14 object-contain relative z-10 ${variant === 'gold' ? 'gold-logo-glow' : 'lemon-logo-glow'}`}
                 />
               </div>
               <h1 className="text-3xl font-bold text-white mb-2">Forgot Password</h1>
