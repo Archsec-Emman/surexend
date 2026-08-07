@@ -90,8 +90,6 @@ public/
     apple-touch-icon.png ← 180x180px for iOS
 ```
 
-Use a free tool like https://www.pwabuilder.com/imageGenerator to generate
-all icon sizes from your 512x512 icon.
 
 ---
 
@@ -123,22 +121,3 @@ surexend/
 └── package.json                ← Dependencies
 ```
 
----
-
-## Build for Production
-
-```powershell
-npm run build
-npm run start
-```
-
----
-
-## Deploy to Vercel (Recommended)
-
-1. Push code to GitHub
-2. Go to https://vercel.com → "New Project" → Import from GitHub
-3. Add environment variable: `NEXT_PUBLIC_BRAND_VARIANT=gold` (or `lemon`)
-4. Click Deploy — done!
-
----
