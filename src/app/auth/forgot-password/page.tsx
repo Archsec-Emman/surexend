@@ -82,6 +82,7 @@ export default function ForgotPasswordPage() {
             </button>
           </motion.div>
         ) : (
+          <>
             <div className="text-center mb-8">
               <div className="relative w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                 <div 
