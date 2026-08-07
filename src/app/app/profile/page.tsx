@@ -35,9 +35,8 @@ function MenuItem({
   danger?: boolean; accentHex: string; accentRgb: string; badge?: string
 }) {
   return (
-    <motion.button
-      className="w-full flex items-center gap-4 px-5 py-4 border-b border-white/5 last:border-0 hover:bg-white/3 transition-colors text-left"
-      whileTap={{ scale: 0.98 }}
+    <button
+      className="w-full flex items-center gap-4 px-5 py-4 border-b border-white/5 last:border-0 hover:bg-white/5 active:bg-white/10 transition-colors text-left"
       onClick={onClick}
     >
       <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -57,7 +56,7 @@ function MenuItem({
         </span>
       )}
       <ChevronRight size={15} className={danger ? 'text-[#EF4444]/40' : 'text-[#64748B]'} />
-    </motion.button>
+    </button>
   )
 }
 

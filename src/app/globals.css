@@ -152,16 +152,45 @@ body {
   *, *::before, *::after {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
   }
+
+  body, html, main {
+    background-color: #0A0F1E !important;
+  }
+
   .glass-card, .glass-card-gold, .glass-card-lemon, [class*="glass-card"] {
-    background: #0F1629 !important;
+    background-color: #0F1629 !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
+
   header {
-    background: #0A0F1E !important;
+    background-color: #0A0F1E !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
   }
+
   nav {
-    background: #0D1322 !important;
+    background-color: #0D1322 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  }
+
+  img, svg, .gold-logo-glow, .lemon-logo-glow {
+    filter: none !important;
+    animation: none !important;
+  }
+
+  .gradient-text-gold {
+    animation: none !important;
+    -webkit-text-fill-color: #FFD700 !important;
+    background: none !important;
+    color: #FFD700 !important;
+  }
+
+  .gradient-text-lemon {
+    animation: none !important;
+    -webkit-text-fill-color: #B5E23D !important;
+    background: none !important;
+    color: #B5E23D !important;
   }
 }
 
