@@ -254,11 +254,24 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: #ffffff;
-  padding: 14px 16px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 16px;
+  padding-right: 16px;
   font-family: var(--font-dm);
   font-size: 15px;
   transition: all 0.2s ease;
   width: 100%;
+}
+.input-has-icon-left {
+  padding-left: 48px !important;
+}
+.input-has-icon-right {
+  padding-right: 48px !important;
+}
+.input-has-icon-both {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
 }
 .input-field::placeholder { color: #64748B; }
 .input-field:focus {

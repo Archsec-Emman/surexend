@@ -68,14 +68,22 @@ export default function LoginPage() {
         className={`w-full max-w-md p-8 glass-card-${variant} relative z-10`}
       >
         <div className="text-center mb-8">
-          <motion.img 
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', bounce: 0.5 }}
-            src={variant === 'gold' ? '/logo-gold.png' : '/logo-lemon.png'}
-            alt="SureXend"
-            className="w-16 h-16 mx-auto rounded-2xl object-contain drop-shadow-xl mb-4"
-          />
+          <div className="relative w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+            <div 
+              className="absolute inset-0 rounded-full blur-xl opacity-40 pointer-events-none"
+              style={{ background: colors.glow }}
+            />
+            <img 
+              src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
+              alt="SureXend"
+              className="w-14 h-14 object-contain relative z-10"
+              style={{
+                filter: variant === 'gold'
+                  ? 'invert(1) sepia(0.6) saturate(4) hue-rotate(10deg) brightness(0.95)'
+                  : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1)'
+              }}
+            />
+          </div>
           <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
           <p className="text-[#94A3B8]">Sign in to access your SureXend wallet</p>
         </div>
@@ -83,12 +91,12 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div>
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B] w-5 h-5" />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B] w-5 h-5 pointer-events-none z-10" />
               <input
                 {...register('email')}
                 type="email"
                 placeholder="Email address"
-                className={`input-field input-field-${variant} pl-12`}
+                className={`input-field input-field-${variant} input-has-icon-left`}
               />
             </div>
             {errors.email && <p className="text-[#EF4444] text-sm mt-1">{errors.email.message}</p>}
@@ -96,17 +104,17 @@ export default function LoginPage() {
 
           <div>
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B] w-5 h-5" />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B] w-5 h-5 pointer-events-none z-10" />
               <input
                 {...register('password')}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
-                className={`input-field input-field-${variant} pl-12 pr-12`}
+                className={`input-field input-field-${variant} input-has-icon-both`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-white transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-white transition-colors z-10 p-1"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>

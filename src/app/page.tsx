@@ -262,17 +262,21 @@ export default function LandingPage() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center gap-3">
-              <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{ background: isGold ? 'radial-gradient(#E8B820, #A07810)' : 'radial-gradient(#C8F050, #88B020)' }}
-              >
-                <span className="font-inter font-black text-sm" style={{ color: '#0D0D0D' }}>SX</span>
-              </div>
-              <span className="font-inter font-bold text-white text-lg hidden xs:block">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <img
+                src={isGold ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
+                alt="SureXend"
+                className="w-8 h-8 object-contain transition-transform group-hover:scale-105"
+                style={{
+                  filter: isGold
+                    ? 'invert(1) sepia(0.6) saturate(4) hue-rotate(10deg) brightness(0.95)'
+                    : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1)'
+                }}
+              />
+              <span className="font-inter font-bold text-white text-lg tracking-wide">
                 SURE<span style={{ color: accentHex }}>X</span>END
               </span>
-            </div>
+            </Link>
 
             {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
@@ -465,101 +469,121 @@ export default function LandingPage() {
 
             {/* Floating phone mockup */}
             <motion.div
-              className="mt-16 relative w-full max-w-sm mx-auto"
-              animate={{ y: [0, -15, 0] }}
+              className="mt-12 sm:mt-16 relative w-full max-w-[300px] sm:max-w-[340px] mx-auto px-2"
+              animate={{ y: [0, -12, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              initial={{ opacity: 0, y: 60 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              {/* Phone shell */}
+              {/* Phone shell with bevel & glass shadow */}
               <div
-                className="relative rounded-[40px] p-2 mx-auto"
+                className="relative rounded-[42px] p-3 mx-auto shadow-2xl backdrop-blur-md"
                 style={{
-                  width: 260,
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  boxShadow: `0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(${accentRgb}, 0.2)`,
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))',
+                  border: '1.5px solid rgba(255,255,255,0.15)',
+                  boxShadow: `0 30px 80px rgba(0,0,0,0.8), 0 0 50px rgba(${accentRgb}, 0.15)`,
                 }}
               >
+                {/* Dynamic Island Notch */}
+                <div className="absolute top-5 left-1/2 -translate-x-1/2 w-20 h-4 bg-black rounded-full z-30 flex items-center justify-end px-2">
+                  <div className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+                </div>
+
                 {/* Screen */}
-                <div className="rounded-[34px] bg-[#0A0F1E] overflow-hidden" style={{ height: 480 }}>
+                <div className="rounded-[32px] bg-[#0A0F1E] overflow-hidden pt-6 relative border border-white/5" style={{ minHeight: 460 }}>
                   {/* App UI mockup inside phone */}
-                  <div className="p-4">
-                    {/* Status bar */}
-                    <div className="flex justify-between text-[10px] text-[#64748B] mb-4 px-1">
-                      <span>9:41</span>
-                      <span>●●● 5G 🔋</span>
-                    </div>
-                    {/* Balance card */}
-                    <div
-                      className="rounded-2xl p-4 mb-4"
-                      style={{
-                        background: `linear-gradient(135deg, rgba(${accentRgb}, 0.2), rgba(${accentRgb}, 0.05))`,
-                        border: `1px solid rgba(${accentRgb}, 0.25)`,
-                      }}
-                    >
-                      <p className="text-[#94A3B8] text-[10px] mb-1">Total Balance</p>
-                      <p className="text-white font-inter font-bold text-2xl">$2,450.00</p>
-                      <p className="text-xs mt-1" style={{ color: accentHex }}>≈ ₦3,920,000 NGN</p>
-                    </div>
-                    {/* Quick actions */}
-                    <div className="grid grid-cols-4 gap-2 mb-4">
-                      {[
-                        { icon: Send, label: 'Send' },
-                        { icon: Download, label: 'Receive' },
-                        { icon: RefreshCw, label: 'Convert' },
-                        { icon: Zap, label: 'Bills' },
-                      ].map(({ icon: Icon, label }) => (
-                        <div key={label} className="flex flex-col items-center gap-1">
-                          <div
-                            className="w-9 h-9 rounded-xl flex items-center justify-center"
-                            style={{ background: `rgba(${accentRgb}, 0.12)` }}
-                          >
-                            <Icon size={14} style={{ color: accentHex }} />
-                          </div>
-                          <span className="text-[#94A3B8] text-[9px]">{label}</span>
+                  <div className="p-4 flex flex-col justify-between h-full">
+                    <div>
+                      {/* Top bar */}
+                      <div className="flex justify-between items-center text-[11px] text-[#64748B] mb-5 px-1 pt-1">
+                        <span className="font-semibold text-white">9:41</span>
+                        <div className="flex items-center gap-1.5 text-[9px] text-[#94A3B8]">
+                          <span>5G</span>
+                          <span>🔋 100%</span>
                         </div>
-                      ))}
-                    </div>
-                    {/* Recent txns */}
-                    <p className="text-white text-xs font-semibold mb-2">Recent</p>
-                    {[
-                      { label: 'MTN Airtime', amt: '-₦2,000', color: '#EF4444' },
-                      { label: 'USDT Received', amt: '+$50', color: '#10B981' },
-                      { label: 'Bank Withdrawal', amt: '-$100', color: '#EF4444' },
-                    ].map(({ label, amt, color }) => (
-                      <div key={label} className="flex justify-between items-center py-2 border-b border-white/5 text-[10px]">
-                        <span className="text-[#94A3B8]">{label}</span>
-                        <span style={{ color }}>{amt}</span>
                       </div>
-                    ))}
+                      
+                      {/* Balance card */}
+                      <div
+                        className="rounded-2xl p-4 mb-4 relative overflow-hidden"
+                        style={{
+                          background: `linear-gradient(135deg, rgba(${accentRgb}, 0.25), rgba(${accentRgb}, 0.06))`,
+                          border: `1px solid rgba(${accentRgb}, 0.3)`,
+                          boxShadow: `0 8px 24px rgba(${accentRgb}, 0.1)`,
+                        }}
+                      >
+                        <div className="flex justify-between items-center mb-1">
+                          <p className="text-[#94A3B8] text-[11px] font-medium">Total Balance</p>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white font-medium">USDT</span>
+                        </div>
+                        <p className="text-white font-inter font-bold text-2xl tracking-tight">$2,450.00</p>
+                        <p className="text-xs font-semibold mt-1" style={{ color: accentHex }}>≈ ₦3,920,000 NGN</p>
+                      </div>
+
+                      {/* Quick actions */}
+                      <div className="grid grid-cols-4 gap-2 mb-5">
+                        {[
+                          { icon: Send, label: 'Send' },
+                          { icon: Download, label: 'Receive' },
+                          { icon: RefreshCw, label: 'Convert' },
+                          { icon: Zap, label: 'Bills' },
+                        ].map(({ icon: Icon, label }) => (
+                          <div key={label} className="flex flex-col items-center gap-1.5 group cursor-pointer">
+                            <div
+                              className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                              style={{ background: `rgba(${accentRgb}, 0.15)`, border: `1px solid rgba(${accentRgb}, 0.2)` }}
+                            >
+                              <Icon size={16} style={{ color: accentHex }} />
+                            </div>
+                            <span className="text-[#94A3B8] text-[10px] font-medium">{label}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Recent txns */}
+                      <div className="flex justify-between items-center mb-2 px-1">
+                        <p className="text-white text-xs font-semibold">Recent Transactions</p>
+                        <span className="text-[10px] text-[#64748B]">See all</span>
+                      </div>
+                      <div className="space-y-1.5">
+                        {[
+                          { label: 'MTN Airtime Topup', amt: '-₦2,000', color: '#EF4444' },
+                          { label: 'USDT Deposit (TRC20)', amt: '+$50.00', color: '#10B981' },
+                          { label: 'Bank Withdrawal (GTB)', amt: '-$100.00', color: '#EF4444' },
+                        ].map(({ label, amt, color }) => (
+                          <div key={label} className="flex justify-between items-center p-2 rounded-xl bg-white/[0.03] border border-white/5 text-[10px]">
+                            <span className="text-[#CBD5E1] font-medium truncate max-w-[130px]">{label}</span>
+                            <span className="font-semibold" style={{ color }}>{amt}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               {/* Phone glow */}
               <div
-                className="absolute -inset-4 rounded-[50px] blur-2xl -z-10"
-                style={{ background: `radial-gradient(ellipse, rgba(${accentRgb}, 0.15), transparent)` }}
+                className="absolute -inset-4 rounded-[60px] blur-3xl -z-10 opacity-70 pointer-events-none"
+                style={{ background: `radial-gradient(circle at center, rgba(${accentRgb}, 0.2), transparent 70%)` }}
               />
             </motion.div>
-          </motion.div>
 
-          {/* Scroll indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-          >
-            <span className="text-[#64748B] text-xs tracking-widest uppercase">Scroll</span>
-            <ChevronDown size={18} className="text-[#64748B]" />
+            {/* In-flow scroll indicator below hero content */}
+            <motion.div
+              className="mt-12 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              onClick={() => document.getElementById('stats-ticker')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <span className="text-[#64748B] text-[11px] font-semibold tracking-widest uppercase">Scroll Down</span>
+              <ChevronDown size={16} className="text-[#64748B]" />
+            </motion.div>
           </motion.div>
         </section>
 
         {/* ── Stats ticker ───────────────────────────────────────────── */}
-        <section className="py-12 border-y" style={{ borderColor: `rgba(${accentRgb}, 0.1)`, background: `rgba(${accentRgb}, 0.03)` }}>
+        <section id="stats-ticker" className="py-12 border-y relative z-10" style={{ borderColor: `rgba(${accentRgb}, 0.1)`, background: `rgba(${accentRgb}, 0.03)` }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {stats.map(({ val, suffix, prefix, label }, i) => (

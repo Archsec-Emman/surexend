@@ -82,8 +82,23 @@ export default function ForgotPasswordPage() {
             </button>
           </motion.div>
         ) : (
-          <>
-            <div className="mb-8">
+            <div className="text-center mb-8">
+              <div className="relative w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <div 
+                  className="absolute inset-0 rounded-full blur-xl opacity-40 pointer-events-none"
+                  style={{ background: colors.glow }}
+                />
+                <img 
+                  src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
+                  alt="SureXend"
+                  className="w-14 h-14 object-contain relative z-10"
+                  style={{
+                    filter: variant === 'gold'
+                      ? 'invert(1) sepia(0.6) saturate(4) hue-rotate(10deg) brightness(0.95)'
+                      : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1)'
+                  }}
+                />
+              </div>
               <h1 className="text-3xl font-bold text-white mb-2">Forgot Password</h1>
               <p className="text-[#94A3B8]">Enter your email and we'll send you a link to reset your password.</p>
             </div>
@@ -91,12 +106,12 @@ export default function ForgotPasswordPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B] w-5 h-5" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B] w-5 h-5 pointer-events-none z-10" />
                   <input
                     {...register('email')}
                     type="email"
                     placeholder="Email address"
-                    className={`input-field input-field-${variant} pl-12`}
+                    className={`input-field input-field-${variant} input-has-icon-left`}
                   />
                 </div>
                 {errors.email && <p className="text-[#EF4444] text-sm mt-1">{errors.email.message}</p>}
