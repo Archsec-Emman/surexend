@@ -232,6 +232,7 @@ body {
 
 /* ── Logo Glow Effects ─────────────────────────────────────────────────── */
 .gold-logo-glow {
+  mix-blend-mode: multiply;
   filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.8)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 45px rgba(212, 160, 23, 0.3));
   animation: logoPulseGold 3s ease-in-out infinite alternate;
 }
