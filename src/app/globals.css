@@ -126,6 +126,7 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
+  transform: translateZ(0);
 }
 
 .glass-card-gold {
@@ -134,6 +135,7 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(212, 160, 23, 0.2);
   border-radius: 16px;
+  transform: translateZ(0);
 }
 
 .glass-card-lemon {
@@ -142,6 +144,21 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(181, 226, 61, 0.2);
   border-radius: 16px;
+  transform: translateZ(0);
+}
+
+/* Mobile GPU Tearing & Composite Blur Fix */
+@media (max-width: 768px) {
+  .glass-card, .glass-card-gold, .glass-card-lemon {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #0F1629 !important;
+  }
+  header {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #0A0F1E !important;
+  }
 }
 
 /* ── Gradient text utility ─────────────────────────────────────────────── */

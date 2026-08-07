@@ -121,7 +121,7 @@ export default function ProfilePage() {
   const initials = getInitials(fullName || profile?.email || 'U')
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] pb-32">
+    <div className="min-h-screen bg-[#0A0F1E] pb-32 transform-gpu">
       {/* Profile header */}
       <motion.div
         className="px-4 pt-8 pb-6 max-w-2xl mx-auto"
