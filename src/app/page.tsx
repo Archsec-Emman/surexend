@@ -266,10 +266,10 @@ export default function LandingPage() {
               <img
                 src={isGold ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
                 alt="SureXend"
-                className="w-8 h-8 object-contain transition-transform group-hover:scale-105"
+                className={`w-8 h-8 object-contain transition-transform group-hover:scale-105 ${isGold ? 'gold-logo-glow' : ''}`}
                 style={{
                   filter: isGold
-                    ? 'brightness(1.15) drop-shadow(0 0 8px rgba(212, 160, 23, 0.4))'
+                    ? 'brightness(1.25) drop-shadow(0 0 12px rgba(252, 211, 77, 0.9)) drop-shadow(0 0 25px rgba(212, 160, 23, 0.7))'
                     : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1) drop-shadow(0 0 8px rgba(181, 226, 61, 0.4))'
                 }}
               />
@@ -512,10 +512,10 @@ export default function LandingPage() {
                       <img
                         src={isGold ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
                         alt="SureXend"
-                        className="w-6 h-6 object-contain"
+                        className={`w-6 h-6 object-contain ${isGold ? 'gold-logo-glow' : ''}`}
                         style={{
                           filter: isGold
-                            ? 'brightness(1.15)'
+                            ? 'brightness(1.25) drop-shadow(0 0 10px rgba(252, 211, 77, 0.9))'
                             : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1)'
                         }}
                       />

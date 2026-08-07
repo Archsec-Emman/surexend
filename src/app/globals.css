@@ -230,6 +230,25 @@ body {
   background: rgba(181,226,61,0.08);
 }
 
+/* ── Logo Glow Effects ─────────────────────────────────────────────────── */
+.gold-logo-glow {
+  filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.8)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.5)) drop-shadow(0 0 45px rgba(212, 160, 23, 0.3));
+  animation: logoPulseGold 3s ease-in-out infinite alternate;
+}
+
+@keyframes logoPulseGold {
+  0% {
+    filter: drop-shadow(0 0 8px rgba(212, 160, 23, 0.7)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+  }
+  100% {
+    filter: drop-shadow(0 0 16px rgba(255, 215, 0, 1)) drop-shadow(0 0 35px rgba(212, 160, 23, 0.8)) drop-shadow(0 0 60px rgba(255, 215, 0, 0.5));
+  }
+}
+
+.lemon-logo-glow {
+  filter: drop-shadow(0 0 10px rgba(181, 226, 61, 0.8)) drop-shadow(0 0 25px rgba(202, 255, 58, 0.5));
+}
+
 /* ── Skeleton loader ───────────────────────────────────────────────────── */
 .skeleton {
   background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);

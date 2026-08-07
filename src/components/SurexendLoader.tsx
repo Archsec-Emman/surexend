@@ -31,8 +31,8 @@ export default function SurexendLoader({
           accentLight: '#FFD700',
           accentRgb: '212, 160, 23',
           logoSrc: '/logo-mark-gold.png',
-          // High-end subtle glow filter for gold mark
-          iconFilter: 'brightness(1.15) drop-shadow(0 0 16px rgba(212, 160, 23, 0.5))',
+          // Intense multi-layered metallic gold glow aura
+          iconFilter: 'brightness(1.2) drop-shadow(0 0 20px rgba(252, 211, 77, 0.9)) drop-shadow(0 0 45px rgba(212, 160, 23, 0.7)) drop-shadow(0 0 70px rgba(255, 215, 0, 0.4))',
           meshA: 'rgba(212, 160, 23, 0.05)',
           meshB: 'rgba(255, 215, 0, 0.03)',
         }
