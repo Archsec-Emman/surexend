@@ -768,59 +768,72 @@ export default function LandingPage() {
               </div>
 
               {/* Decorative side panel */}
+              {/* Live Conversion & Bill Payment cards (Visible on BOTH Mobile & Desktop) */}
               <motion.div
-                className="hidden lg:flex flex-col gap-4"
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                className="flex flex-col gap-4 mt-8 lg:mt-0 w-full"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
               >
-                {/* Conversion card */}
-                <div className="glass-card p-6">
-                  <p className="text-[#64748B] text-xs mb-4 uppercase tracking-wider">Live Conversion</p>
-                  <div className="flex items-center justify-between">
+                {/* Live conversion card */}
+                <div className="glass-card p-6 border border-white/10 rounded-2xl relative overflow-hidden">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-xs font-bold text-[#64748B] tracking-wider uppercase">Live Conversion</span>
+                  </div>
+                  <div className="flex items-center justify-between my-2">
                     <div>
-                      <p className="text-[#94A3B8] text-xs mb-1">You send</p>
-                      <p className="text-white font-inter font-bold text-2xl">100 USDT</p>
+                      <p className="text-xs text-[#94A3B8] mb-1">You send</p>
+                      <p className="font-inter font-bold text-2xl text-white">100 USDT</p>
                     </div>
                     <motion.div
+                      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center"
+                      style={{ color: accentHex }}
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                      transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
                     >
-                      <RefreshCw size={24} style={{ color: accentHex }} />
+                      <RefreshCw size={18} />
                     </motion.div>
                     <div className="text-right">
-                      <p className="text-[#94A3B8] text-xs mb-1">They receive</p>
+                      <p className="text-xs text-[#94A3B8] mb-1">They receive</p>
                       <p className="font-inter font-bold text-2xl" style={{ color: accentHex }}>₦159,800</p>
                     </div>
                   </div>
                   <div
-                    className="mt-4 pt-4 text-xs"
+                    className="mt-4 pt-4 text-xs flex justify-between items-center text-[#94A3B8]"
                     style={{ borderTop: `1px solid rgba(${accentRgb}, 0.15)` }}
                   >
-                    <span className="text-[#64748B]">Rate: </span>
-                    <span style={{ color: accentHex }}>1 USDT = ₦1,598 NGN</span>
-                    <span className="text-[#64748B] ml-2">· Updated 2s ago</span>
+                    <span>Rate: <span style={{ color: accentHex }} className="font-semibold">1 USDT = ₦1,598 NGN</span></span>
+                    <span className="text-[11px] text-[#64748B] flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" /> Updated 2s ago
+                    </span>
                   </div>
                 </div>
 
-                {/* Bill payment card */}
-                <div className="glass-card p-6">
-                  <p className="text-[#64748B] text-xs mb-4 uppercase tracking-wider">Bill Payment</p>
-                  <div className="space-y-3">
-                    {[
-                      { label: 'MTN Airtime · 08012345678', amount: '-₦1,000', status: '✓' },
-                      { label: 'DSTV Compact · 7045231892', amount: '-₦14,500', status: '✓' },
-                      { label: 'EKEDC · 45123001', amount: '-₦8,000', status: '⏳' },
-                    ].map(item => (
-                      <div key={item.label} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm">{item.status}</span>
-                          <span className="text-[#94A3B8] text-sm">{item.label}</span>
-                        </div>
-                        <span className="text-white text-sm font-medium">{item.amount}</span>
+                {/* Bill payment activity card */}
+                <div className="glass-card p-6 border border-white/10 rounded-2xl">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-xs font-bold text-[#64748B] tracking-wider uppercase">Bill Payment</span>
+                  </div>
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between text-sm py-1 border-b border-white/5">
+                      <div className="flex items-center gap-2 text-white font-medium">
+                        <span className="text-[#10B981] font-bold">✓</span> MTN Airtime · 08012345678
                       </div>
-                    ))}
+                      <span className="text-white font-semibold">-₦1,000</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm py-1 border-b border-white/5">
+                      <div className="flex items-center gap-2 text-white font-medium">
+                        <span className="text-[#10B981] font-bold">✓</span> DSTV Compact · 7045231892
+                      </div>
+                      <span className="text-white font-semibold">-₦14,500</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm py-1">
+                      <div className="flex items-center gap-2 text-white font-medium">
+                        <span className="text-[#F59E0B]">⏳</span> EKEDC · 45123001
+                      </div>
+                      <span className="text-white font-semibold">-₦8,000</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
