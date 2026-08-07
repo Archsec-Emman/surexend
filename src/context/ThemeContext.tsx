@@ -71,17 +71,30 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const envVariant = process.env.NEXT_PUBLIC_BRAND_VARIANT as ThemeVariant | undefined
-  const [variant, setVariantState] = useState<ThemeVariant>(envVariant || 'gold')
+  const [variant, setVariantState] = useState<ThemeVariant>(envVariant || 'lemon')
 
   useEffect(() => {
-    // Only use localStorage if process.env.NEXT_PUBLIC_BRAND_VARIANT is not set
-    if (!envVariant) {
-      const stored = localStorage.getItem('surexend_variant') as ThemeVariant
-      if (stored && (stored === 'gold' || stored === 'lemon')) {
-        setVariantState(stored)
+    // 1. Check URL query params (?theme=gold | ?theme=lemon | ?variant=gold | ?variant=lemon)
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      const urlTheme = (params.get('theme') || params.get('variant')) as ThemeVariant
+      if (urlTheme === 'gold' || urlTheme === 'lemon') {
+        setVariantState(urlTheme)
+        localStorage.setItem('surexend_variant', urlTheme)
+        return
       }
-    } else {
+    }
+
+    // 2. Check env variable if no URL param
+    if (envVariant) {
       setVariantState(envVariant)
+      return
+    }
+
+    // 3. Fallback to localStorage
+    const stored = localStorage.getItem('surexend_variant') as ThemeVariant
+    if (stored && (stored === 'gold' || stored === 'lemon')) {
+      setVariantState(stored)
     }
   }, [envVariant])
 
