@@ -52,9 +52,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster position="top-center" toastOptions={{ style: { background: '#0F1629', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' } }} />
-      <div className="flex h-screen overflow-hidden bg-[var(--app-bg)]">
+      <div className="flex min-h-screen bg-[var(--app-bg)] relative overflow-x-hidden">
         {/* Desktop Sidebar */}
-        <aside className={`hidden md:flex flex-col w-64 border-r border-[rgba(255,255,255,0.06)] bg-[#0F1629] p-4`}>
+        <aside className="hidden md:flex flex-col w-64 h-screen sticky top-0 border-r border-[rgba(255,255,255,0.06)] bg-[#0F1629] p-4 flex-shrink-0 z-20">
           <div className="flex items-center gap-3 mb-10 px-4 pt-4">
             <img
               src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
@@ -88,7 +88,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="p-4 mt-auto">
-            <div className={`p-4 rounded-xl border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.02)]`}>
+            <div className="p-4 rounded-xl border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.02)]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden">
                   <User className="w-5 h-5 text-gray-400" />
@@ -103,9 +103,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col relative min-h-screen bg-[var(--app-bg)]">
+        <main className="flex-1 flex flex-col relative min-h-screen w-full max-w-full overflow-x-hidden bg-[var(--app-bg)]">
           {/* Mobile/Desktop Header */}
-          <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b border-white/5 bg-[#0A0F1E] z-10">
+          <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b border-white/5 bg-[#0A0F1E] sticky top-0 z-30">
             <div className="md:hidden flex items-center gap-2.5">
               <img
                 src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
@@ -127,7 +127,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </header>
 
-          <div className="flex-1 pb-36 md:pb-8 relative">
+          <div className="flex-1 w-full max-w-full relative">
             <AnimatePresence mode="wait">
               <motion.div
                 key={pathname}
