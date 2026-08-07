@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 import SurexendLoader from '@/components/SurexendLoader'
 import {
-  ArrowRight, Send, RefreshCw, Zap, Shield, Users, Globe,
+  ArrowRight, Send, RefreshCw, Zap, Shield, Users, User, Globe,
   ChevronDown, Check, Star, MessageCircle, X, Menu, Download,
   TrendingUp, Wallet, CreditCard, Smartphone, Lock, Clock,
   BarChart3, Gift, ChevronRight, Bell
