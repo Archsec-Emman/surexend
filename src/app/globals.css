@@ -147,52 +147,7 @@ body {
   transform: translateZ(0);
 }
 
-/* Mobile GPU Tearing & Composite Blur Fix */
-@media (max-width: 768px) {
-  *, *::before, *::after {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: none !important;
-  }
 
-  body, html, main {
-    background-color: #0A0F1E !important;
-  }
-
-  .glass-card, .glass-card-gold, .glass-card-lemon, [class*="glass-card"] {
-    background-color: #0F1629 !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  }
-
-  header {
-    background-color: #0A0F1E !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-  }
-
-  nav {
-    background-color: #0D1322 !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-  }
-
-  img, svg, .gold-logo-glow, .lemon-logo-glow {
-    filter: none !important;
-    animation: none !important;
-  }
-
-  .gradient-text-gold {
-    animation: none !important;
-    -webkit-text-fill-color: #FFD700 !important;
-    background: none !important;
-    color: #FFD700 !important;
-  }
-
-  .gradient-text-lemon {
-    animation: none !important;
-    -webkit-text-fill-color: #B5E23D !important;
-    background: none !important;
-    color: #B5E23D !important;
-  }
-}
 
 /* ── Gradient text utility ─────────────────────────────────────────────── */
 .gradient-text-gold {
@@ -282,14 +237,8 @@ body {
 
 /* ── Logo Glow Effects ─────────────────────────────────────────────────── */
 .gold-logo-glow {
-  filter: drop-shadow(0 0 12px rgba(212, 160, 23, 0.6));
-}
-
-@media (min-width: 769px) {
-  .gold-logo-glow {
-    filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.8)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.5));
-    animation: logoPulseGold 3s ease-in-out infinite alternate;
-  }
+  filter: drop-shadow(0 0 10px rgba(212, 160, 23, 0.8)) drop-shadow(0 0 25px rgba(255, 215, 0, 0.5));
+  animation: logoPulseGold 3s ease-in-out infinite alternate;
 }
 
 @keyframes logoPulseGold {
@@ -302,7 +251,7 @@ body {
 }
 
 .lemon-logo-glow {
-  filter: drop-shadow(0 0 10px rgba(181, 226, 61, 0.6));
+  filter: drop-shadow(0 0 10px rgba(181, 226, 61, 0.8)) drop-shadow(0 0 25px rgba(202, 255, 58, 0.5));
 }
 
 /* ── Skeleton loader ───────────────────────────────────────────────────── */
