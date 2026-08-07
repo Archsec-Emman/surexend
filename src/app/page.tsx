@@ -8,7 +8,7 @@ import {
   ArrowRight, Send, RefreshCw, Zap, Shield, Users, Globe,
   ChevronDown, Check, Star, MessageCircle, X, Menu, Download,
   TrendingUp, Wallet, CreditCard, Smartphone, Lock, Clock,
-  BarChart3, Gift, ChevronRight
+  BarChart3, Gift, ChevronRight, Bell
 } from 'lucide-react'
 import Link from 'next/link'
 
