@@ -57,9 +57,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <aside className={`hidden md:flex flex-col w-64 border-r border-[rgba(255,255,255,0.06)] bg-[#0F1629] p-4`}>
           <div className="flex items-center gap-3 mb-10 px-4 pt-4">
             <img
-              src={variant === 'gold' ? '/logo-gold.png' : '/logo-lemon.png'}
+              src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
               alt="SureXend"
-              className="w-9 h-9 object-contain rounded-xl drop-shadow-md"
+              className="w-8 h-8 object-contain"
+              style={{
+                filter: variant === 'gold'
+                  ? 'brightness(1.15) drop-shadow(0 0 8px rgba(212, 160, 23, 0.4))'
+                  : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1) drop-shadow(0 0 8px rgba(181, 226, 61, 0.4))',
+              }}
             />
             <span className="font-bold text-lg text-white tracking-wider">
               SURE<span style={{ color: colors.primary }}>X</span>END

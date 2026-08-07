@@ -79,8 +79,8 @@ export default function LoginPage() {
               className="w-14 h-14 object-contain relative z-10"
               style={{
                 filter: variant === 'gold'
-                  ? 'invert(1) sepia(0.6) saturate(4) hue-rotate(10deg) brightness(0.95)'
-                  : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1)'
+                  ? 'brightness(1.15) drop-shadow(0 0 12px rgba(212, 160, 23, 0.5))'
+                  : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1) drop-shadow(0 0 12px rgba(181, 226, 61, 0.5))'
               }}
             />
           </div>

@@ -269,8 +269,8 @@ export default function LandingPage() {
                 className="w-8 h-8 object-contain transition-transform group-hover:scale-105"
                 style={{
                   filter: isGold
-                    ? 'invert(1) sepia(0.6) saturate(4) hue-rotate(10deg) brightness(0.95)'
-                    : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1)'
+                    ? 'brightness(1.15) drop-shadow(0 0 8px rgba(212, 160, 23, 0.4))'
+                    : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1) drop-shadow(0 0 8px rgba(181, 226, 61, 0.4))'
                 }}
               />
               <span className="font-inter font-bold text-white text-lg tracking-wide">
