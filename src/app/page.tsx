@@ -580,26 +580,51 @@ export default function LandingPage() {
                     ))}
                   </div>
 
-                  {/* PWA Recent Transactions */}
-                  <div>
-                    <div className="flex justify-between items-center mb-1.5 px-0.5">
-                      <span className="text-white text-[11px] font-semibold">Recent Activity</span>
-                      <span className="text-[9px] text-[#64748B]">View All</span>
+                  {/* Live Conversion Card */}
+                  <div className="rounded-xl p-3 bg-white/[0.03] border border-white/10 space-y-2">
+                    <div className="flex justify-between items-center text-[9px] font-bold text-[#64748B] tracking-wider uppercase">
+                      <span>Live Conversion</span>
+                      <span className="text-[#F59E0B] font-semibold">1 USDT = ₦1,598</span>
                     </div>
-                    <div className="space-y-1.5">
-                      {[
-                        { title: 'MTN Airtime Topup', time: 'Today, 2:15 PM', amt: '-₦2,000', color: '#EF4444' },
-                        { title: 'USDT Deposit (TRC20)', time: 'Yesterday', amt: '+$500.00', color: '#10B981' },
-                        { title: 'Bank Withdrawal (GTB)', time: '2 days ago', amt: '-$150.00', color: '#EF4444' }
-                      ].map((tx, idx) => (
-                        <div key={idx} className="flex items-center justify-between p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                          <div>
-                            <p className="text-white text-[10px] font-medium leading-tight">{tx.title}</p>
-                            <p className="text-[#64748B] text-[8px]">{tx.time}</p>
-                          </div>
-                          <span className="text-[10px] font-bold" style={{ color: tx.color }}>{tx.amt}</span>
-                        </div>
-                      ))}
+                    <div className="flex items-center justify-between text-xs">
+                      <div>
+                        <p className="text-[8px] text-[#94A3B8]">You send</p>
+                        <p className="font-bold text-white text-xs">100 USDT</p>
+                      </div>
+                      <div className="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#F59E0B]">
+                        <RefreshCw size={10} />
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[8px] text-[#94A3B8]">They receive</p>
+                        <p className="font-bold text-[#F59E0B] text-xs">₦159,800</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bill Payment Activity Card */}
+                  <div className="rounded-xl p-3 bg-white/[0.03] border border-white/10 space-y-2">
+                    <div className="flex justify-between items-center text-[9px] font-bold text-[#64748B] tracking-wider uppercase">
+                      <span>Bill Payment</span>
+                    </div>
+                    <div className="space-y-1.5 text-[10px]">
+                      <div className="flex justify-between items-center border-b border-white/5 pb-1">
+                        <span className="text-white flex items-center gap-1">
+                          <span className="text-[#10B981] font-bold">✓</span> MTN Airtime · 080123...
+                        </span>
+                        <span className="font-semibold text-white">-₦1,000</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-white/5 pb-1">
+                        <span className="text-white flex items-center gap-1">
+                          <span className="text-[#10B981] font-bold">✓</span> DSTV Compact · 70452...
+                        </span>
+                        <span className="font-semibold text-white">-₦14,500</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-white flex items-center gap-1">
+                          <span className="text-[#F59E0B]">⏳</span> EKEDC · 45123...
+                        </span>
+                        <span className="font-semibold text-white">-₦8,000</span>
+                      </div>
                     </div>
                   </div>
                 </div>

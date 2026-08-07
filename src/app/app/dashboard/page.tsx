@@ -147,13 +147,78 @@ export default function DashboardPage() {
         </div>
       </motion.div>
 
+      {/* Live Conversion Widget Card */}
+      <motion.div 
+        className="glass-card p-5 border border-white/10 rounded-2xl relative overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.15 }}
+      >
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-[11px] font-bold text-[#64748B] tracking-widest uppercase">Live Conversion</span>
+          <Link href="/app/convert" className="text-xs text-[#F59E0B] font-medium hover:underline">Instant Swap &rarr;</Link>
+        </div>
+        <div className="flex items-center justify-between my-2">
+          <div>
+            <p className="text-xs text-[#94A3B8] mb-0.5">You send</p>
+            <p className="text-xl font-bold text-white tracking-tight">100 USDT</p>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#F59E0B] shadow-inner">
+            <Repeat className="w-4 h-4" />
+          </div>
+          <div className="text-right">
+            <p className="text-xs text-[#94A3B8] mb-0.5">They receive</p>
+            <p className="text-xl font-bold text-[#F59E0B] tracking-tight">₦159,800</p>
+          </div>
+        </div>
+        <div className="pt-3 border-t border-white/10 flex justify-between items-center text-xs text-[#94A3B8]">
+          <span>Rate: <span className="font-semibold text-[#F59E0B]">1 USDT = ₦1,598 NGN</span></span>
+          <span className="text-[11px] text-[#64748B] flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" /> Updated 2s ago
+          </span>
+        </div>
+      </motion.div>
+
+      {/* Bill Payment Card */}
+      <motion.div 
+        className="glass-card p-5 border border-white/10 rounded-2xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+      >
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-[11px] font-bold text-[#64748B] tracking-widest uppercase">Bill Payment</span>
+          <Link href="/app/bills" className="text-xs text-[#8B5CF6] font-medium hover:underline">Pay New Bill &rarr;</Link>
+        </div>
+        <div className="space-y-3">
+          <div className="flex justify-between items-center text-sm py-1.5 border-b border-white/5">
+            <span className="flex items-center gap-2.5 text-white">
+              <span className="text-[#10B981] font-bold">✓</span> MTN Airtime · 08012345678
+            </span>
+            <span className="font-semibold text-white">-₦1,000</span>
+          </div>
+          <div className="flex justify-between items-center text-sm py-1.5 border-b border-white/5">
+            <span className="flex items-center gap-2.5 text-white">
+              <span className="text-[#10B981] font-bold">✓</span> DSTV Compact · 7045231892
+            </span>
+            <span className="font-semibold text-white">-₦14,500</span>
+          </div>
+          <div className="flex justify-between items-center text-sm py-1.5">
+            <span className="flex items-center gap-2.5 text-white">
+              <span className="text-[#F59E0B]">⏳</span> EKEDC · 45123001
+            </span>
+            <span className="font-semibold text-white">-₦8,000</span>
+          </div>
+        </div>
+      </motion.div>
+
       <div className="grid md:grid-cols-2 gap-6">
         {/* Chart */}
         <motion.div 
           className="glass-card p-5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.4, delay: 0.25 }}
         >
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-semibold text-white">Portfolio Trend</h3>
@@ -183,7 +248,7 @@ export default function DashboardPage() {
           className="glass-card p-5 flex flex-col justify-between relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
         >
           <div className="absolute -right-10 -bottom-10 opacity-10">
             <User className="w-40 h-40" />
