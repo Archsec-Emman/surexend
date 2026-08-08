@@ -944,137 +944,49 @@ export default function LandingPage() {
                 >
                   🎁
                 </motion.div>
-                <h2 className="font-inter font-black text-black mb-4" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)' }}>
-                  Earn While They Spend
-                </h2>
-                <p className="text-black/70 mb-8 max-w-lg mx-auto">
-                  Refer friends to SureXend and earn a percentage of every transaction fee they pay. The more active your network, the more you earn — forever.
-                </p>
-                <Link href="/auth/register">
-                  <button className="bg-black text-white px-8 py-4 rounded-2xl font-bold hover:bg-black/80 transition-colors flex items-center gap-2 mx-auto">
-                    Start Earning <Gift size={18} />
-                  </button>
-                </Link>
+                <h2 className="font-inter font-black text-black mb-4 text-3xl sm:text-5xl">Earn While They Spend</h2>
+                <p className="text-black/70 mb-8 max-w-lg mx-auto">Refer friends to SureXend and earn a percentage of every transaction fee they pay. The more active your network, the more you earn — forever.</p>
+                <Link href="/auth/register"><button className="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 mx-auto">Start Earning <Gift size={18} /></button></Link>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* ── FAQ ────────────────────────────────────────────────────── */}
-        <section className="py-24 px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto">
-            <motion.div
-              className="text-center mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: accentHex }}>FAQ</p>
-              <h2 className="font-inter font-black text-white" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)' }}>
-                Questions Answered
-              </h2>
-            </motion.div>
-            <div>
-              {faqs.map(faq => (
-                <FAQItem key={faq.q} {...faq} accent={accentRgb} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── CTA Banner ─────────────────────────────────────────────── */}
-        <section className="py-24 px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="font-inter font-black text-white mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>
-                Ready to make your<br />
-                <span className={gradientText}>crypto work for you?</span>
-              </h2>
-              <p className="text-[#94A3B8] mb-10 text-lg">
-                Join 50,000+ Africans already spending smarter.
-              </p>
-              <Link href="/auth/register">
-                <motion.button
-                  className={`${btnClass} px-10 py-5 rounded-2xl text-lg inline-flex items-center gap-3`}
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.97 }}
-                  animate={{
-                    boxShadow: [
-                      `0 0 20px rgba(${accentRgb}, 0.3)`,
-                      `0 0 50px rgba(${accentRgb}, 0.6)`,
-                      `0 0 20px rgba(${accentRgb}, 0.3)`,
-                    ],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                >
-                  Launch SureXend — Free <ArrowRight size={22} />
-                </motion.button>
-              </Link>
-              <p className="text-[#64748B] text-sm mt-4">No download · No credit card · Instant access</p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ── Footer ─────────────────────────────────────────────────── */}
-        <footer
-          className="border-t py-16 px-4 sm:px-6"
-          style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.2)' }}
-        >
+        <footer className="border-t py-16 px-4 sm:px-6 relative z-10" style={{ borderColor: 'rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.2)' }}>
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 mb-12">
-              {/* Brand */}
               <div className="col-span-2 sm:col-span-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center"
-                    style={{ background: isGold ? 'radial-gradient(#E8B820, #A07810)' : 'radial-gradient(#C8F050, #88B020)' }}
-                  >
-                    <span className="font-inter font-black text-sm" style={{ color: '#0D0D0D' }}>SX</span>
-                  </div>
-                  <span className="font-inter font-bold text-white">SURE<span style={{ color: accentHex }}>X</span>END</span>
+                  <img
+                    src={isGold ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
+                    alt="SureXend"
+                    className={`w-9 h-9 object-contain ${isGold ? 'gold-logo-glow' : 'lemon-logo-glow'}`}
+                    style={{
+                      filter: isGold
+                        ? 'brightness(1.25) drop-shadow(0 0 12px rgba(252, 211, 77, 0.9)) drop-shadow(0 0 25px rgba(212, 160, 23, 0.7))'
+                        : 'invert(1) sepia(0.5) saturate(6) hue-rotate(30deg) brightness(1.1) drop-shadow(0 0 8px rgba(181, 226, 61, 0.4))'
+                    }}
+                  />
+                  <span className="font-inter font-bold text-white text-lg">SURE<span style={{ color: accentHex }}>X</span>END</span>
                 </div>
-                <p className="text-[#64748B] text-sm leading-relaxed">
-                  Africa&apos;s premier stablecoin spending platform. Your crypto, finally useful.
-                </p>
-                <div className="flex gap-3 mt-5">
-                  {['𝕏', 'in', 'IG', 'TG'].map(s => (
-                    <button
-                      key={s}
-                      className="w-8 h-8 rounded-lg flex items-center justify-center text-[#64748B] text-xs hover:text-white transition-colors"
-                      style={{ background: 'rgba(255,255,255,0.05)' }}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
+                <p className="text-[#64748B] text-sm leading-relaxed">Africa&apos;s premier stablecoin spending platform. Your crypto, finally useful.</p>
               </div>
-              {/* Links */}
               {[
-                { title: 'Product', links: ['Features', 'Security', 'Pricing', 'Referrals', 'API Docs'] },
-                { title: 'Company', links: ['About Us', 'Blog', 'Careers', 'Press Kit', 'Contact'] },
+                { title: 'Product', links: ['Features', 'Security', 'Pricing', 'Referrals'] },
+                { title: 'Company', links: ['About Us', 'Blog', 'Careers', 'Contact'] },
                 { title: 'Legal', links: ['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'AML Policy', 'NDPR Notice'] },
               ].map(({ title, links }) => (
                 <div key={title}>
                   <p className="font-semibold text-white text-sm mb-4">{title}</p>
                   <ul className="space-y-2">
-                    {links.map(link => (
-                      <li key={link}>
-                        <a href="#" className="text-[#64748B] text-sm hover:text-white transition-colors">{link}</a>
-                      </li>
-                    ))}
+                    {links.map(link => <li key={link}><a href="#" className="text-[#64748B] text-sm hover:text-white transition-colors">{link}</a></li>)}
                   </ul>
                 </div>
               ))}
             </div>
             <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <p className="text-[#64748B] text-xs">© 2025 SureXend. All rights reserved.</p>
-              <p className="text-[#64748B] text-xs">
-                Regulated financial services. Transactions protected by 256-bit encryption.
-              </p>
+              <p className="text-[#64748B] text-xs">© 2026 SureXend. All rights reserved.</p>
+              <p className="text-[#64748B] text-xs">Regulated financial services. Transactions protected by 256-bit encryption.</p>
             </div>
           </div>
         </footer>

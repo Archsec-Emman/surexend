@@ -11,6 +11,7 @@ export type ThemeVariant = 'gold' | 'lemon'
 interface ThemeContextValue {
   variant: ThemeVariant
   setVariant: (v: ThemeVariant) => void
+  toggleVariant: () => void
   colors: {
     primary: string
     light: string
@@ -66,6 +67,7 @@ const LEMON_COLORS: ThemeContextValue['colors'] = {
 const ThemeContext = createContext<ThemeContextValue>({
   variant: 'gold',
   setVariant: () => {},
+  toggleVariant: () => {},
   colors: GOLD_COLORS,
 })
 
@@ -103,10 +105,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('surexend_variant', v)
   }
 
+  const toggleVariant = () => {
+    const next = variant === 'gold' ? 'lemon' : 'gold'
+    setVariantState(next)
+    localStorage.setItem('surexend_variant', next)
+  }
+
   const colors = variant === 'gold' ? GOLD_COLORS : LEMON_COLORS
 
   return (
-    <ThemeContext.Provider value={{ variant, setVariant, colors }}>
+    <ThemeContext.Provider value={{ variant, setVariant, toggleVariant, colors }}>
       <div data-variant={variant}>
         {children}
       </div>
