@@ -134,9 +134,9 @@ export default function ProfilePage() {
               <h2 className="text-white font-extrabold text-sm sm:text-base truncate">
                 {fullName || 'Alex Johnson'}
               </h2>
-              {/* Theme Gold/Lemon Verified Tick */}
+              {/* Twitter / X style Gold/Lemon Verified Tick */}
               <span 
-                className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black text-black flex-shrink-0 shadow-sm"
+                className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black text-black flex-shrink-0 shadow-sm ring-1 ring-white/20"
                 style={{ background: colors.gradientBg }}
                 title="Verified User"
               >
@@ -183,20 +183,24 @@ export default function ProfilePage() {
         </div>
       </motion.div>
 
-      {/* ⬛ BLACK TICK TESTNET & CAMPAIGN BADGE */}
-      <div className="glass-card p-3.5 rounded-2xl border border-white/10 flex items-center justify-between bg-black/40">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-black border border-white/20 flex items-center justify-center text-white font-black text-xs shadow-md">
+      {/* ⬛ BLACK TICK TESTNET & CAMPAIGN BADGE (TWITTER / X STYLE ROUND BADGE - SINGLE LINE) */}
+      <div className="glass-card py-2.5 px-3.5 rounded-2xl border border-white/10 flex items-center justify-between gap-2 bg-black/50 text-xs">
+        <div className="flex items-center gap-2.5 truncate">
+          {/* Twitter / X style perfectly round Black Verified Tick */}
+          <div className="w-6 h-6 rounded-full bg-black border border-white/30 flex items-center justify-center text-white font-black text-[11px] shadow-md flex-shrink-0">
             ✓
           </div>
-          <div>
-            <p className="text-xs font-extrabold text-white flex items-center gap-1">
-              Black Tick Verified Member <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-gray-300 font-bold">Campaign Winner</span>
-            </p>
-            <p className="text-[10px] text-[#94A3B8]">Testnet Early Adopter & Community Campaign Rewards Active</p>
+          <div className="flex items-center gap-1.5 truncate">
+            <span className="font-extrabold text-white text-xs truncate">Black Tick Member</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-gray-300 border border-white/10 flex-shrink-0">
+              Campaign Winner
+            </span>
           </div>
         </div>
-        <span className="text-xs font-mono font-bold text-emerald-400">+500 PTS</span>
+
+        <span className="font-mono font-extrabold text-emerald-400 text-xs flex-shrink-0">
+          +500 PTS
+        </span>
       </div>
 
       {/* KYC completion banner (if not fully verified) */}

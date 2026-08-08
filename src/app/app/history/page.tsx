@@ -540,7 +540,7 @@ export default function HistoryPage() {
                               {txTypeLabel[tx.type] || tx.type}
                             </p>
                             <p className={`font-inter font-bold text-sm ${isCredit ? 'text-[#10B981]' : 'text-white'}`}>
-                              {isCredit ? '+' : '-'}{tx.amount} {tx.currency || 'USDT'}
+                              {isCredit ? '+' : '-'}${tx.amount} {tx.currency && tx.currency !== 'USDT' ? tx.currency : 'USD'}
                             </p>
                           </div>
                           <div className="flex items-center justify-between">
