@@ -412,86 +412,84 @@ export default function HistoryPage() {
         </div>
       </div>
 
-          {/* Search + Filter row */}
-          <div className="flex gap-2">
-            <div className="flex-1 relative">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]" />
-              <input
-                className="input-field pl-9 py-3 text-sm"
-                placeholder="Search transactions..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-              />
-            </div>
-            <div className="relative">
-              <motion.button
-                className="h-[46px] px-4 rounded-xl flex items-center gap-2 text-sm font-medium relative"
-                style={activeFilterCount > 0 ? {
-                  background: `rgba(${accentRgb}, 0.15)`,
-                  color: accentHex, border: `1px solid rgba(${accentRgb}, 0.3)`
-                } : {
-                  background: 'rgba(255,255,255,0.05)',
-                  color: '#94A3B8', border: '1px solid rgba(255,255,255,0.08)'
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowFilters(!showFilters)}
+      {/* Search + Filter row */}
+      <div className="flex gap-2">
+        <div className="flex-1 relative">
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#64748B]" />
+          <input
+            className="input-field pl-9 py-3 text-sm"
+            placeholder="Search transactions..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="relative">
+          <motion.button
+            className="h-[46px] px-4 rounded-xl flex items-center gap-2 text-sm font-medium relative"
+            style={activeFilterCount > 0 ? {
+              background: `rgba(${accentRgb}, 0.15)`,
+              color: accentHex, border: `1px solid rgba(${accentRgb}, 0.3)`
+            } : {
+              background: 'rgba(255,255,255,0.05)',
+              color: '#94A3B8', border: '1px solid rgba(255,255,255,0.08)'
+            }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <Filter size={15} />
+            <span className="hidden xs:inline">Filter</span>
+            {activeFilterCount > 0 && (
+              <span
+                className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center"
+                style={{ background: accentHex, color: '#0D0D0D' }}
               >
-                <Filter size={15} />
-                <span className="hidden xs:inline">Filter</span>
-                {activeFilterCount > 0 && (
-                  <span
-                    className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center"
-                    style={{ background: accentHex, color: '#0D0D0D' }}
-                  >
-                    {activeFilterCount}
-                  </span>
-                )}
-              </motion.button>
-              <AnimatePresence>
-                {showFilters && (
-                  <FilterPanel
-                    filters={filters}
-                    setFilters={setFilters}
-                    accentHex={accentHex}
-                    accentRgb={accentRgb}
-                    onClose={() => setShowFilters(false)}
-                  />
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Active filter chips */}
-          {activeFilterCount > 0 && (
-            <div className="flex gap-2 mt-3 overflow-x-auto pb-1">
-              {filters.year && (
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs flex-shrink-0"
-                  style={{ background: `rgba(${accentRgb}, 0.12)`, color: accentHex }}>
-                  <Calendar size={10} /> {filters.year}
-                  <button onClick={() => setFilters({ ...filters, year: null, month: null })} className="ml-1"><X size={10} /></button>
-                </span>
-              )}
-              {filters.month && (
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs flex-shrink-0"
-                  style={{ background: `rgba(${accentRgb}, 0.12)`, color: accentHex }}>
-                  Month {filters.month}
-                  <button onClick={() => setFilters({ ...filters, month: null })} className="ml-1"><X size={10} /></button>
-                </span>
-              )}
-              {filters.type !== 'ALL' && (
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs flex-shrink-0"
-                  style={{ background: `rgba(${accentRgb}, 0.12)`, color: accentHex }}>
-                  {filters.type.replace('_', ' ')}
-                  <button onClick={() => setFilters({ ...filters, type: 'ALL' })} className="ml-1"><X size={10} /></button>
-                </span>
-              )}
-            </div>
-          )}
+                {activeFilterCount}
+              </span>
+            )}
+          </motion.button>
+          <AnimatePresence>
+            {showFilters && (
+              <FilterPanel
+                filters={filters}
+                setFilters={setFilters}
+                accentHex={accentHex}
+                accentRgb={accentRgb}
+                onClose={() => setShowFilters(false)}
+              />
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
+      {/* Active filter chips */}
+      {activeFilterCount > 0 && (
+        <div className="flex gap-2 mt-3 overflow-x-auto pb-1">
+          {filters.year && (
+            <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs flex-shrink-0"
+              style={{ background: `rgba(${accentRgb}, 0.12)`, color: accentHex }}>
+              <Calendar size={10} /> {filters.year}
+              <button onClick={() => setFilters({ ...filters, year: null, month: null })} className="ml-1"><X size={10} /></button>
+            </span>
+          )}
+          {filters.month && (
+            <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs flex-shrink-0"
+              style={{ background: `rgba(${accentRgb}, 0.12)`, color: accentHex }}>
+              Month {filters.month}
+              <button onClick={() => setFilters({ ...filters, month: null })} className="ml-1"><X size={10} /></button>
+            </span>
+          )}
+          {filters.type !== 'ALL' && (
+            <span className="flex items-center gap-1 px-3 py-1 rounded-full text-xs flex-shrink-0"
+              style={{ background: `rgba(${accentRgb}, 0.12)`, color: accentHex }}>
+              {filters.type.replace('_', ' ')}
+              <button onClick={() => setFilters({ ...filters, type: 'ALL' })} className="ml-1"><X size={10} /></button>
+            </span>
+          )}
+        </div>
+      )}
+
       {/* Transaction list */}
-      <div className="max-w-2xl mx-auto px-4 pt-4">
+      <div className="w-full">
         {isLoading ? (
           <div className="space-y-3">
             {Array.from({ length: 8 }, (_, i) => (
