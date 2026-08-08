@@ -173,7 +173,7 @@ function FAQItem({ q, a, accent }: { q: string; a: string; accent: string }) {
 // ══════════════════════════════════════════════════════════════════════════
 
 export default function LandingPage() {
-  const { variant, colors } = useTheme()
+  const { variant, colors, toggleVariant } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const [showLoader, setShowLoader] = useState(true)
   const [scrolled, setScrolled] = useState(false)
@@ -291,8 +291,24 @@ export default function LandingPage() {
               ))}
             </div>
 
-            {/* CTA buttons */}
+            {/* CTA buttons + Theme Switcher */}
             <div className="hidden md:flex items-center gap-3">
+              {/* Theme Toggle Button */}
+              <button
+                onClick={toggleVariant}
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all duration-300 shadow-lg hover:scale-105"
+                style={{
+                  background: isGold ? 'rgba(212, 160, 23, 0.15)' : 'rgba(181, 226, 61, 0.15)',
+                  borderColor: isGold ? 'rgba(212, 160, 23, 0.4)' : 'rgba(181, 226, 61, 0.4)',
+                  color: isGold ? '#FFD700' : '#B5E23D',
+                  boxShadow: isGold ? '0 0 15px rgba(212,160,23,0.3)' : '0 0 15px rgba(181,226,61,0.3)',
+                }}
+                title="Switch Brand Theme (Gold / Lemon)"
+              >
+                <span className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ background: accentHex }}></span>
+                <span>{isGold ? 'Gold Theme 🟡' : 'Lemon Theme 🟢'}</span>
+              </button>
+
               <Link href="/auth/login">
                 <button className={`${btnOutlineClass} px-5 py-2 rounded-xl text-sm font-semibold`}>
                   Log In
@@ -305,14 +321,28 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden p-2 rounded-lg text-white"
-              style={{ background: 'rgba(255,255,255,0.06)' }}
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            {/* Mobile header controls */}
+            <div className="flex items-center gap-2 md:hidden">
+              <button
+                onClick={toggleVariant}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all shadow-md"
+                style={{
+                  background: isGold ? 'rgba(212, 160, 23, 0.15)' : 'rgba(181, 226, 61, 0.15)',
+                  borderColor: isGold ? 'rgba(212, 160, 23, 0.4)' : 'rgba(181, 226, 61, 0.4)',
+                  color: isGold ? '#FFD700' : '#B5E23D',
+                }}
+              >
+                <span>{isGold ? '🟡 Gold' : '🟢 Lemon'}</span>
+              </button>
+
+              <button
+                className="p-2 rounded-lg text-white"
+                style={{ background: 'rgba(255,255,255,0.06)' }}
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
+                {menuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </div>
 
           {/* Mobile menu */}

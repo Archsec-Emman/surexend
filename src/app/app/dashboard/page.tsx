@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity, Building2 } from 'lucide-react'
+import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity, Building2, PlusCircle, CreditCard, Landmark, X, ChevronRight } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { walletAPI, transactionAPI } from '@/lib/api'
 import { useTheme } from '@/context/ThemeContext'
@@ -82,6 +82,8 @@ export default function DashboardPage() {
   const [currency, setCurrency] = useState<'USDT' | 'NGN'>('USDT')
   const [selectedCrypto, setSelectedCrypto] = useState<'USDT' | 'USDC'>('USDT')
   const [timeframe, setTimeframe] = useState<'1D' | '1W' | '1M' | '1Y'>('1D')
+  const [showSendModal, setShowSendModal] = useState(false)
+  const [showFundModal, setShowFundModal] = useState(false)
 
   const currentCrypto = cryptoMarketData[selectedCrypto]
 
@@ -174,22 +176,73 @@ export default function DashboardPage() {
           </button>
         </div>
 
-        {/* Action Buttons */}
-        <div className="grid grid-cols-5 gap-1.5 sm:gap-3 pt-2">
-          {[
-            { icon: Send, label: 'Send', href: '/app/send', color: '#10B981' },
-            { icon: Download, label: 'Receive', href: '/app/receive', color: '#3B82F6' },
-            { icon: Repeat, label: 'Convert', href: '/app/convert', color: '#F59E0B' },
-            { icon: Building2, label: 'Withdraw', href: '/app/withdraw', color: '#EC4899' },
-            { icon: Smartphone, label: 'Bills', href: '/app/bills', color: '#8B5CF6' }
-          ].map((action, idx) => (
-            <Link key={idx} href={action.href} className="group flex flex-col items-center gap-1.5 sm:gap-2">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] flex items-center justify-center group-hover:scale-105 transition-all group-hover:bg-[rgba(255,255,255,0.08)]">
-                <action.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: action.color }} />
-              </div>
-              <span className="text-[10px] sm:text-xs font-medium text-[#94A3B8] group-hover:text-white transition-colors text-center">{action.label}</span>
-            </Link>
-          ))}
+        {/* Action Buttons: 4 Primary Actions in Order (Fund, Send, Receive, Bills) */}
+        <div className="grid grid-cols-4 gap-2 sm:gap-4 pt-2">
+          {/* 1. FUND */}
+          <button 
+            onClick={() => setShowFundModal(true)} 
+            className="group flex flex-col items-center gap-1.5 sm:gap-2"
+          >
+            <div 
+              className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-all shadow-lg"
+              style={{
+                background: variant === 'gold' ? 'rgba(212, 160, 23, 0.15)' : 'rgba(181, 226, 61, 0.15)',
+                border: `1px solid ${variant === 'gold' ? 'rgba(212, 160, 23, 0.35)' : 'rgba(181, 226, 61, 0.35)'}`,
+                boxShadow: `0 0 15px rgba(${colors.glowRgb}, 0.25)`
+              }}
+            >
+              <PlusCircle className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: colors.primary }} />
+            </div>
+            <span className="text-xs font-semibold text-white group-hover:text-[var(--text)] transition-colors text-center">Fund</span>
+          </button>
+
+          {/* 2. SEND */}
+          <button 
+            onClick={() => setShowSendModal(true)} 
+            className="group flex flex-col items-center gap-1.5 sm:gap-2"
+          >
+            <div 
+              className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-all shadow-lg"
+              style={{
+                background: 'rgba(59, 130, 246, 0.15)',
+                border: '1px solid rgba(59, 130, 246, 0.35)',
+                boxShadow: '0 0 15px rgba(59, 130, 246, 0.2)'
+              }}
+            >
+              <Send className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
+            </div>
+            <span className="text-xs font-semibold text-white group-hover:text-blue-400 transition-colors text-center">Send</span>
+          </button>
+
+          {/* 3. RECEIVE */}
+          <Link href="/app/receive" className="group flex flex-col items-center gap-1.5 sm:gap-2">
+            <div 
+              className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-all shadow-lg"
+              style={{
+                background: 'rgba(245, 158, 11, 0.15)',
+                border: '1px solid rgba(245, 158, 11, 0.35)',
+                boxShadow: '0 0 15px rgba(245, 158, 11, 0.2)'
+              }}
+            >
+              <Download className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
+            </div>
+            <span className="text-xs font-semibold text-white group-hover:text-amber-400 transition-colors text-center">Receive</span>
+          </Link>
+
+          {/* 4. BILLS */}
+          <Link href="/app/bills" className="group flex flex-col items-center gap-1.5 sm:gap-2">
+            <div 
+              className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-all shadow-lg"
+              style={{
+                background: 'rgba(139, 92, 246, 0.15)',
+                border: '1px solid rgba(139, 92, 246, 0.35)',
+                boxShadow: '0 0 15px rgba(139, 92, 246, 0.2)'
+              }}
+            >
+              <Smartphone className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
+            </div>
+            <span className="text-xs font-semibold text-white group-hover:text-purple-400 transition-colors text-center">Bills</span>
+          </Link>
         </div>
       </motion.div>
 
@@ -480,6 +533,186 @@ export default function DashboardPage() {
           </div>
         )}
       </motion.div>
+
+      {/* ── SEND CHOICE GLASS MORPH MODAL ──────────────────────────────── */}
+      <AnimatePresence>
+        {showSendModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="glass-card w-full max-w-md p-6 relative overflow-hidden shadow-2xl border"
+              style={{
+                borderColor: variant === 'gold' ? 'rgba(212, 160, 23, 0.4)' : 'rgba(181, 226, 61, 0.4)',
+              }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
+                    style={{
+                      background: `rgba(${colors.glowRgb}, 0.15)`,
+                      border: `1px solid rgba(${colors.glowRgb}, 0.3)`
+                    }}
+                  >
+                    <Send className="w-5 h-5" style={{ color: colors.primary }} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white text-lg">Send & Transfer</h3>
+                    <p className="text-xs text-[#94A3B8]">Choose your transfer destination</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowSendModal(false)}
+                  className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Options */}
+              <div className="space-y-4">
+                {/* Option 1: Crypto Wallet */}
+                <Link
+                  href="/app/send"
+                  onClick={() => setShowSendModal(false)}
+                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-blue-500/40 transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                      <Send className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white text-base group-hover:text-blue-400 transition-colors">
+                        Send to Crypto Wallet
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                        Transfer USDT or USDC to TRC20, BEP20, or Polygon addresses
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                {/* Option 2: Bank Account Withdrawal */}
+                <Link
+                  href="/app/withdraw"
+                  onClick={() => setShowSendModal(false)}
+                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-emerald-500/40 transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                      <Building2 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white text-base group-hover:text-emerald-400 transition-colors">
+                        Send to Local Bank Account
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                        Withdraw stablecoins to Naira, Cedi, Shillings, or Rand instantly
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ── FUND CHOICE GLASS MORPH MODAL ──────────────────────────────── */}
+      <AnimatePresence>
+        {showFundModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="glass-card w-full max-w-md p-6 relative overflow-hidden shadow-2xl border"
+              style={{
+                borderColor: variant === 'gold' ? 'rgba(212, 160, 23, 0.4)' : 'rgba(181, 226, 61, 0.4)',
+              }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
+                    style={{
+                      background: `rgba(${colors.glowRgb}, 0.15)`,
+                      border: `1px solid rgba(${colors.glowRgb}, 0.3)`
+                    }}
+                  >
+                    <PlusCircle className="w-5 h-5" style={{ color: colors.primary }} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white text-lg">Fund Your Wallet</h3>
+                    <p className="text-xs text-[#94A3B8]">Select how you want to add funds</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowFundModal(false)}
+                  className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Options */}
+              <div className="space-y-4">
+                {/* Option 1: Deposit Crypto */}
+                <Link
+                  href="/app/receive"
+                  onClick={() => setShowFundModal(false)}
+                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-amber-500/40 transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                      <Coins className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white text-base group-hover:text-amber-400 transition-colors">
+                        Deposit Crypto (USDT / USDC)
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                        Get your deposit wallet address & QR code for TRC20, BEP20, Polygon
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                {/* Option 2: Buy with Local Bank or Card */}
+                <Link
+                  href="/app/convert"
+                  onClick={() => setShowFundModal(false)}
+                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-purple-500/40 transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                      <CreditCard className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white text-base group-hover:text-purple-400 transition-colors">
+                        Buy with Bank Transfer / Card
+                      </h4>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                        Fund with local fiat currency (NGN, GHS, KES, ZAR) to buy stablecoins
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
