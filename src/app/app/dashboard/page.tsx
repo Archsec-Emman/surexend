@@ -584,16 +584,16 @@ export default function DashboardPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="glass-card w-full max-w-md p-6 relative overflow-hidden shadow-2xl border"
+              className="glass-card w-[94vw] max-w-md max-h-[85vh] overflow-y-auto p-5 sm:p-6 relative rounded-3xl shadow-2xl border"
               style={{
                 borderColor: variant === 'gold' ? 'rgba(212, 160, 23, 0.4)' : 'rgba(181, 226, 61, 0.4)',
               }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
+              <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/10">
                 <div className="flex items-center gap-3">
                   <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md flex-shrink-0"
                     style={{
                       background: `rgba(${colors.glowRgb}, 0.15)`,
                       border: `1px solid rgba(${colors.glowRgb}, 0.3)`
@@ -602,13 +602,13 @@ export default function DashboardPage() {
                     <Send className="w-5 h-5" style={{ color: colors.primary }} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">Send & Transfer</h3>
+                    <h3 className="font-bold text-white text-base sm:text-lg">Send & Transfer</h3>
                     <p className="text-xs text-[#94A3B8]">Choose your transfer destination</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setShowSendModal(false)}
-                  className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                  className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors flex-shrink-0"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -620,69 +620,69 @@ export default function DashboardPage() {
                 <Link
                   href="/app/send?type=tag"
                   onClick={() => setShowSendModal(false)}
-                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-purple-500/40 transition-all duration-300 relative overflow-hidden"
+                  className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-purple-500/40 transition-all duration-300 relative overflow-hidden"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                      <Tag className="w-6 h-6" />
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0">
+                      <Tag className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-semibold text-white text-base group-hover:text-purple-400 transition-colors">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="font-semibold text-white text-sm sm:text-base group-hover:text-purple-400 transition-colors">
                           Send to SureX Tag (@username)
                         </h4>
                         <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Zero Fee</span>
                       </div>
-                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                      <p className="text-[11px] sm:text-xs text-[#94A3B8] leading-relaxed mt-0.5">
                         Instant zero-fee transfer directly to any SureXend user tag
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
                 </Link>
 
                 {/* Option 2: Crypto Wallet */}
                 <Link
                   href="/app/send?type=crypto"
                   onClick={() => setShowSendModal(false)}
-                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-blue-500/40 transition-all duration-300"
+                  className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-blue-500/40 transition-all duration-300"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                      <Send className="w-6 h-6" />
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0">
+                      <Send className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white text-base group-hover:text-blue-400 transition-colors">
+                      <h4 className="font-semibold text-white text-sm sm:text-base group-hover:text-blue-400 transition-colors">
                         Send to Crypto Wallet
                       </h4>
-                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                      <p className="text-[11px] sm:text-xs text-[#94A3B8] leading-relaxed mt-0.5">
                         Transfer USDT or USDC to TRC20, BEP20, or Polygon addresses
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
                 </Link>
 
                 {/* Option 3: Bank Account Withdrawal */}
                 <Link
                   href="/app/withdraw"
                   onClick={() => setShowSendModal(false)}
-                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-emerald-500/40 transition-all duration-300"
+                  className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-emerald-500/40 transition-all duration-300"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                      <Building2 className="w-6 h-6" />
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0">
+                      <Building2 className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white text-base group-hover:text-emerald-400 transition-colors">
+                      <h4 className="font-semibold text-white text-sm sm:text-base group-hover:text-emerald-400 transition-colors">
                         Send to Local Bank Account
                       </h4>
-                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                      <p className="text-[11px] sm:text-xs text-[#94A3B8] leading-relaxed mt-0.5">
                         Withdraw stablecoins to Naira, Cedi, Shillings, or Rand instantly
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
                 </Link>
               </div>
             </motion.div>
@@ -693,22 +693,22 @@ export default function DashboardPage() {
       {/* ── FUND CHOICE GLASS MORPH MODAL ──────────────────────────────── */}
       <AnimatePresence>
         {showFundModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="glass-card w-full max-w-md p-6 relative overflow-hidden shadow-2xl border"
+              className="glass-card w-[94vw] max-w-md max-h-[85vh] overflow-y-auto p-5 sm:p-6 relative rounded-3xl shadow-2xl border"
               style={{
                 borderColor: variant === 'gold' ? 'rgba(212, 160, 23, 0.4)' : 'rgba(181, 226, 61, 0.4)',
               }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
+              <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/10">
                 <div className="flex items-center gap-3">
                   <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md flex-shrink-0"
                     style={{
                       background: `rgba(${colors.glowRgb}, 0.15)`,
                       border: `1px solid rgba(${colors.glowRgb}, 0.3)`
@@ -717,13 +717,13 @@ export default function DashboardPage() {
                     <PlusCircle className="w-5 h-5" style={{ color: colors.primary }} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">Fund Your Wallet</h3>
+                    <h3 className="font-bold text-white text-base sm:text-lg">Fund Your Wallet</h3>
                     <p className="text-xs text-[#94A3B8]">Select how you want to add funds</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setShowFundModal(false)}
-                  className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                  className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors flex-shrink-0"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -735,46 +735,46 @@ export default function DashboardPage() {
                 <Link
                   href="/app/convert"
                   onClick={() => setShowFundModal(false)}
-                  className="group flex items-center justify-between p-4 rounded-2xl border border-emerald-500/40 bg-emerald-500/[0.04] hover:bg-emerald-500/[0.08] transition-all duration-300 relative"
+                  className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border border-emerald-500/40 bg-emerald-500/[0.04] hover:bg-emerald-500/[0.08] transition-all duration-300 relative"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                      <CreditCard className="w-6 h-6" />
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0">
+                      <CreditCard className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-white text-base text-emerald-400 transition-colors">
+                        <h4 className="font-bold text-white text-sm sm:text-base text-emerald-400 transition-colors">
                           Deposit Local Currency (Bank Transfer / Card)
                         </h4>
                       </div>
-                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                      <p className="text-[11px] sm:text-xs text-[#94A3B8] leading-relaxed mt-0.5">
                         Deposit NGN, GHS, KES, or ZAR to buy airtime/data, pay bills & get stablecoins
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-emerald-400 group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-5 h-5 text-emerald-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
                 </Link>
 
                 {/* OPTION 2: Deposit Crypto (USDT / USDC) */}
                 <Link
                   href="/app/receive"
                   onClick={() => setShowFundModal(false)}
-                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-amber-500/40 transition-all duration-300"
+                  className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-amber-500/40 transition-all duration-300"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
-                      <Coins className="w-6 h-6" />
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform flex-shrink-0">
+                      <Coins className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white text-base group-hover:text-amber-400 transition-colors">
+                      <h4 className="font-semibold text-white text-sm sm:text-base group-hover:text-amber-400 transition-colors">
                         Deposit Crypto (USDT / USDC)
                       </h4>
-                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                      <p className="text-[11px] sm:text-xs text-[#94A3B8] leading-relaxed mt-0.5">
                         Get your deposit wallet address & QR code for TRC20, BEP20, Polygon
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
                 </Link>
               </div>
             </motion.div>
