@@ -84,14 +84,14 @@ export default function InvoicePage() {
               International Billing
             </span>
             <span className="text-xs text-emerald-400 flex items-center gap-1 font-medium">
-              <Zap className="w-3 h-3" /> Auto-USDT Conversion
+              <Zap className="w-3 h-3" /> Auto-USD Conversion
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
             European & Global Invoice <Globe className="w-6 h-6 text-blue-400" />
           </h1>
           <p className="text-xs sm:text-sm text-[#94A3B8] mt-1">
-            Generate SEPA (EUR), UK (GBP), or US (USD) bank details to get paid internationally. Funds received automatically credit your USDT wallet balance.
+            Generate SEPA (EUR), UK (GBP), or US (USD) bank details to get paid internationally. Funds received automatically credit your USD wallet balance.
           </p>
         </div>
       </div>
@@ -220,7 +220,7 @@ export default function InvoicePage() {
                   {currentAcc.symbol}{amount ? parseFloat(amount).toLocaleString(undefined, { minimumFractionDigits: 2 }) : '0.00'} {selectedCurrency}
                 </p>
                 <p className="text-xs text-emerald-400 mt-1 font-medium flex items-center gap-1">
-                  ≈ ${amount ? (parseFloat(amount) * (selectedCurrency === 'GBP' ? 1.28 : selectedCurrency === 'EUR' ? 1.09 : 1.0)).toFixed(2) : '0.00'} USDT (Direct Credit)
+                  ≈ ${amount ? (parseFloat(amount) * (selectedCurrency === 'GBP' ? 1.28 : selectedCurrency === 'EUR' ? 1.09 : 1.0)).toFixed(2) : '0.00'} USD (Direct Credit)
                 </p>
               </div>
               <div className="p-2 rounded-xl bg-white flex flex-col items-center justify-center shadow-md">
@@ -270,13 +270,13 @@ export default function InvoicePage() {
             </div>
           </div>
 
-          {/* Delivery & Auto-USDT Notice */}
+          {/* Delivery & Auto-USD Notice */}
           <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300 leading-relaxed flex items-start gap-3">
             <RefreshCw className="w-5 h-5 flex-shrink-0 text-emerald-400 mt-0.5 animate-spin-slow" />
             <div>
               <p className="font-semibold text-white">Automated Real-Time Settlement</p>
               <p className="text-[#94A3B8] text-[11px] mt-0.5">
-                When funds reach this European IBAN or account, SureXend automatically converts the payment into USDT stablecoins and credits your wallet immediately.
+                When funds reach this European IBAN or account, SureXend automatically converts the payment into USD and credits your wallet immediately.
               </p>
             </div>
           </div>

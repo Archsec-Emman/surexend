@@ -383,35 +383,34 @@ export default function HistoryPage() {
   })
 
   const txTypeLabel: Record<string, string> = {
-    SEND: 'Sent USDT',
-    RECEIVE: 'Received USDT',
-    CONVERT: 'Converted',
+    SEND: 'Sent USD',
+    RECEIVE: 'Received USD',
+    CONVERT: 'Converted Currency',
     BILL_PAYMENT: 'Bill Payment',
-    REFERRAL_EARNING: 'Referral Reward',
+    REFERRAL_EARNING: 'Referral Cashback',
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] pb-32">
+    <div className="w-full max-w-full overflow-x-hidden px-3 py-4 sm:p-6 md:p-8 max-w-2xl mx-auto space-y-4 pb-28 sm:pb-32">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-[#0A0F1E]/90 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-white font-inter font-bold text-xl">Transaction History</h1>
-              <p className="text-[#64748B] text-xs mt-0.5">
-                {data?.total || 0} transactions total
-              </p>
-            </div>
-            <motion.button
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium"
-              style={{ background: `rgba(${accentRgb}, 0.1)`, color: accentHex, border: `1px solid rgba(${accentRgb}, 0.2)` }}
-              whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-              onClick={() => setShowStatement(true)}
-            >
-              <Download size={15} />
-              <span className="hidden xs:inline">Statement</span>
-            </motion.button>
+      <div className="border-b border-white/5 pb-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-white font-extrabold text-xl sm:text-2xl tracking-tight">Transaction History</h1>
+            <p className="text-[#94A3B8] text-xs sm:text-sm mt-0.5">
+              Filter by Day, Week, Month, or Year
+            </p>
           </div>
+          <button
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-md"
+            style={{ background: `rgba(${accentRgb}, 0.15)`, color: accentHex, border: `1px solid rgba(${accentRgb}, 0.3)` }}
+            onClick={() => setShowStatement(true)}
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Download Statement</span>
+          </button>
+        </div>
+      </div>
 
           {/* Search + Filter row */}
           <div className="flex gap-2">

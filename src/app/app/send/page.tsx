@@ -217,9 +217,9 @@ export default function SendPage() {
             <form onSubmit={handleSubmit(onSubmitStep2 as any)} className="space-y-6">
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10">
                 <div className="flex justify-between items-center mb-1">
-                  <label className="text-xs text-[#94A3B8]">Send Amount (USDT)</label>
+                  <label className="text-xs text-[#94A3B8]">Send Amount (USDC)</label>
                   <button type="button" onClick={() => setValue('amount', 500)} className="text-xs font-bold text-emerald-400">
-                    Max: 500 USDT
+                    Max: 500 USDC
                   </button>
                 </div>
                 <div className="flex justify-between items-center">
@@ -230,14 +230,14 @@ export default function SendPage() {
                     onChange={(e) => setValue('amount', parseFloat(e.target.value))}
                     className="bg-transparent text-3xl font-extrabold text-white w-[60%] focus:outline-none"
                   />
-                  <span className="font-bold text-sm text-white bg-white/10 px-3 py-1.5 rounded-xl">USDT</span>
+                  <span className="font-bold text-sm text-white bg-white/10 px-3 py-1.5 rounded-xl">USDC</span>
                 </div>
               </div>
 
               <div className="text-xs space-y-2 py-3 px-4 rounded-xl bg-white/[0.02] border border-white/5 text-[#94A3B8]">
                 <div className="flex justify-between">
                   <span>Transfer Fee</span>
-                  <span className="text-white font-bold">{networkFee === 0 ? 'FREE (SureX Tag)' : '1.00 USDT'}</span>
+                  <span className="text-white font-bold">{networkFee === 0 ? 'FREE (SureX Tag)' : '1.00 USDC'}</span>
                 </div>
                 <div className="flex justify-between border-t border-white/5 pt-2">
                   <span>Recipient Receives</span>

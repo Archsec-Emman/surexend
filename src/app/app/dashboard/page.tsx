@@ -79,8 +79,8 @@ const cashFlowData = [
 export default function DashboardPage() {
   const { variant, colors } = useTheme()
   const [showBalance, setShowBalance] = useState(true)
-  const [currency, setCurrency] = useState<'USDT' | 'NGN'>('USDT')
-  const [selectedCrypto, setSelectedCrypto] = useState<'USDT' | 'USDC'>('USDT')
+  const [currency, setCurrency] = useState<'USDC' | 'NGN'>('USDC')
+  const [selectedCrypto, setSelectedCrypto] = useState<'USDT' | 'USDC'>('USDC')
   const [timeframe, setTimeframe] = useState<'1D' | '1W' | '1M' | '1Y'>('1D')
   const [showSendModal, setShowSendModal] = useState(false)
   const [showFundModal, setShowFundModal] = useState(false)
@@ -109,47 +109,30 @@ export default function DashboardPage() {
 
   return (
     <div className="w-full max-w-full overflow-x-hidden px-4 py-4 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-6 pb-36 sm:pb-32">
-      {/* 🟢 FINTECH USER GREETING & SUREX TAG BAR */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl glass-card border border-white/10 gap-3">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <div 
-              className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg text-black shadow-lg"
-              style={{ background: colors.gradientBg }}
-            >
-              AJ
-            </div>
-            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#0A0F1E]"></span>
+      {/* 🟢 SLEEK SINGLE-LINE FINTECH USER BAR */}
+      <div className="flex items-center justify-between py-2 px-3.5 rounded-xl glass-card border border-white/10 text-xs">
+        <div className="flex items-center gap-2 truncate">
+          <div 
+            className="w-7 h-7 rounded-full flex items-center justify-center font-extrabold text-xs text-black flex-shrink-0 shadow-md"
+            style={{ background: colors.gradientBg }}
+          >
+            AJ
           </div>
-
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-base sm:text-lg font-extrabold text-white tracking-tight">
-                {new Date().getHours() < 12 ? 'Good morning ☀️' : new Date().getHours() < 17 ? 'Good afternoon 🌤️' : 'Good evening 🌙'}, Alex!
-              </h2>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                Verified Tier 2
-              </span>
-            </div>
-            <p className="text-xs text-[#94A3B8] font-medium flex items-center gap-1 mt-0.5">
-              SureX Tag: <span className="font-mono text-white font-bold bg-white/5 px-2 py-0.5 rounded-md text-[11px] border border-white/10">@alex_surex</span>
-              <button 
-                onClick={() => { navigator.clipboard.writeText('@alex_surex'); toast.success('Copied SureX Tag @alex_surex!') }}
-                className="hover:text-white transition-colors ml-1"
-                title="Copy tag"
-              >
-                <Copy className="w-3 h-3" />
-              </button>
-            </p>
-          </div>
+          <span className="font-extrabold text-white truncate text-xs sm:text-sm">Welcome back, Alex 👋</span>
+          <span className="hidden sm:inline text-[#64748B]">•</span>
+          <span className="hidden sm:inline text-[#94A3B8] font-mono font-bold">@alex_surex</span>
         </div>
 
-        <div className="flex items-center gap-2 self-end sm:self-auto">
-          <Link href="/app/invoice" className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5 transition-all">
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" /> EU SEPA Invoice
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            Tier 2 Verified
+          </span>
+          <Link href="/app/invoice" className="hidden xs:flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-white/5 hover:bg-white/10 text-white text-[11px] font-semibold border border-white/10">
+            <Sparkles className="w-3 h-3 text-blue-400" /> EU Invoice
           </Link>
         </div>
       </div>
+
       {/* Live rates ticker */}
       <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-lg py-1.5 flex items-center">
         <motion.div 
@@ -157,17 +140,17 @@ export default function DashboardPage() {
           animate={{ x: [0, -400] }}
           transition={{ repeat: Infinity, duration: 15, ease: 'linear' }}
         >
-          <span>USDT/NGN: <strong className="text-white">₦1,500.00</strong> <span className="text-[#10B981]">+0.4%</span></span>
-          <span>BTC/USDT: <strong className="text-white">$67,473.54</strong> <span className="text-[#10B981]">+2.1%</span></span>
-          <span>ETH/USDT: <strong className="text-white">$3,420.10</strong> <span className="text-[#EF4444]">-0.8%</span></span>
-          <span>USDC/NGN: <strong className="text-white">₦1,498.50</strong> <span className="text-[#10B981]">+0.2%</span></span>
-          <span>SOL/USDT: <strong className="text-white">$145.80</strong> <span className="text-[#10B981]">+5.4%</span></span>
+          <span>USDC/NGN: <strong className="text-white">₦1,500.00</strong> <span className="text-[#10B981]">+0.4%</span></span>
+          <span>USDT/NGN: <strong className="text-white">₦1,498.50</strong> <span className="text-[#10B981]">+0.2%</span></span>
+          <span>BTC/USD: <strong className="text-white">$67,473.54</strong> <span className="text-[#10B981]">+2.1%</span></span>
+          <span>ETH/USD: <strong className="text-white">$3,420.10</strong> <span className="text-[#EF4444]">-0.8%</span></span>
+          <span>SOL/USD: <strong className="text-white">$145.80</strong> <span className="text-[#10B981]">+5.4%</span></span>
         </motion.div>
       </div>
 
       {/* Balance Card */}
       <motion.div 
-        className="glass-card p-5 sm:p-6 relative overflow-hidden"
+        className="glass-card p-4 sm:p-6 relative overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
@@ -186,14 +169,14 @@ export default function DashboardPage() {
                 {showBalance ? <EyeOff className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               </button>
             </p>
-            <div className="text-2xl sm:text-4xl font-bold text-white tracking-tight mt-1">
+            <div className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">
               {isLoadingBalance ? (
                 <div className="h-8 sm:h-10 w-36 sm:w-48 skeleton rounded-lg"></div>
               ) : showBalance ? (
-                currency === 'USDT' ? (
-                  `$${balanceData?.usdt?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'} USDT`
+                currency === 'USDC' ? (
+                  `$${balanceData?.usdt?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '2,450.75'}`
                 ) : (
-                  `₦${balanceData?.fiat?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}`
+                  `₦${balanceData?.fiat?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '3,676,125.00'}`
                 )
               ) : (
                 '••••••••'
@@ -201,19 +184,19 @@ export default function DashboardPage() {
             </div>
             {showBalance && (
               <p className="text-xs text-[#64748B] mt-1 font-medium">
-                {currency === 'USDT'
-                  ? `≈ ₦${balanceData?.fiat?.toLocaleString() || '0.00'}`
-                  : `≈ $${balanceData?.usdt?.toLocaleString()} USDT`}
+                {currency === 'USDC'
+                  ? `≈ ₦${balanceData?.fiat?.toLocaleString() || '3,676,125.00'} NGN`
+                  : `≈ $${balanceData?.usdt?.toLocaleString() || '2,450.75'} USD`}
               </p>
             )}
           </div>
 
           <button 
-            onClick={() => setCurrency(currency === 'USDT' ? 'NGN' : 'USDT')}
+            onClick={() => setCurrency(currency === 'USDC' ? 'NGN' : 'USDC')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold border flex items-center gap-1.5 transition-all btn-outline-${variant}`}
           >
             <Repeat className="w-3 h-3" />
-            {currency === 'USDT' ? 'Show NGN' : 'Show USDT'}
+            {currency === 'USDC' ? 'Show NGN' : 'Show USD'}
           </button>
         </div>
 
@@ -298,7 +281,7 @@ export default function DashboardPage() {
         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-4 pb-4 border-b border-white/5">
           <div className="flex items-center gap-2">
             <span className="text-xs text-[#64748B] font-medium mr-1">Market:</span>
-            {(['USDT', 'USDC'] as const).map((crypto) => (
+            {(['USDC', 'USDT'] as const).map((crypto) => (
               <button
                 key={crypto}
                 onClick={() => setSelectedCrypto(crypto)}

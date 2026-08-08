@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast'
 import { useTheme } from '@/context/ThemeContext'
 import { 
   Home, Send, Repeat, FileText, User, Bell, ArrowUpRight, 
-  Smartphone, Building2, FileSpreadsheet, X, Check, ShieldCheck, Zap
+  Smartphone, Building2, FileSpreadsheet, X, Check, ShieldCheck, Zap, Clock
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -32,7 +32,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const [notifications, setNotifications] = useState([
     { id: 1, title: 'KYC Tier 2 Approved! 🎉', desc: 'Your identity has been verified. Daily limits increased to $50,000.', time: '10m ago', isRead: false, type: 'kyc' },
-    { id: 2, title: 'Deposit Received', desc: 'Successfully received +128.50 USDT via TRC20.', time: '1h ago', isRead: false, type: 'deposit' },
+    { id: 2, title: 'Deposit Received', desc: 'Successfully received +128.50 USD via TRC20.', time: '1h ago', isRead: false, type: 'deposit' },
     { id: 3, title: 'Security Alert', desc: 'New login detected from Mobile Safari (Lagos, Nigeria).', time: '5h ago', isRead: true, type: 'security' },
   ])
 
@@ -55,6 +55,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { label: 'Home', icon: Home, href: '/app/dashboard' },
     { label: 'Invoice', icon: FileSpreadsheet, href: '/app/invoice' },
     { label: 'Conversion', icon: Repeat, href: '/app/convert' },
+    { label: 'History', icon: Clock, href: '/app/history' },
     { label: 'Profile', icon: User, href: '/app/profile' },
   ]
 

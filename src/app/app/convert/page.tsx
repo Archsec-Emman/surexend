@@ -113,7 +113,7 @@ export default function ConvertPage() {
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div>
                 <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
-                  <Repeat className="w-5 h-5" style={{ color: colors.primary }} /> Convert USDT to Fiat
+                  <Repeat className="w-5 h-5" style={{ color: colors.primary }} /> Convert USD to Fiat
                 </h2>
                 <p className="text-xs text-[#94A3B8] mt-0.5">Instant payout to your local bank account</p>
               </div>
@@ -123,7 +123,7 @@ export default function ConvertPage() {
               {/* You Send */}
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 focus-within:border-emerald-500/50 transition-all">
                 <div className="flex justify-between items-center mb-1">
-                  <label className="text-xs font-semibold text-[#94A3B8]">You Send (USDT)</label>
+                  <label className="text-xs font-semibold text-[#94A3B8]">You Send (USD)</label>
                   <button 
                     type="button" 
                     onClick={() => setAmount('100')} 
@@ -141,8 +141,8 @@ export default function ConvertPage() {
                     className="bg-transparent text-3xl font-extrabold text-white w-[60%] focus:outline-none appearance-none"
                   />
                   <div className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl border border-white/10">
-                    <div className="w-6 h-6 rounded-full bg-[#26A17B] flex items-center justify-center text-xs font-bold text-white">₮</div>
-                    <span className="font-bold text-sm text-white">USDT</span>
+                    <div className="w-6 h-6 rounded-full bg-[#10B981] flex items-center justify-center text-xs font-extrabold text-black">$</div>
+                    <span className="font-bold text-sm text-white">USD</span>
                   </div>
                 </div>
               </div>
@@ -180,11 +180,11 @@ export default function ConvertPage() {
               <div className="text-xs space-y-2 py-3 px-4 rounded-xl bg-white/[0.02] border border-white/5">
                 <div className="flex justify-between text-[#94A3B8]">
                   <span>Guaranteed Exchange Rate</span>
-                  <span className="text-white font-bold">1 USDT = {selectedCurrInfo.symbol}{rate.toLocaleString()} {fiatCurrency}</span>
+                  <span className="text-white font-bold">1 USD = {selectedCurrInfo.symbol}{rate.toLocaleString()} {fiatCurrency}</span>
                 </div>
                 <div className="flex justify-between text-[#94A3B8]">
                   <span>Network Processing Fee</span>
-                  <span className="text-white font-bold">{fee} USDT</span>
+                  <span className="text-white font-bold">{fee} USD</span>
                 </div>
               </div>
 

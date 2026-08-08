@@ -120,64 +120,39 @@ export default function ProfilePage() {
   const initials = getInitials(fullName || profile?.email || 'U')
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] pb-32 transform-gpu">
-      {/* Profile header */}
-      <motion.div
-        className="px-4 pt-8 pb-6 max-w-2xl mx-auto"
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-      >
-        {isLoading ? (
-          <div className="flex items-center gap-4">
-            <div className="skeleton w-20 h-20 rounded-full" />
-            <div className="space-y-2">
-              <div className="skeleton h-5 w-32 rounded" />
-              <div className="skeleton h-3 w-48 rounded" />
-            </div>
+    <div className="w-full max-w-full overflow-x-hidden px-3 py-4 sm:p-6 md:p-8 max-w-2xl mx-auto space-y-4 pb-28 sm:pb-32">
+      {/* Sleek Single-Line Profile Header */}
+      <div className="glass-card p-3.5 sm:p-5 rounded-2xl border border-white/10 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 truncate">
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-sm text-black shadow-md flex-shrink-0"
+            style={{ background: colors.gradientBg }}
+          >
+            {initials}
           </div>
-        ) : (
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <div
-                className="w-20 h-20 rounded-2xl flex items-center justify-center font-inter font-black text-2xl"
-                style={{ background: colors.gradientBg, color: '#0D0D0D' }}
-              >
-                {initials}
-              </div>
-              <motion.button
-                className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#1E2940] border border-white/10 rounded-lg flex items-center justify-center"
-                whileTap={{ scale: 0.9 }}
-              >
-                <Camera size={11} style={{ color: accentHex }} />
-              </motion.button>
+          <div className="truncate">
+            <div className="flex items-center gap-2">
+              <h2 className="text-white font-extrabold text-sm sm:text-base truncate">
+                {fullName || 'Alex Johnson'}
+              </h2>
+              <KYCBadge tier={kycTier} />
             </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-white font-inter font-bold text-xl">
-                  {fullName || 'Loading...'}
-                </h2>
-                <KYCBadge tier={kycTier} />
-              </div>
-              <p className="text-[#64748B] text-sm">{profile?.email}</p>
-              <button
-                className="flex items-center gap-1.5 mt-2"
-                onClick={copyUserId}
-              >
-                <span className="text-[#64748B] text-xs font-mono">
-                  ID: {profile?.id?.slice(0, 8)}...
-                </span>
-                {copiedId
-                  ? <CheckCircle size={12} className="text-[#10B981]" />
-                  : <Copy size={12} className="text-[#64748B]" />
-                }
-              </button>
-            </div>
+            <p className="text-[#94A3B8] text-xs font-medium truncate">@alex_surex • alex@example.com</p>
           </div>
-        )}
-      </motion.div>
+        </div>
+
+        <button 
+          onClick={() => toast.success('Profile editor opened')} 
+          className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 flex-shrink-0"
+          title="Edit Profile"
+        >
+          <Edit3 className="w-4 h-4" />
+        </button>
+      </div>
 
       {/* 🏷️ SUREX TAG MANAGEMENT CARD */}
       <motion.div 
-        className="max-w-2xl mx-auto px-4 mb-4"
+        className="w-full"
         initial={{ opacity: 0, y: 10 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ delay: 0.05 }}
@@ -188,22 +163,16 @@ export default function ProfilePage() {
               <Tag className="w-5 h-5" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <p className="text-xs text-[#94A3B8] font-medium">Your SureX Tag (Peer-to-Peer)</p>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Active</span>
-              </div>
-              <p className="text-base font-extrabold text-white font-mono mt-0.5">@alex_surex</p>
+              <p className="text-[11px] text-[#94A3B8] uppercase font-bold tracking-wider">Your SureX Tag</p>
+              <p className="font-mono text-sm font-extrabold text-white">@alex_surex</p>
             </div>
           </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => { navigator.clipboard.writeText('@alex_surex'); toast.success('Copied SureX Tag @alex_surex!') }}
-              className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-bold border border-white/10 flex items-center gap-1.5 transition-all shadow-sm"
-            >
-              <Copy className="w-3.5 h-3.5" /> Copy Tag
-            </button>
-          </div>
+          <button 
+            onClick={() => { navigator.clipboard.writeText('@alex_surex'); toast.success('Copied SureX Tag!') }}
+            className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5 transition-all"
+          >
+            <Copy className="w-3.5 h-3.5" /> Copy Tag
+          </button>
         </div>
       </motion.div>
 
