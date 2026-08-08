@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import { useTheme } from '@/context/ThemeContext'
-import { Home, Send, Repeat, FileText, User, Bell, ArrowUpRight, Smartphone, Building2 } from 'lucide-react'
+import { Home, Send, Repeat, FileText, User, Bell, ArrowUpRight, Smartphone, Building2, FileSpreadsheet } from 'lucide-react'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,10 +41,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { label: 'Home', icon: Home, href: '/app/dashboard' },
-    { label: 'Send', icon: Send, href: '/app/send' },
-    { label: 'Convert', icon: Repeat, href: '/app/convert' },
-    { label: 'Withdraw', icon: Building2, href: '/app/withdraw' },
-    { label: 'Receive', icon: FileText, href: '/app/receive' },
+    { label: 'Invoice', icon: FileSpreadsheet, href: '/app/invoice' },
+    { label: 'Conversion', icon: Repeat, href: '/app/convert' },
     { label: 'Profile', icon: User, href: '/app/profile' },
   ]
 
@@ -160,7 +158,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </main>
 
-        {/* Mobile Bottom Nav */}
+        {/* Mobile Bottom Nav (4 Tabs: Home, Invoice, Conversion, Profile - Clean without dots) */}
         <nav className="md:hidden fixed bottom-0 w-full bg-[#0D1322] border-t border-white/5 px-2 py-2 safe-bottom z-50">
           <div className="flex justify-around items-center">
             {navItems.map((item) => {
@@ -170,22 +168,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   key={item.href}
                   href={item.href}
                   className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all ${
-                    isActive ? 'text-white' : 'text-[#64748B]'
+                    isActive ? 'text-white font-bold' : 'text-[#64748B]'
                   }`}
                   style={isActive ? { color: colors.primary } : {}}
                 >
                   <motion.div
-                    animate={isActive ? { y: -2 } : { y: 0 }}
+                    animate={isActive ? { scale: 1.1 } : { scale: 1 }}
                     className="relative"
                   >
                     <item.icon className="w-6 h-6 mb-1" />
-                    {isActive && (
-                      <motion.div
-                        layoutId="nav-indicator"
-                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
-                        style={{ backgroundColor: colors.primary }}
-                      />
-                    )}
                   </motion.div>
                   <span className="text-[10px] font-medium">{item.label}</span>
                 </Link>

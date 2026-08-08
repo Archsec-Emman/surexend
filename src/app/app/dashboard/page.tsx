@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity, Building2, PlusCircle, CreditCard, Landmark, X, ChevronRight } from 'lucide-react'
+import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity, Building2, PlusCircle, CreditCard, Landmark, X, ChevronRight, Copy, Tag, UserCheck, Sparkles } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { walletAPI, transactionAPI } from '@/lib/api'
 import { useTheme } from '@/context/ThemeContext'
@@ -109,6 +109,47 @@ export default function DashboardPage() {
 
   return (
     <div className="w-full max-w-full overflow-x-hidden px-4 py-4 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-6 pb-36 sm:pb-32">
+      {/* 🟢 FINTECH USER GREETING & SUREX TAG BAR */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl glass-card border border-white/10 gap-3">
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <div 
+              className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg text-black shadow-lg"
+              style={{ background: colors.gradientBg }}
+            >
+              AJ
+            </div>
+            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#0A0F1E]"></span>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-base sm:text-lg font-extrabold text-white tracking-tight">
+                {new Date().getHours() < 12 ? 'Good morning ☀️' : new Date().getHours() < 17 ? 'Good afternoon 🌤️' : 'Good evening 🌙'}, Alex!
+              </h2>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Verified Tier 2
+              </span>
+            </div>
+            <p className="text-xs text-[#94A3B8] font-medium flex items-center gap-1 mt-0.5">
+              SureX Tag: <span className="font-mono text-white font-bold bg-white/5 px-2 py-0.5 rounded-md text-[11px] border border-white/10">@alex_surex</span>
+              <button 
+                onClick={() => { navigator.clipboard.writeText('@alex_surex'); toast.success('Copied SureX Tag @alex_surex!') }}
+                className="hover:text-white transition-colors ml-1"
+                title="Copy tag"
+              >
+                <Copy className="w-3 h-3" />
+              </button>
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 self-end sm:self-auto">
+          <Link href="/app/invoice" className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5 transition-all">
+            <Sparkles className="w-3.5 h-3.5 text-blue-400" /> EU SEPA Invoice
+          </Link>
+        </div>
+      </div>
       {/* Live rates ticker */}
       <div className="w-full overflow-hidden bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-lg py-1.5 flex items-center">
         <motion.div 
@@ -574,10 +615,35 @@ export default function DashboardPage() {
               </div>
 
               {/* Options */}
-              <div className="space-y-4">
-                {/* Option 1: Crypto Wallet */}
+              <div className="space-y-3">
+                {/* Option 1: Send via SureX Tag (Zero Fee) */}
                 <Link
-                  href="/app/send"
+                  href="/app/send?type=tag"
+                  onClick={() => setShowSendModal(false)}
+                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-purple-500/40 transition-all duration-300 relative overflow-hidden"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                      <Tag className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-semibold text-white text-base group-hover:text-purple-400 transition-colors">
+                          Send to SureX Tag (@username)
+                        </h4>
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Zero Fee</span>
+                      </div>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                        Instant zero-fee transfer directly to any SureXend user tag
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                {/* Option 2: Crypto Wallet */}
+                <Link
+                  href="/app/send?type=crypto"
                   onClick={() => setShowSendModal(false)}
                   className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-blue-500/40 transition-all duration-300"
                 >
@@ -597,7 +663,7 @@ export default function DashboardPage() {
                   <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
                 </Link>
 
-                {/* Option 2: Bank Account Withdrawal */}
+                {/* Option 3: Bank Account Withdrawal */}
                 <Link
                   href="/app/withdraw"
                   onClick={() => setShowSendModal(false)}
@@ -664,8 +730,32 @@ export default function DashboardPage() {
               </div>
 
               {/* Options */}
-              <div className="space-y-4">
-                {/* Option 1: Deposit Crypto */}
+              <div className="space-y-3">
+                {/* PRIMARY OPTION 1: Deposit Local Currency (Bank Transfer / Card) */}
+                <Link
+                  href="/app/convert"
+                  onClick={() => setShowFundModal(false)}
+                  className="group flex items-center justify-between p-4 rounded-2xl border border-emerald-500/40 bg-emerald-500/[0.04] hover:bg-emerald-500/[0.08] transition-all duration-300 relative"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                      <CreditCard className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-bold text-white text-base text-emerald-400 transition-colors">
+                          Deposit Local Currency (Bank Transfer / Card)
+                        </h4>
+                      </div>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
+                        Deposit NGN, GHS, KES, or ZAR to buy airtime/data, pay bills & get stablecoins
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-emerald-400 group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                {/* OPTION 2: Deposit Crypto (USDT / USDC) */}
                 <Link
                   href="/app/receive"
                   onClick={() => setShowFundModal(false)}
@@ -681,28 +771,6 @@ export default function DashboardPage() {
                       </h4>
                       <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
                         Get your deposit wallet address & QR code for TRC20, BEP20, Polygon
-                      </p>
-                    </div>
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                </Link>
-
-                {/* Option 2: Buy with Local Bank or Card */}
-                <Link
-                  href="/app/convert"
-                  onClick={() => setShowFundModal(false)}
-                  className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-purple-500/40 transition-all duration-300"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                      <CreditCard className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-white text-base group-hover:text-purple-400 transition-colors">
-                        Buy with Bank Transfer / Card
-                      </h4>
-                      <p className="text-xs text-[#94A3B8] leading-relaxed mt-0.5">
-                        Fund with local fiat currency (NGN, GHS, KES, ZAR) to buy stablecoins
                       </p>
                     </div>
                   </div>

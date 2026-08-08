@@ -11,7 +11,7 @@ import {
   ChevronRight, Camera, Edit3, Copy, CheckCircle,
   Fingerprint, Eye, EyeOff, Smartphone, Lock,
   Globe, Moon, Star, Award, Crown, ExternalLink,
-  AlertTriangle
+  AlertTriangle, Tag
 } from 'lucide-react'
 import { getInitials } from '@/lib/utils'
 import toast from 'react-hot-toast'
@@ -173,6 +173,38 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
+      </motion.div>
+
+      {/* 🏷️ SUREX TAG MANAGEMENT CARD */}
+      <motion.div 
+        className="max-w-2xl mx-auto px-4 mb-4"
+        initial={{ opacity: 0, y: 10 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ delay: 0.05 }}
+      >
+        <div className="glass-card p-4 rounded-2xl border border-white/10 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+              <Tag className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="text-xs text-[#94A3B8] font-medium">Your SureX Tag (Peer-to-Peer)</p>
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Active</span>
+              </div>
+              <p className="text-base font-extrabold text-white font-mono mt-0.5">@alex_surex</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => { navigator.clipboard.writeText('@alex_surex'); toast.success('Copied SureX Tag @alex_surex!') }}
+              className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-bold border border-white/10 flex items-center gap-1.5 transition-all shadow-sm"
+            >
+              <Copy className="w-3.5 h-3.5" /> Copy Tag
+            </button>
+          </div>
+        </div>
       </motion.div>
 
       {/* KYC completion banner (if not fully verified) */}
