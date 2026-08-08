@@ -107,6 +107,8 @@ export default function ProfilePage() {
       toast.success('User ID copied')
       setTimeout(() => setCopiedId(false), 2000)
     }
+  }
+
   const [avatar, setAvatar] = useState<string | null>(null)
 
   useEffect(() => {
