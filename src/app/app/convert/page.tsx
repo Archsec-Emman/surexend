@@ -25,7 +25,7 @@ export default function ConvertPage() {
   const [showCurrencyModal, setShowCurrencyModal] = useState(false)
   const [step, setStep] = useState(1)
   const [selectedBank, setSelectedBank] = useState<string>('')
-  const [pin, setPin] = useState(['', '', '', '', '', ''])
+  const [pin, setPin] = useState(['', '', '', ''])
   const [isLoading, setIsLoading] = useState(false)
 
   const selectedCurrInfo = SUPPORTED_CURRENCIES.find(c => c.code === fiatCurrency) || SUPPORTED_CURRENCIES[0]
@@ -64,7 +64,7 @@ export default function ConvertPage() {
       const newPin = [...pin]
       newPin[emptyIndex] = num
       setPin(newPin)
-      if (emptyIndex === 5) {
+      if (emptyIndex === 3) {
         executeConversion(newPin.join(''))
       }
     }
@@ -141,7 +141,7 @@ export default function ConvertPage() {
                     className="bg-transparent text-3xl font-extrabold text-white w-[60%] focus:outline-none appearance-none"
                   />
                   <div className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl border border-white/10">
-                    <div className="w-6 h-6 rounded-full bg-[#10B981] flex items-center justify-center text-xs font-extrabold text-black">$</div>
+                    <img src="/usd-coin-logo.png" alt="USD Coin" className="w-6 h-6 rounded-full object-contain shadow-md" />
                     <span className="font-bold text-sm text-white">USD</span>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export default function ConvertPage() {
         {step === 3 && (
           <motion.div key="step3" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass-card p-6 text-center space-y-6">
             <h2 className="text-xl font-bold text-white">Enter Transaction PIN</h2>
-            <p className="text-xs text-[#94A3B8]">Confirm conversion of ${numAmount} USDT to {selectedCurrInfo.symbol}{receiveAmount.toLocaleString()} {fiatCurrency}</p>
+            <p className="text-xs text-[#94A3B8]">Confirm conversion of ${numAmount} USD to {selectedCurrInfo.symbol}{receiveAmount.toLocaleString()} {fiatCurrency}</p>
 
             <div className="flex justify-center gap-3 my-6">
               {pin.map((digit, idx) => (

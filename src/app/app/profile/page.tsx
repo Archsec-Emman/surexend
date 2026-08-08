@@ -107,6 +107,29 @@ export default function ProfilePage() {
       toast.success('User ID copied')
       setTimeout(() => setCopiedId(false), 2000)
     }
+  const [avatar, setAvatar] = useState<string | null>(null)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('surexend_user_avatar')
+    if (saved) setAvatar(saved)
+  }, [])
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('File size must be under 5MB')
+        return
+      }
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        const result = event.target?.result as string
+        setAvatar(result)
+        localStorage.setItem('surexend_user_avatar', result)
+        toast.success('Profile picture updated successfully!')
+      }
+      reader.readAsDataURL(file)
+    }
   }
 
   const handleLogout = () => {
@@ -116,19 +139,30 @@ export default function ProfilePage() {
 
   const kycTier = kycData?.tier || 0
   const fullName = `${profile?.firstName || ''} ${profile?.lastName || ''}`.trim()
-  const initials = getInitials(fullName || profile?.email || 'U')
 
   return (
     <div className="w-full max-w-full overflow-x-hidden px-3 py-4 sm:p-6 md:p-8 max-w-2xl mx-auto space-y-4 pb-28 sm:pb-32">
-      {/* Sleek Single-Line Profile Header with Theme Tick */}
+      {/* Sleek Single-Line Profile Header with Custom Avatar Upload */}
       <div className="glass-card p-3.5 sm:p-5 rounded-2xl border border-white/10 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 truncate">
-          <div
-            className="w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-sm text-black shadow-md flex-shrink-0"
-            style={{ background: colors.gradientBg }}
-          >
-            {initials}
+          {/* Avatar Container with Upload Camera Button */}
+          <div className="relative group flex-shrink-0">
+            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 shadow-lg bg-[#1E2738] flex items-center justify-center">
+              {avatar ? (
+                <img src={avatar} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar" className="w-full h-full object-cover" />
+              )}
+            </div>
+            <label 
+              className="absolute -bottom-1 -right-1 p-1 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black cursor-pointer shadow-md transition-all active:scale-95"
+              title="Upload Custom Profile Picture"
+            >
+              <Camera className="w-3 h-3" />
+              <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
+            </label>
           </div>
+
           <div className="truncate">
             <div className="flex items-center gap-1.5">
               <h2 className="text-white font-extrabold text-sm sm:text-base truncate">
@@ -148,13 +182,14 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <button 
-          onClick={() => toast.success('Profile editor opened')} 
-          className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 flex-shrink-0"
-          title="Edit Profile"
+        <label 
+          className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 flex-shrink-0 cursor-pointer flex items-center gap-1 text-xs font-semibold"
+          title="Upload Photo"
         >
-          <Edit3 className="w-4 h-4" />
-        </button>
+          <Camera className="w-4 h-4 text-emerald-400" />
+          <span className="hidden sm:inline">Upload Photo</span>
+          <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
+        </label>
       </div>
 
       {/* 🏷️ XEND TAG MANAGEMENT CARD */}

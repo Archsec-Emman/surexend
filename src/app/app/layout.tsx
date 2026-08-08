@@ -29,6 +29,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
   const [showNotifications, setShowNotifications] = useState(false)
   const [unreadCount, setUnreadCount] = useState(2)
+  const [avatar, setAvatar] = useState<string | null>(null)
 
   const [notifications, setNotifications] = useState([
     { id: 1, title: 'KYC Tier 2 Approved! 🎉', desc: 'Your identity has been verified. Daily limits increased to $50,000.', time: '10m ago', isRead: false, type: 'kyc' },
@@ -38,6 +39,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true)
+    const saved = localStorage.getItem('surexend_user_avatar')
+    if (saved) setAvatar(saved)
+
     const token = localStorage.getItem('surexend_access_token')
     if (!token) {
       router.push('/auth/login')
@@ -107,8 +111,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
           <div className="p-3 mt-auto">
             <div className="p-3 rounded-xl border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.02)] flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden text-xs font-bold text-white">
-                AJ
+              <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 flex-shrink-0 bg-[#1E2738]">
+                {avatar ? (
+                  <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                ) : (
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar" className="w-full h-full object-cover" />
+                )}
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-white truncate">Alex Johnson</p>

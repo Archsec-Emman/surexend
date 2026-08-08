@@ -45,8 +45,9 @@ export const metadata: Metadata = {
     title: 'SureXend',
   },
   icons: {
-    icon: '/icons/icon-192.png',
-    apple: '/icons/apple-touch-icon.png',
+    icon: '/logo-mark-gold.png',
+    shortcut: '/logo-mark-gold.png',
+    apple: '/logo-mark-gold.png',
   },
 }
 

@@ -96,10 +96,14 @@ export default function PWAInstallPrompt() {
 
           <div className="flex items-start gap-3 pr-6">
             <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+              className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 p-2 border border-white/20 shadow-md"
               style={{ background: colors.gradientBg }}
             >
-              <span className="font-inter font-black text-sm text-black">SX</span>
+              <img
+                src={variant === 'gold' ? '/logo-mark-gold.png' : '/logo-mark-plain.png'}
+                alt="SureXend"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <p className="font-semibold text-white text-sm mb-1">Install SureXend</p>

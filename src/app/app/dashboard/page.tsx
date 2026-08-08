@@ -84,23 +84,29 @@ export default function DashboardPage() {
   const [timeframe, setTimeframe] = useState<'1D' | '1W' | '1M' | '1Y'>('1D')
   const [showSendModal, setShowSendModal] = useState(false)
   const [showFundModal, setShowFundModal] = useState(false)
+  const [avatar, setAvatar] = useState<string | null>(null)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('surexend_user_avatar')
+    if (saved) setAvatar(saved)
+  }, [])
 
   const currentCrypto = cryptoMarketData[selectedCrypto]
 
   const { data: balanceData, isLoading: isLoadingBalance } = useQuery({
     queryKey: ['balance'],
     queryFn: walletAPI.getBalance,
-    initialData: { usdt: 2450.75, fiat: 3675000, rate: 1500 }
+    initialData: { usdtBalance: 2450.75, usdcBalance: 2450.75, lockedBalance: 0 }
   })
 
   const { data: txData, isLoading: isLoadingTx } = useQuery({
-    queryKey: ['recentTx'],
-    queryFn: () => transactionAPI.getHistory({ limit: 5 }),
+    queryKey: ['recentTransactions'],
+    queryFn: () => transactionAPI.list({ limit: 5 }),
     initialData: {
       transactions: [
-        { id: '1', type: 'send', amount: 150, currency: 'USDT', status: 'completed', date: new Date().toISOString() },
-        { id: '2', type: 'receive', amount: 500, currency: 'USDT', status: 'completed', date: new Date(Date.now() - 86400000).toISOString() },
-        { id: '3', type: 'convert', amount: 100, currency: 'USDT', status: 'pending', date: new Date(Date.now() - 172800000).toISOString() },
+        { id: '1', type: 'receive', amount: 128.50, currency: 'USD', status: 'completed', date: new Date().toISOString() },
+        { id: '2', type: 'send', amount: 50.00, currency: 'USD', status: 'completed', date: new Date(Date.now() - 3600000).toISOString() },
+        { id: '3', type: 'convert', amount: 200.00, currency: 'USD', status: 'completed', date: new Date(Date.now() - 86400000).toISOString() }
       ]
     }
   })
@@ -112,11 +118,12 @@ export default function DashboardPage() {
       {/* 🟢 SLEEK SINGLE-LINE FINTECH USER BAR */}
       <div className="flex items-center justify-between py-2 px-3.5 rounded-xl glass-card border border-white/10 text-xs">
         <div className="flex items-center gap-2 truncate">
-          <div 
-            className="w-7 h-7 rounded-full flex items-center justify-center font-extrabold text-xs text-black flex-shrink-0 shadow-md"
-            style={{ background: colors.gradientBg }}
-          >
-            AJ
+          <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 flex-shrink-0 shadow-md bg-[#1E2738]">
+            {avatar ? (
+              <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar" className="w-full h-full object-cover" />
+            )}
           </div>
           <div className="flex items-center gap-1 truncate">
             <span className="font-extrabold text-white truncate text-xs sm:text-sm">Welcome back, Alex</span>
@@ -507,7 +514,7 @@ export default function DashboardPage() {
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wider flex items-center gap-1 w-max">
                   <Trophy className="w-3 h-3" /> Peak Referral Rewards
                 </span>
-                <h3 className="font-extrabold text-white text-lg tracking-tight mt-1.5">Invite & Earn USDT Cashbacks</h3>
+                <h3 className="font-extrabold text-white text-lg tracking-tight mt-1.5">Invite & Earn USD Cashbacks</h3>
               </div>
               <span className="text-2xl font-black text-amber-400 font-mono">$128.50</span>
             </div>
@@ -523,7 +530,7 @@ export default function DashboardPage() {
               </div>
               <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
                 <p className="text-[10px] text-[#64748B] uppercase">Lifetime Earned</p>
-                <p className="font-extrabold text-emerald-400 text-sm mt-0.5">$128.50 USDT</p>
+                <p className="font-extrabold text-emerald-400 text-sm mt-0.5">$128.50 USD</p>
               </div>
             </div>
           </div>
@@ -589,7 +596,7 @@ export default function DashboardPage() {
 
                   <div className="text-right">
                     <p className={`text-sm font-bold ${isSend ? 'text-red-400' : isReceive ? 'text-emerald-400' : 'text-amber-400'}`}>
-                      {isSend ? '-' : '+'}${tx.amount} {tx.currency || 'USDT'}
+                      {isSend ? '-' : '+'}${tx.amount} {tx.currency && tx.currency !== 'USDT' ? tx.currency : 'USD'}
                     </p>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium capitalize ${
                       tx.status === 'completed' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'

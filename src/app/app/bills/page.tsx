@@ -39,10 +39,10 @@ function PinPad({ onComplete, accentHex, accentRgb }: {
 
   const tap = (k: string) => {
     if (k === '⌫') setPin(p => p.slice(0, -1))
-    else if (pin.length < 6) {
+    else if (pin.length < 4) {
       const next = pin + k
       setPin(next)
-      if (next.length === 6) setTimeout(() => onComplete(next), 150)
+      if (next.length === 4) setTimeout(() => onComplete(next), 150)
     }
   }
 
@@ -427,7 +427,7 @@ export default function BillsPage() {
                   <span className="text-3xl">🔐</span>
                 </div>
                 <p className="text-white font-semibold text-lg">Confirm with PIN</p>
-                <p className="text-[#64748B] text-sm mt-1">Enter your 6-digit transaction PIN</p>
+                <p className="text-[#64748B] text-sm mt-1">Enter your 4-digit transaction PIN</p>
               </div>
               <PinPad onComplete={executePurchase} accentHex={accentHex} accentRgb={accentRgb} />
             </motion.div>

@@ -28,7 +28,7 @@ export default function SendPage() {
   const [sendMode, setSendMode] = useState<'CRYPTO' | 'TAG'>(initialType)
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState<Partial<SendFormValues>>({})
-  const [pin, setPin] = useState(['', '', '', '', '', ''])
+  const [pin, setPin] = useState(['', '', '', ''])
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [windowSize, setWindowSize] = useState({ width: 1200, height: 800 })
@@ -62,7 +62,7 @@ export default function SendPage() {
       const newPin = [...pin]
       newPin[emptyIndex] = num
       setPin(newPin)
-      if (emptyIndex === 5) {
+      if (emptyIndex === 3) {
         executeSend(newPin.join(''))
       }
     }
@@ -276,11 +276,11 @@ export default function SendPage() {
               </div>
               <div className="flex justify-between py-1 border-b border-white/5">
                 <span className="text-[#94A3B8]">Amount</span>
-                <span className="text-white font-bold">${formData.amount} USDT</span>
+                <span className="text-white font-bold">${formData.amount} USD</span>
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-[#94A3B8]">Total Deducted</span>
-                <span className="text-emerald-400 font-extrabold text-sm">${formData.amount} USDT</span>
+                <span className="text-emerald-400 font-extrabold text-sm">${formData.amount} USD</span>
               </div>
             </div>
 
@@ -298,7 +298,7 @@ export default function SendPage() {
         {step === 4 && (
           <motion.div key="step4" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="glass-card p-6 text-center space-y-6">
             <h2 className="text-xl font-extrabold text-white">Security Verification</h2>
-            <p className="text-xs text-[#94A3B8]">Enter your 6-digit transaction PIN to authorize sending ${formData.amount} USDT</p>
+            <p className="text-xs text-[#94A3B8]">Enter your 4-digit transaction PIN to authorize sending ${formData.amount} USD</p>
 
             <div className="flex justify-center gap-3 my-6">
               {pin.map((digit, idx) => (
