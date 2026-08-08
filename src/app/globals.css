@@ -39,41 +39,6 @@ body {
 }
 
 /* ── Selection ─────────────────────────────────────────────────────────── */
-::selection {
-  background: rgba(0, 212, 255, 0.3);
-  color: #fff;
-}
-
-/* ── Animated Moving Gradient Background & Loading Screen ──────────────── */
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animated-gradient-bg {
-  background: linear-gradient(-45deg, #0A0F1E, #0F1629, #1E1B4B, #064E3B, #0F1629);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
-}
-
-.animated-gold-gradient {
-  background: linear-gradient(-45deg, #0A0F1E, #1E1B4B, #78350F, #451A03, #0F1629);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
-}
-
-.animated-lemon-gradient {
-  background: linear-gradient(-45deg, #0A0F1E, #064E3B, #14532D, #022C22, #0F1629);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
-}
 
 /* ── Scrollbar ─────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {

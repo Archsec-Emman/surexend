@@ -246,7 +246,7 @@ export default function LandingPage() {
         )}
       </AnimatePresence>
 
-      <div id="app-shell" data-page-loaded className={`min-h-screen ${isGold ? 'animated-gold-gradient' : 'animated-lemon-gradient'}`}>
+      <div id="app-shell" data-page-loaded className="min-h-screen bg-[#0A0F1E]">
 
         {/* ── Navigation ─────────────────────────────────────────────── */}
         <motion.nav
