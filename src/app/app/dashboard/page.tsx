@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity, Building2, PlusCircle, CreditCard, Landmark, X, ChevronRight, Copy, Tag, UserCheck, Sparkles } from 'lucide-react'
+import { Eye, EyeOff, Send, Download, Repeat, Smartphone, ArrowUpRight, ArrowDownLeft, Clock, User, TrendingUp, TrendingDown, Coins, Activity, Building2, PlusCircle, CreditCard, Landmark, X, ChevronRight, Copy, Tag, UserCheck, Sparkles, Trophy } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { walletAPI, transactionAPI } from '@/lib/api'
 import { useTheme } from '@/context/ThemeContext'
@@ -491,23 +491,53 @@ export default function DashboardPage() {
           </div>
         </motion.div>
 
-        {/* Referrals Teaser */}
+        {/* Peak Referral Reward Card */}
         <motion.div 
-          className="glass-card p-5 flex flex-col justify-between relative overflow-hidden"
+          className="glass-card p-5 flex flex-col justify-between relative overflow-hidden border border-amber-500/30 bg-amber-500/[0.02]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.3 }}
         >
-          <div className="absolute -right-10 -bottom-10 opacity-10">
-            <User className="w-40 h-40" />
+          <div className="absolute -right-6 -bottom-6 opacity-15">
+            <Trophy className="w-36 h-36 text-amber-400" />
           </div>
-          <div>
-            <h3 className="font-semibold text-white mb-2">Invite & Earn</h3>
-            <p className="text-sm text-[#94A3B8] mb-4">Earn up to $10 for every friend who signs up and makes their first transaction.</p>
+
+          <div className="space-y-3 relative z-10">
+            <div className="flex justify-between items-start">
+              <div>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wider flex items-center gap-1 w-max">
+                  <Trophy className="w-3 h-3" /> Peak Referral Rewards
+                </span>
+                <h3 className="font-extrabold text-white text-lg tracking-tight mt-1.5">Invite & Earn USDT Cashbacks</h3>
+              </div>
+              <span className="text-2xl font-black text-amber-400 font-mono">$128.50</span>
+            </div>
+
+            <p className="text-xs text-[#94A3B8] leading-relaxed">
+              Earn <strong className="text-white">0.3% fee cashback</strong> on every transaction made by your invited friends. Instant automatic wallet payout!
+            </p>
+
+            <div className="grid grid-cols-2 gap-2 pt-1 text-xs">
+              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                <p className="text-[10px] text-[#64748B] uppercase">Active Invites</p>
+                <p className="font-extrabold text-white text-sm mt-0.5">12 Friends</p>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                <p className="text-[10px] text-[#64748B] uppercase">Lifetime Earned</p>
+                <p className="font-extrabold text-emerald-400 text-sm mt-0.5">$128.50 USDT</p>
+              </div>
+            </div>
           </div>
-          <Link href="/app/referrals" className={`py-2.5 px-4 rounded-xl text-sm font-semibold inline-block text-center w-max btn-outline-${variant}`}>
-            Get Referral Link
-          </Link>
+
+          <div className="pt-4 relative z-10">
+            <Link 
+              href="/app/referrals" 
+              className="w-full py-3 px-4 rounded-xl text-xs font-bold text-black flex items-center justify-center gap-2 shadow-lg transition-transform hover:scale-[1.02]"
+              style={{ background: colors.gradientBg }}
+            >
+              <Sparkles className="w-4 h-4" /> Share Invite Link & Earn Cash
+            </Link>
+          </div>
         </motion.div>
       </div>
 

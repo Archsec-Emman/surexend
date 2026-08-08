@@ -98,7 +98,7 @@ export default function SendPage() {
   }
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden px-4 py-6 md:p-8 max-w-lg mx-auto min-h-[80vh] flex flex-col pt-4 pb-36">
+    <div className="w-full max-w-full overflow-x-hidden px-3 py-4 sm:p-6 md:p-8 max-w-lg mx-auto min-h-[80vh] flex flex-col pt-2 pb-28 sm:pb-36">
       {isSuccess && <Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={300} />}
 
       <AnimatePresence mode="wait">

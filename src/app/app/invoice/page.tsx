@@ -75,7 +75,7 @@ export default function InvoicePage() {
   }
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden px-4 py-6 sm:p-8 max-w-5xl mx-auto space-y-6 pb-36 sm:pb-32">
+    <div className="w-full max-w-full overflow-x-hidden px-3 py-4 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-4 sm:space-y-6 pb-28 sm:pb-32">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-b border-white/5 pb-4">
         <div>

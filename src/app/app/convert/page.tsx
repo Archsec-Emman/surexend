@@ -99,7 +99,7 @@ export default function ConvertPage() {
   }
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden px-4 py-6 md:p-8 max-w-md mx-auto min-h-[80vh] flex flex-col pt-4 pb-36">
+    <div className="w-full max-w-full overflow-x-hidden px-3 py-4 sm:p-6 md:p-8 max-w-md mx-auto min-h-[80vh] flex flex-col pt-2 pb-28 sm:pb-36">
       <AnimatePresence mode="wait">
         {/* Step 1: Amount & Currency */}
         {step === 1 && (
