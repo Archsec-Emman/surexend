@@ -112,7 +112,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-white truncate">Alex Johnson</p>
-                <p className="text-[10px] text-[#64748B] truncate">@alex_surex</p>
+                <p className="text-[10px] text-[#64748B] truncate">@alex_xend</p>
               </div>
             </div>
           </div>

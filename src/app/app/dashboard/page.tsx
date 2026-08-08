@@ -118,14 +118,30 @@ export default function DashboardPage() {
           >
             AJ
           </div>
-          <span className="font-extrabold text-white truncate text-xs sm:text-sm">Welcome back, Alex 👋</span>
+          <div className="flex items-center gap-1 truncate">
+            <span className="font-extrabold text-white truncate text-xs sm:text-sm">Welcome back, Alex</span>
+            <span 
+              className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black text-black flex-shrink-0 shadow-sm"
+              style={{ background: colors.gradientBg }}
+              title="Verified User"
+            >
+              ✓
+            </span>
+          </div>
           <span className="hidden sm:inline text-[#64748B]">•</span>
-          <span className="hidden sm:inline text-[#94A3B8] font-mono font-bold">@alex_surex</span>
+          <span className="hidden sm:inline text-[#94A3B8] font-mono font-bold">@alex_xend</span>
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            Tier 2 Verified
+          <span 
+            className="px-2 py-0.5 rounded-full text-[10px] font-extrabold border flex items-center gap-1 shadow-sm"
+            style={{
+              background: variant === 'gold' ? 'rgba(212, 160, 23, 0.15)' : 'rgba(181, 226, 61, 0.15)',
+              borderColor: variant === 'gold' ? 'rgba(212, 160, 23, 0.4)' : 'rgba(181, 226, 61, 0.4)',
+              color: colors.primary,
+            }}
+          >
+            ✓ Tier 2 Verified
           </span>
           <Link href="/app/invoice" className="hidden xs:flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-white/5 hover:bg-white/10 text-white text-[11px] font-semibold border border-white/10">
             <Sparkles className="w-3 h-3 text-blue-400" /> EU Invoice

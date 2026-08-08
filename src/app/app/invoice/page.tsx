@@ -254,18 +254,18 @@ export default function InvoicePage() {
                 </div>
               </div>
 
-              <div className="col-span-1 sm:col-span-2 p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex justify-between items-center">
-                <div>
-                  <p className="text-[11px] text-[#64748B] uppercase tracking-wider">IBAN / Account Number</p>
-                  <p className="text-sm font-mono font-bold text-white mt-0.5 tracking-wider">{currentAcc.iban}</p>
+              <div className="col-span-1 sm:col-span-2 p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1.5">
+                <div className="flex justify-between items-center">
+                  <p className="text-[11px] text-[#64748B] uppercase font-bold tracking-wider">IBAN / Account Number</p>
+                  <button
+                    onClick={() => handleCopy(currentAcc.iban, 'IBAN')}
+                    className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1 transition-all"
+                  >
+                    {copiedField === 'IBAN' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedField === 'IBAN' ? 'Copied' : 'Copy'}
+                  </button>
                 </div>
-                <button
-                  onClick={() => handleCopy(currentAcc.iban, 'IBAN')}
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 transition-all"
-                >
-                  {copiedField === 'IBAN' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copiedField === 'IBAN' ? 'Copied' : 'Copy'}
-                </button>
+                <p className="text-xs sm:text-sm font-mono font-extrabold text-white tracking-normal break-all select-all">{currentAcc.iban}</p>
               </div>
             </div>
           </div>

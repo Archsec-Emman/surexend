@@ -16,12 +16,11 @@ import {
 import { getInitials } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
-// ── Menu section ───────────────────────────────────────────────────────────
 function MenuSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="mb-4">
-      <p className="text-[#64748B] text-xs uppercase tracking-wider px-1 mb-2">{title}</p>
-      <div className="bg-[#0F1629] rounded-2xl border border-white/5 overflow-hidden">
+    <div className="w-full mb-4">
+      <p className="text-[#64748B] text-[11px] font-bold uppercase tracking-wider px-1 mb-2">{title}</p>
+      <div className="glass-card rounded-2xl border border-white/10 overflow-hidden">
         {children}
       </div>
     </div>
@@ -121,7 +120,7 @@ export default function ProfilePage() {
 
   return (
     <div className="w-full max-w-full overflow-x-hidden px-3 py-4 sm:p-6 md:p-8 max-w-2xl mx-auto space-y-4 pb-28 sm:pb-32">
-      {/* Sleek Single-Line Profile Header */}
+      {/* Sleek Single-Line Profile Header with Theme Tick */}
       <div className="glass-card p-3.5 sm:p-5 rounded-2xl border border-white/10 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 truncate">
           <div
@@ -131,13 +130,21 @@ export default function ProfilePage() {
             {initials}
           </div>
           <div className="truncate">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <h2 className="text-white font-extrabold text-sm sm:text-base truncate">
                 {fullName || 'Alex Johnson'}
               </h2>
+              {/* Theme Gold/Lemon Verified Tick */}
+              <span 
+                className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black text-black flex-shrink-0 shadow-sm"
+                style={{ background: colors.gradientBg }}
+                title="Verified User"
+              >
+                ✓
+              </span>
               <KYCBadge tier={kycTier} />
             </div>
-            <p className="text-[#94A3B8] text-xs font-medium truncate">@alex_surex • alex@example.com</p>
+            <p className="text-[#94A3B8] text-xs font-medium truncate">@alex_xend • alex@example.com</p>
           </div>
         </div>
 
@@ -150,7 +157,7 @@ export default function ProfilePage() {
         </button>
       </div>
 
-      {/* 🏷️ SUREX TAG MANAGEMENT CARD */}
+      {/* 🏷️ XEND TAG MANAGEMENT CARD */}
       <motion.div 
         className="w-full"
         initial={{ opacity: 0, y: 10 }} 
@@ -163,12 +170,12 @@ export default function ProfilePage() {
               <Tag className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-[11px] text-[#94A3B8] uppercase font-bold tracking-wider">Your SureX Tag</p>
-              <p className="font-mono text-sm font-extrabold text-white">@alex_surex</p>
+              <p className="text-[11px] text-[#94A3B8] uppercase font-bold tracking-wider">Your Xend Tag</p>
+              <p className="font-mono text-sm font-extrabold text-white">@alex_xend</p>
             </div>
           </div>
           <button 
-            onClick={() => { navigator.clipboard.writeText('@alex_surex'); toast.success('Copied SureX Tag!') }}
+            onClick={() => { navigator.clipboard.writeText('@alex_xend'); toast.success('Copied Xend Tag @alex_xend!') }}
             className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold border border-white/10 flex items-center gap-1.5 transition-all"
           >
             <Copy className="w-3.5 h-3.5" /> Copy Tag
@@ -176,10 +183,26 @@ export default function ProfilePage() {
         </div>
       </motion.div>
 
+      {/* ⬛ BLACK TICK TESTNET & CAMPAIGN BADGE */}
+      <div className="glass-card p-3.5 rounded-2xl border border-white/10 flex items-center justify-between bg-black/40">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-black border border-white/20 flex items-center justify-center text-white font-black text-xs shadow-md">
+            ✓
+          </div>
+          <div>
+            <p className="text-xs font-extrabold text-white flex items-center gap-1">
+              Black Tick Verified Member <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-gray-300 font-bold">Campaign Winner</span>
+            </p>
+            <p className="text-[10px] text-[#94A3B8]">Testnet Early Adopter & Community Campaign Rewards Active</p>
+          </div>
+        </div>
+        <span className="text-xs font-mono font-bold text-emerald-400">+500 PTS</span>
+      </div>
+
       {/* KYC completion banner (if not fully verified) */}
       {kycTier < 3 && (
         <motion.div
-          className="max-w-2xl mx-auto px-4 mb-4"
+          className="w-full"
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         >
           <div
@@ -206,7 +229,7 @@ export default function ProfilePage() {
         </motion.div>
       )}
 
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="w-full space-y-4">
 
         <MenuSection title="Account">
           <MenuItem icon={Edit3} label="Edit Profile" value="Update your name & photo"

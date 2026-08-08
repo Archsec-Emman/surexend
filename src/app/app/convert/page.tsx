@@ -178,13 +178,13 @@ export default function ConvertPage() {
 
               {/* Rate & Fee breakdown */}
               <div className="text-xs space-y-2 py-3 px-4 rounded-xl bg-white/[0.02] border border-white/5">
-                <div className="flex justify-between text-[#94A3B8]">
-                  <span>Guaranteed Exchange Rate</span>
-                  <span className="text-white font-bold">1 USD = {selectedCurrInfo.symbol}{rate.toLocaleString()} {fiatCurrency}</span>
+                <div className="flex justify-between items-center text-[#94A3B8] gap-2">
+                  <span className="truncate">Exchange Rate</span>
+                  <span className="text-white font-extrabold whitespace-nowrap flex-shrink-0">1 USD = {selectedCurrInfo.symbol}{rate.toLocaleString()} {fiatCurrency}</span>
                 </div>
-                <div className="flex justify-between text-[#94A3B8]">
+                <div className="flex justify-between items-center text-[#94A3B8] gap-2">
                   <span>Network Processing Fee</span>
-                  <span className="text-white font-bold">{fee} USD</span>
+                  <span className="text-white font-extrabold whitespace-nowrap flex-shrink-0">{fee} USD</span>
                 </div>
               </div>
 

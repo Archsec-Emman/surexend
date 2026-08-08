@@ -133,7 +133,7 @@ export default function SendPage() {
                 }`}
                 style={sendMode === 'TAG' ? { color: colors.primary } : {}}
               >
-                <Tag className="w-3.5 h-3.5" /> SureX Tag (@tag)
+                <Tag className="w-3.5 h-3.5" /> Xend Tag (@tag)
               </button>
             </div>
 
@@ -141,7 +141,7 @@ export default function SendPage() {
               {sendMode === 'TAG' ? (
                 <div>
                   <label className="block text-xs font-semibold text-[#94A3B8] mb-2 flex items-center justify-between">
-                    <span>Recipient SureX Tag (@username)</span>
+                    <span>Recipient Xend Tag (@username)</span>
                     <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
                       <Zap className="w-3 h-3" /> Zero Fee
                     </span>
@@ -151,13 +151,13 @@ export default function SendPage() {
                     <input 
                       {...register('address')}
                       type="text"
-                      placeholder="e.g. alex_surex"
+                      placeholder="e.g. alex_xend"
                       className="w-full pl-9 pr-4 py-3.5 rounded-2xl bg-white/[0.02] border border-white/10 text-white text-sm font-bold focus:outline-none focus:border-purple-500 transition-colors"
                     />
                   </div>
                   {errors.address && <p className="text-red-400 text-xs mt-1">{errors.address.message}</p>}
                   <p className="text-[11px] text-[#64748B] mt-1.5">
-                    Peer-to-peer transfers using SureX tags are processed instantly with zero network fees.
+                    Peer-to-peer transfers using Xend tags are processed instantly with zero network fees.
                   </p>
                 </div>
               ) : (
